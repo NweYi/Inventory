@@ -1,0 +1,11 @@
+﻿
+/**
+    primary-color - #4f52bb;
+    primary-darkcolor - #3e41aa;
+	yellow-color - #EBB73C;
+    black-color - #333333;
+    gray-color - #FAFAFA;
+    gray-darkcolor - #999999;
+    red-color - #dd4f42;
+    sidebar-header-backcolor - #6164c1;
+*/

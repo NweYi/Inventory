@@ -1,0 +1,211 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory & POS System</title>
+  
+    @Scripts.Render("~/bundles/modernizr")
+
+    @Styles.Render("~/Content/masterstyle.css")
+    @Styles.Render("~/Content/bootstrap.min.css")
+    @Styles.Render("~/Content/jquery.mCustomScrollbar.min.css")
+    @Styles.Render("~/Content/Site.css")
+    @Scripts.Render("~/Scripts/solid.js")
+    @Scripts.Render("~/Scripts/fontawesome.js")
+    @Scripts.Render("~/Scripts/Site.js")
+
+</head>
+<body>
+        <div class="wrapper">
+
+            <!-- Sidebar -->
+            <nav id="sidebar">
+                <div class="sidebar-header">
+                    <h3>Shop Name</h3>
+                </div>
+
+                <ul class="list-unstyled components">
+                    <p style="color:#EBB73C">Dashboard</p>
+                    <div class="menu-divider"></div>
+                    <p>Touch Sale</p>
+                    <div class="menu-divider"></div>
+                    <li>
+                        <a href="#pos" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">POS</a>
+                        <ul class="collapse list-unstyled" id="pos">
+                            <li>
+                                <a href="#">Sale</a>
+                            </li>
+                            <li>
+                                <a href="#">Sale Order</a>
+                            </li>
+                            <li>
+                                <a href="#">Sale Return</a>
+                            </li>
+                            <li>
+                                <a href="#">Sale Consign</a>
+                            </li>
+                            <li>
+                                <a href="#">Delivery</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#inventory" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Inventory</a>
+                        <ul class="collapse list-unstyled" id="inventory">
+                            <li>
+                                <a href="#">Product</a>
+                            </li>
+                            <li>
+                                <a href="#">Price List</a>
+                            </li>
+                            <li>
+                                <a href="#">Stock Adjust</a>
+                            </li>
+                            <li>
+                                <a href="#">Stock Transfer</a>
+                            </li>
+                            <li>
+                                <a href="#">Stock Conversion</a>
+                            </li>
+                            <li>
+                                <a href="#">Opening Stock</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#purchase" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Purchase</a>
+                        <ul class="collapse list-unstyled" id="purchase">
+                            <li>
+                                <a href="#">Purchase</a>
+                            </li>
+                            <li>
+                                <a href="#">Purchase Order</a>
+                            </li>
+                            <li>
+                                <a href="#">Purchase Return</a>
+                            </li>
+                            <li>
+                                <a href="#">Purchase Consign</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#outstanding" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Outstanding</a>
+                        <ul class="collapse list-unstyled" id="outstanding">
+                            <li>
+                                <a href="#">Customer Opening</a>
+                            </li>
+                            <li>
+                                <a href="#">Customer Outstanding</a>
+                            </li>
+                            <li>
+                                <a href="#">Supplier Opening</a>
+                            </li>
+                            <li>
+                                <a href="#">Supplier Outstanding</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">Stock Status</a>
+                    </li>
+                    <li>
+                        <a href="#">Stock Valuation</a>
+                    </li>
+
+                    <div class="menu-divider"></div>
+
+                    <li>
+                        <a href="#">User Right Setting</a>
+                    </li>
+                    <li>
+                        <a href="#">Shop Setting</a>
+                    </li>
+                    <li>
+                        <a href="#">System Setting</a>
+                    </li>
+                </ul>
+
+                <ul class="list-unstyled CTAs">
+                    <li>
+                        <a href="#" class="download" style="color:#4f52bb">SETUP</a>
+                    </li>
+                    <li>
+                        <a href="#" class="article">REPORT</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Page Content -->
+            <div id="content">
+
+                <div>
+                    <nav class="navbar navbar-expand-lg navbar-light gray-backcolor">
+                        <div class="container-fluid">
+
+                            <button type="button" id="sidebarCollapse" class="btn">
+                                <i class="fas fa-align-left"></i>
+                            </button>
+
+                            <div style="margin-left: 10px;font-weight: bold;" class="darkgray-color">
+                                Module Name
+                            </div>
+
+                            <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                <i class="fas fa-align-justify"></i>
+                            </button>
+
+                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                <ul class="nav navbar-nav ml-auto">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#">User Name</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" style="color:#dd4f42" href="#">Logout</a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </nav>
+                </div>
+
+                <div class="container-fluid">
+                        @RenderBody()
+                    <div/>
+
+                    <footer>
+                        <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+                    </footer>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        @Scripts.Render("~/Scripts/jquery-3.3.1.slim.min.js")
+        @Scripts.Render("~/Scripts/popper.min.js")
+        @Scripts.Render("~/Scripts/bootstrap.min.js")
+        @Scripts.Render("~/Scripts/jquery.mCustomScrollbar.concat.min.js")
+        
+        <script type="text/javascript">
+        $(document).ready(function () {
+            $("#sidebar").mCustomScrollbar({
+                theme: "minimal"
+            });
+
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar, #content').toggleClass('active');
+                $('.collapse.in').toggleClass('in');
+                $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+            });
+        });
+        </script>
+
+   
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

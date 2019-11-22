@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory & POS System</title>
+
+    @Scripts.Render("~/bundles/modernizr")
+
+    @Styles.Render("~/Content/masterstyle.css")
+    @Styles.Render("~/Content/bootstrap.min.css")
+    @Styles.Render("~/Content/jquery.mCustomScrollbar.min.css")
+    @Styles.Render("~/Content/Site.css")
+    @Scripts.Render("~/Scripts/solid.js")
+    @Scripts.Render("~/Scripts/fontawesome.js")
+    @Scripts.Render("~/Scripts/Site.js")
+</head>
+<body>
+    <div class="wrapper">
+
+        <!-- Sidebar -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h3>Shop Name</h3>
+            </div>
+
+            <ul class="list-unstyled components">
+
+                <p style="color:#EBB73C">SETUP</p>
+                <div class="menu-divider"></div>
+               
+                <li>
+                    <a href="#">User</a>
+                </li>
+                <li>
+                    <a href="#">Location</a>
+                </li>
+                <li>
+                    <a href="#">Currency</a>
+                </li>
+                <li>
+                    <a href="#">Unit</a>
+                </li>
+                <li>
+                    <a href="#">Township</a>
+                </li>
+                <li>
+                    <a href="#">Customer</a>
+                </li>
+                <li>
+                    <a href="#">Supplier</a>
+                </li>
+                <li>
+                    <a href="#">Employee</a>
+                </li>
+                <li>
+                    <a href="#">Adjust Type</a>
+                </li>
+                <li>
+                    <a href="#">Payment Type</a>
+                </li>
+                <li>
+                    <a href="#">Voucher Format</a>
+                </li>
+            </ul>
+
+            <ul class="list-unstyled CTAs">
+                <li>
+                    <a href="#" class="download" style="color:#1a827b">BACK</a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Page Content -->
+        <div id="content">
+
+            <div>
+                <nav class="navbar navbar-expand-lg navbar-light gray-backcolor">
+                    <div class="container-fluid">
+
+                        <button type="button" id="sidebarCollapse" class="btn">
+                            <i class="fas fa-align-left"></i>
+                        </button>
+
+                        <div style="margin-left: 10px;font-weight: bold;" class="darkgray-color">
+                            Module Name
+                        </div>
+
+                        <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <i class="fas fa-align-justify"></i>
+                        </button>
+
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="nav navbar-nav ml-auto">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">User Name</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" style="color:#dd4f42" href="#">Logout</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </nav>
+            </div>
+
+            <div class="container-fluid">
+                @RenderBody()
+                <div />
+
+                <footer>
+                    <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+                </footer>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    @Scripts.Render("~/Scripts/jquery-3.3.1.slim.min.js")
+    @Scripts.Render("~/Scripts/popper.min.js")
+    @Scripts.Render("~/Scripts/bootstrap.min.js")
+    @Scripts.Render("~/Scripts/jquery.mCustomScrollbar.concat.min.js")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#sidebar").mCustomScrollbar({
+                theme: "minimal"
+            });
+
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar, #content').toggleClass('active');
+                $('.collapse.in').toggleClass('in');
+                $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+            });
+        });
+    </script>
+
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

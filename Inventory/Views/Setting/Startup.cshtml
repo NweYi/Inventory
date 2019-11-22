@@ -1,0 +1,60 @@
+﻿@using Inventory.Models
+@model LoginViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    @Styles.Render("~/Content/bootstrap.min.css")
+</head>
+<body>
+    <div class="container-login">
+
+        <div class="wrap-login">
+
+            <div class="inner-login">
+
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        @Html.Label("Shop Setting", new { @class = "title" })
+                    </div>
+                </div>
+
+                <div class="row" style="padding:40px 30px 0 30px">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="form-group">
+                            @Html.DropDownList("UserName", (IEnumerable<SelectListItem>)ViewData["UserList"], new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" style="padding:10px 30px 0 30px">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.Password, new { placeholder = "Password", @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" style="padding:20px 30px 0 30px">
+                    <div class="col-md-12 col-sm-12">
+                        <button id="btnLogin" class="btn btn-lg btn-block">LOGIN</button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        @Html.ActionLink("New User? Create Now", "Register", null, new { @class = "create-user" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
