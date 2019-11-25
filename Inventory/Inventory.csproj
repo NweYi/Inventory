@@ -343,6 +343,7 @@
     <Content Include="Content\masterstyle.css" />
     <Content Include="Content\sitecolor.txt" />
     <Content Include="Content\StyleSheet1.css" />
+    <Content Include="Content\StyleSheet2.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
