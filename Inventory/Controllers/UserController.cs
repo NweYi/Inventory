@@ -17,7 +17,7 @@ namespace Inventory.Controllers
         {
             using (InventoryDBEntities entity = new InventoryDBEntities())
             {
-                var fromDatabaseEF = new SelectList(entity.Users.ToList(), "UserID", "UserName");
+                var fromDatabaseEF = new SelectList(entity.S_User.ToList(), "UserID", "UserName");
                 ViewData["UserList"] = fromDatabaseEF;
             }
             return View();

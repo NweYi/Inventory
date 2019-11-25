@@ -5,32 +5,1632 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="InventoryDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="User">
+        <EntityType Name="S_AdjustType">
+          <Key>
+            <PropertyRef Name="AdjustTypeID" />
+          </Key>
+          <Property Name="AdjustTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" />
+          <Property Name="ShortName" Type="nvarchar" MaxLength="100" />
+          <Property Name="IsIncrease" Type="bit" />
+        </EntityType>
+        <EntityType Name="S_Branch">
+          <Key>
+            <PropertyRef Name="BranchID" />
+          </Key>
+          <Property Name="BranchID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" />
+          <Property Name="ShortName" Type="nvarchar" MaxLength="100" />
+          <Property Name="Description" Type="nvarchar" MaxLength="300" />
+          <Property Name="Code" Type="varchar" MaxLength="50" />
+          <Property Name="Phone" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Email" Type="varchar" MaxLength="200" />
+          <Property Name="Tax" Type="varchar" MaxLength="50" />
+          <Property Name="ServiceCharges" Type="varchar" MaxLength="50" />
+          <Property Name="LanguageID" Type="int" />
+        </EntityType>
+        <EntityType Name="S_CompanySetting">
+          <Key>
+            <PropertyRef Name="CompanyID" />
+          </Key>
+          <Property Name="CompanyID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" />
+          <Property Name="Description" Type="nvarchar" MaxLength="300" />
+          <Property Name="Logo" Type="image" />
+          <Property Name="Phone" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Email" Type="varchar" MaxLength="200" />
+          <Property Name="Website" Type="varchar" MaxLength="200" />
+          <Property Name="Tax" Type="varchar" MaxLength="50" />
+          <Property Name="ServiceCharges" Type="varchar" MaxLength="50" />
+          <Property Name="IsMultiCurrency" Type="bit" />
+          <Property Name="IsMultiUnit" Type="bit" />
+          <Property Name="IsMultiBranch" Type="bit" />
+          <Property Name="IsProductByBranch" Type="bit" />
+          <Property Name="IsBarcode" Type="bit" />
+          <Property Name="LanguageID" Type="int" />
+          <Property Name="IsProductPhoto" Type="bit" />
+        </EntityType>
+        <EntityType Name="S_Customer">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+          </Key>
+          <Property Name="CustomerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="varchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" />
+          <Property Name="TownshipID" Type="int" />
+          <Property Name="Contact" Type="nvarchar" MaxLength="200" />
+          <Property Name="Address" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Phone" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="200" />
+          <Property Name="IsCredit" Type="bit" />
+          <Property Name="IsDefault" Type="bit" />
+          <Property Name="BranchID" Type="int" />
+        </EntityType>
+        <EntityType Name="S_Location">
+          <Key>
+            <PropertyRef Name="LocationID" />
+          </Key>
+          <Property Name="LocationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BranchID" Type="int" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" />
+          <Property Name="ShortName" Type="nvarchar" MaxLength="100" />
+          <Property Name="Description" Type="nvarchar" MaxLength="300" />
+          <Property Name="Code" Type="varchar" MaxLength="50" />
+          <Property Name="Phone" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Email" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="S_MainMenu">
+          <Key>
+            <PropertyRef Name="MainMenuID" />
+          </Key>
+          <Property Name="MainMenuID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="varchar" MaxLength="50" />
+          <Property Name="SortCode" Type="int" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" />
+          <Property Name="Photo" Type="image" />
+        </EntityType>
+        <EntityType Name="S_Payment">
+          <Key>
+            <PropertyRef Name="PaymentID" />
+          </Key>
+          <Property Name="PaymentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" />
+          <Property Name="Keyword" Type="nvarchar" MaxLength="100" />
+          <Property Name="IsDefault" Type="bit" />
+        </EntityType>
+        <EntityType Name="S_Product">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="varchar" MaxLength="50" />
+          <Property Name="SortCode" Type="int" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="SubMenuID" Type="int" />
+          <Property Name="PurPrice" Type="money" />
+          <Property Name="SalePrice" Type="money" />
+          <Property Name="IsUnit" Type="bit" />
+          <Property Name="IsStock" Type="bit" />
+          <Property Name="Photo" Type="image" />
+          <Property Name="AlertQty" Type="int" />
+          <Property Name="DisPercent" Type="smallint" />
+          <Property Name="Barcode" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="S_ProductBranch">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductID" Type="int" />
+          <Property Name="BranchID" Type="int" />
+        </EntityType>
+        <EntityType Name="S_ProductUnit">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductID" Type="int" />
+          <Property Name="UnitID" Type="int" />
+          <Property Name="PurPrice" Type="money" />
+          <Property Name="SalePrice" Type="money" />
+          <Property Name="DisPercent" Type="smallint" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="S_SubMenu">
+          <Key>
+            <PropertyRef Name="SubMenuID" />
+          </Key>
+          <Property Name="SubMenuID" Type="int" Nullable="false" />
+          <Property Name="Code" Type="varchar" MaxLength="50" />
+          <Property Name="SortCode" Type="int" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" />
+          <Property Name="Photo" Type="image" />
+          <Property Name="MainMenuID" Type="int" />
+        </EntityType>
+        <EntityType Name="S_Supplier">
+          <Key>
+            <PropertyRef Name="SupplierID" />
+          </Key>
+          <Property Name="SupplierID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="varchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" />
+          <Property Name="TownshipID" Type="int" />
+          <Property Name="Contact" Type="nvarchar" MaxLength="200" />
+          <Property Name="Address" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Phone" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="200" />
+          <Property Name="IsCredit" Type="bit" />
+          <Property Name="IsDefault" Type="bit" />
+          <Property Name="BranchID" Type="int" />
+        </EntityType>
+        <EntityType Name="S_Township">
+          <Key>
+            <PropertyRef Name="TownshipID" />
+          </Key>
+          <Property Name="TownshipID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="varchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" />
+          <Property Name="IsDefault" Type="bit" />
+        </EntityType>
+        <EntityType Name="S_Unit">
+          <Key>
+            <PropertyRef Name="UnitID" />
+          </Key>
+          <Property Name="UnitID" Type="bit" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Keyword" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsDefault" Type="bit" />
+        </EntityType>
+        <EntityType Name="S_User">
           <Key>
             <PropertyRef Name="UserID" />
           </Key>
-          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="BranchID" Type="int" />
         </EntityType>
+        <EntityType Name="S_UserRightEntry">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="EntryModuleID" Type="int" />
+          <Property Name="IsAllow" Type="bit" />
+        </EntityType>
+        <EntityType Name="S_UserRightReport">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="ReportModuleID" Type="int" />
+          <Property Name="IsAllow" Type="bit" />
+        </EntityType>
+        <EntityType Name="S_UserRightSetup">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="SetupModuleID" Type="int" />
+          <Property Name="IsAllow" Type="bit" />
+        </EntityType>
+        <EntityType Name="S_VoucherFormat">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BranchID" Type="int" />
+          <Property Name="PreFormat" Type="varchar" MaxLength="10" />
+          <Property Name="MidFormat" Type="varchar" MaxLength="10" />
+          <Property Name="PostFormat" Type="int" />
+        </EntityType>
+        <EntityType Name="S_VoucherSetting">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BranchID" Type="int" />
+          <Property Name="LocationID" Type="int" />
+          <Property Name="VoucherLogo" Type="image" />
+          <Property Name="HeaderName" Type="nvarchar" MaxLength="200" />
+          <Property Name="HeaderDesp" Type="nvarchar" MaxLength="200" />
+          <Property Name="HeaderPhone" Type="varchar" MaxLength="50" />
+          <Property Name="HeaderAddress" Type="nvarchar" MaxLength="200" />
+          <Property Name="OtherHeader1" Type="nvarchar" MaxLength="200" />
+          <Property Name="OtherHeader2" Type="nvarchar" MaxLength="200" />
+          <Property Name="FooterMessage1" Type="nvarchar" MaxLength="200" />
+          <Property Name="FooterMessage2" Type="nvarchar" MaxLength="200" />
+          <Property Name="FooterMessage3" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Sys_Admin">
+          <Key>
+            <PropertyRef Name="AdminID" />
+          </Key>
+          <Property Name="AdminID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Sys_AppWord">
+          <Key>
+            <PropertyRef Name="WordID" />
+          </Key>
+          <Property Name="WordID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="English" Type="varchar" MaxLength="200" />
+          <Property Name="Myanmar" Type="nvarchar" MaxLength="500" />
+          <Property Name="Chinese" Type="nvarchar" MaxLength="500" />
+          <Property Name="Keyword" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Sys_Currency">
+          <Key>
+            <PropertyRef Name="CurrencyID" />
+          </Key>
+          <Property Name="CurrencyID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Keyword" Type="nvarchar" MaxLength="50" />
+          <Property Name="Rate" Type="numeric" Precision="18" Scale="4" />
+          <Property Name="IsDefault" Type="bit" />
+          <Property Name="IsMultiCurrency" Type="bit" />
+        </EntityType>
+        <EntityType Name="Sys_EntryModule">
+          <Key>
+            <PropertyRef Name="EntryModuleID" />
+          </Key>
+          <Property Name="EntryModuleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MainModuleID" Type="int" />
+          <Property Name="EntryModuleName" Type="nvarchar" MaxLength="200" />
+          <Property Name="SortCode" Type="int" />
+        </EntityType>
+        <EntityType Name="Sys_Language">
+          <Key>
+            <PropertyRef Name="LanguageID" />
+          </Key>
+          <Property Name="LanguageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LanguageName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Sys_MainLanguage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LanguageID" Type="varchar" MaxLength="200" />
+          <Property Name="Word" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Keyword" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Sys_MainModule">
+          <Key>
+            <PropertyRef Name="MainModuleID" />
+          </Key>
+          <Property Name="MainModuleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MainModuleName" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Sys_ProductNature">
+          <Key>
+            <PropertyRef Name="NatureID" />
+          </Key>
+          <Property Name="NatureID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NatureType" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Sys_ReportModule">
+          <Key>
+            <PropertyRef Name="ReportModuleID" />
+          </Key>
+          <Property Name="ReportModuleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MainModuleID" Type="int" />
+          <Property Name="ReportModuleName" Type="nvarchar" MaxLength="200" />
+          <Property Name="SortCode" Type="int" />
+        </EntityType>
+        <EntityType Name="Sys_SetupModule">
+          <Key>
+            <PropertyRef Name="SetupModuleID" />
+          </Key>
+          <Property Name="SetupModuleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MainModuleID" Type="int" />
+          <Property Name="SetupModuleName" Type="nvarchar" MaxLength="200" />
+          <Property Name="SortCode" Type="int" />
+        </EntityType>
+        <EntityType Name="Sys_TranID">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SaleTranID" Type="int" Nullable="false" />
+          <Property Name="SaleOrderTranID" Type="int" Nullable="false" />
+          <Property Name="SaleReturnTranID" Type="int" Nullable="false" />
+          <Property Name="SaleConsignTranID" Type="int" Nullable="false" />
+          <Property Name="PurTranID" Type="int" Nullable="false" />
+          <Property Name="PurOrderTranID" Type="int" Nullable="false" />
+          <Property Name="PurReturnTranID" Type="int" Nullable="false" />
+          <Property Name="PurConsignTranID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="T_Delivery">
+          <Key>
+            <PropertyRef Name="DeliveryID" />
+          </Key>
+          <Property Name="DeliveryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TranID" Type="int" />
+          <Property Name="Date" Type="datetime" />
+          <Property Name="Recipient" Type="nvarchar" MaxLength="200" />
+          <Property Name="Phone" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="T_MasterSale">
+          <Key>
+            <PropertyRef Name="TranID" />
+          </Key>
+          <Property Name="SaleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TranID" Type="int" Nullable="false" />
+          <Property Name="Date" Type="datetime" />
+          <Property Name="Voucher" Type="nvarchar" MaxLength="50" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="CustomerID" Type="int" />
+          <Property Name="LocationID" Type="int" />
+          <Property Name="PaymentID" Type="int" />
+          <Property Name="CurrencyID" Type="int" />
+          <Property Name="IsDelivery" Type="bit" />
+          <Property Name="VoucherDis" Type="money" />
+          <Property Name="PaidAmt" Type="money" />
+          <Property Name="FOCAmt" Type="money" />
+          <Property Name="TaxAmt" Type="money" />
+          <Property Name="ChargesAmt" Type="money" />
+          <Property Name="TotalAmt" Type="money" />
+          <Property Name="NetAmt" Type="money" />
+          <Property Name="CreditLimitDay" Type="int" />
+        </EntityType>
+        <EntityType Name="T_TranSale">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TranID" Type="int" Nullable="false" />
+          <Property Name="ProductID" Type="int" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="SalePrice" Type="money" />
+          <Property Name="DiscountAmt" Type="money" />
+          <Property Name="TotalAmount" Type="money" />
+        </EntityType>
+        <Association Name="FK_S_Customer_S_Township">
+          <End Role="S_Township" Type="Self.S_Township" Multiplicity="0..1" />
+          <End Role="S_Customer" Type="Self.S_Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="S_Township">
+              <PropertyRef Name="TownshipID" />
+            </Principal>
+            <Dependent Role="S_Customer">
+              <PropertyRef Name="TownshipID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_S_Location_S_Branch">
+          <End Role="S_Branch" Type="Self.S_Branch" Multiplicity="0..1" />
+          <End Role="S_Location" Type="Self.S_Location" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="S_Branch">
+              <PropertyRef Name="BranchID" />
+            </Principal>
+            <Dependent Role="S_Location">
+              <PropertyRef Name="BranchID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_S_Product_S_SubMenu">
+          <End Role="S_SubMenu" Type="Self.S_SubMenu" Multiplicity="0..1" />
+          <End Role="S_Product" Type="Self.S_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="S_SubMenu">
+              <PropertyRef Name="SubMenuID" />
+            </Principal>
+            <Dependent Role="S_Product">
+              <PropertyRef Name="SubMenuID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_S_Product_S_Unit">
+          <End Role="S_Unit" Type="Self.S_Unit" Multiplicity="0..1" />
+          <End Role="S_Product" Type="Self.S_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="S_Unit">
+              <PropertyRef Name="UnitID" />
+            </Principal>
+            <Dependent Role="S_Product">
+              <PropertyRef Name="IsUnit" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_S_SubMenu_S_MainMenu">
+          <End Role="S_MainMenu" Type="Self.S_MainMenu" Multiplicity="0..1" />
+          <End Role="S_SubMenu" Type="Self.S_SubMenu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="S_MainMenu">
+              <PropertyRef Name="MainMenuID" />
+            </Principal>
+            <Dependent Role="S_SubMenu">
+              <PropertyRef Name="MainMenuID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_S_Supplier_S_Township">
+          <End Role="S_Township" Type="Self.S_Township" Multiplicity="0..1" />
+          <End Role="S_Supplier" Type="Self.S_Supplier" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="S_Township">
+              <PropertyRef Name="TownshipID" />
+            </Principal>
+            <Dependent Role="S_Supplier">
+              <PropertyRef Name="TownshipID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_S_UserRightEntry_S_User">
+          <End Role="S_User" Type="Self.S_User" Multiplicity="0..1" />
+          <End Role="S_UserRightEntry" Type="Self.S_UserRightEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="S_User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="S_UserRightEntry">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_S_UserRightEntry_Sys_EntryModule">
+          <End Role="Sys_EntryModule" Type="Self.Sys_EntryModule" Multiplicity="0..1" />
+          <End Role="S_UserRightEntry" Type="Self.S_UserRightEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sys_EntryModule">
+              <PropertyRef Name="EntryModuleID" />
+            </Principal>
+            <Dependent Role="S_UserRightEntry">
+              <PropertyRef Name="EntryModuleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_S_UserRightReport_S_User">
+          <End Role="S_User" Type="Self.S_User" Multiplicity="0..1" />
+          <End Role="S_UserRightReport" Type="Self.S_UserRightReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="S_User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="S_UserRightReport">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_S_UserRightReport_Sys_ReportModule">
+          <End Role="Sys_ReportModule" Type="Self.Sys_ReportModule" Multiplicity="0..1" />
+          <End Role="S_UserRightReport" Type="Self.S_UserRightReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sys_ReportModule">
+              <PropertyRef Name="ReportModuleID" />
+            </Principal>
+            <Dependent Role="S_UserRightReport">
+              <PropertyRef Name="ReportModuleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_S_UserRightSetup_S_User">
+          <End Role="S_User" Type="Self.S_User" Multiplicity="0..1" />
+          <End Role="S_UserRightSetup" Type="Self.S_UserRightSetup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="S_User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="S_UserRightSetup">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_S_UserRightSetup_Sys_SetupModule">
+          <End Role="Sys_SetupModule" Type="Self.Sys_SetupModule" Multiplicity="0..1" />
+          <End Role="S_UserRightSetup" Type="Self.S_UserRightSetup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sys_SetupModule">
+              <PropertyRef Name="SetupModuleID" />
+            </Principal>
+            <Dependent Role="S_UserRightSetup">
+              <PropertyRef Name="SetupModuleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_S_VouFormat_S_Location">
+          <End Role="S_Location" Type="Self.S_Location" Multiplicity="0..1" />
+          <End Role="S_VoucherFormat" Type="Self.S_VoucherFormat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="S_Location">
+              <PropertyRef Name="LocationID" />
+            </Principal>
+            <Dependent Role="S_VoucherFormat">
+              <PropertyRef Name="BranchID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sys_EntryModule_Sys_MainModule">
+          <End Role="Sys_MainModule" Type="Self.Sys_MainModule" Multiplicity="0..1" />
+          <End Role="Sys_EntryModule" Type="Self.Sys_EntryModule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sys_MainModule">
+              <PropertyRef Name="MainModuleID" />
+            </Principal>
+            <Dependent Role="Sys_EntryModule">
+              <PropertyRef Name="MainModuleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sys_ReportModule_Sys_MainModule">
+          <End Role="Sys_MainModule" Type="Self.Sys_MainModule" Multiplicity="0..1" />
+          <End Role="Sys_ReportModule" Type="Self.Sys_ReportModule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sys_MainModule">
+              <PropertyRef Name="MainModuleID" />
+            </Principal>
+            <Dependent Role="Sys_ReportModule">
+              <PropertyRef Name="MainModuleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sys_SetupModule_Sys_MainModule">
+          <End Role="Sys_MainModule" Type="Self.Sys_MainModule" Multiplicity="0..1" />
+          <End Role="Sys_SetupModule" Type="Self.Sys_SetupModule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sys_MainModule">
+              <PropertyRef Name="MainModuleID" />
+            </Principal>
+            <Dependent Role="Sys_SetupModule">
+              <PropertyRef Name="MainModuleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_MasterSale_S_Currency">
+          <End Role="Sys_Currency" Type="Self.Sys_Currency" Multiplicity="0..1" />
+          <End Role="T_MasterSale" Type="Self.T_MasterSale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sys_Currency">
+              <PropertyRef Name="CurrencyID" />
+            </Principal>
+            <Dependent Role="T_MasterSale">
+              <PropertyRef Name="CurrencyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_MasterSale_S_Customer">
+          <End Role="S_Customer" Type="Self.S_Customer" Multiplicity="0..1" />
+          <End Role="T_MasterSale" Type="Self.T_MasterSale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="S_Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="T_MasterSale">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_MasterSale_S_Location">
+          <End Role="S_Location" Type="Self.S_Location" Multiplicity="0..1" />
+          <End Role="T_MasterSale" Type="Self.T_MasterSale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="S_Location">
+              <PropertyRef Name="LocationID" />
+            </Principal>
+            <Dependent Role="T_MasterSale">
+              <PropertyRef Name="LocationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_MasterSale_S_Payment">
+          <End Role="S_Payment" Type="Self.S_Payment" Multiplicity="0..1" />
+          <End Role="T_MasterSale" Type="Self.T_MasterSale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="S_Payment">
+              <PropertyRef Name="PaymentID" />
+            </Principal>
+            <Dependent Role="T_MasterSale">
+              <PropertyRef Name="PaymentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_MasterSale_S_User">
+          <End Role="S_User" Type="Self.S_User" Multiplicity="0..1" />
+          <End Role="T_MasterSale" Type="Self.T_MasterSale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="S_User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="T_MasterSale">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_TranSale_S_Product">
+          <End Role="S_Product" Type="Self.S_Product" Multiplicity="0..1" />
+          <End Role="T_TranSale" Type="Self.T_TranSale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="S_Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="T_TranSale">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="InventoryDBModelStoreContainer">
-          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="S_AdjustType" EntityType="Self.S_AdjustType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="S_Branch" EntityType="Self.S_Branch" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="S_CompanySetting" EntityType="Self.S_CompanySetting" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="S_Customer" EntityType="Self.S_Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="S_Location" EntityType="Self.S_Location" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="S_MainMenu" EntityType="Self.S_MainMenu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="S_Payment" EntityType="Self.S_Payment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="S_Product" EntityType="Self.S_Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="S_ProductBranch" EntityType="Self.S_ProductBranch" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="S_ProductUnit" EntityType="Self.S_ProductUnit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="S_SubMenu" EntityType="Self.S_SubMenu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="S_Supplier" EntityType="Self.S_Supplier" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="S_Township" EntityType="Self.S_Township" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="S_Unit" EntityType="Self.S_Unit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="S_User" EntityType="Self.S_User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="S_UserRightEntry" EntityType="Self.S_UserRightEntry" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="S_UserRightReport" EntityType="Self.S_UserRightReport" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="S_UserRightSetup" EntityType="Self.S_UserRightSetup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="S_VoucherFormat" EntityType="Self.S_VoucherFormat" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="S_VoucherSetting" EntityType="Self.S_VoucherSetting" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sys_Admin" EntityType="Self.Sys_Admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sys_AppWord" EntityType="Self.Sys_AppWord" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sys_Currency" EntityType="Self.Sys_Currency" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sys_EntryModule" EntityType="Self.Sys_EntryModule" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sys_Language" EntityType="Self.Sys_Language" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sys_MainLanguage" EntityType="Self.Sys_MainLanguage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sys_MainModule" EntityType="Self.Sys_MainModule" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sys_ProductNature" EntityType="Self.Sys_ProductNature" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sys_ReportModule" EntityType="Self.Sys_ReportModule" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sys_SetupModule" EntityType="Self.Sys_SetupModule" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sys_TranID" EntityType="Self.Sys_TranID" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Delivery" EntityType="Self.T_Delivery" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_MasterSale" EntityType="Self.T_MasterSale" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_TranSale" EntityType="Self.T_TranSale" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_S_Customer_S_Township" Association="Self.FK_S_Customer_S_Township">
+            <End Role="S_Township" EntitySet="S_Township" />
+            <End Role="S_Customer" EntitySet="S_Customer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_S_Location_S_Branch" Association="Self.FK_S_Location_S_Branch">
+            <End Role="S_Branch" EntitySet="S_Branch" />
+            <End Role="S_Location" EntitySet="S_Location" />
+          </AssociationSet>
+          <AssociationSet Name="FK_S_Product_S_SubMenu" Association="Self.FK_S_Product_S_SubMenu">
+            <End Role="S_SubMenu" EntitySet="S_SubMenu" />
+            <End Role="S_Product" EntitySet="S_Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_S_Product_S_Unit" Association="Self.FK_S_Product_S_Unit">
+            <End Role="S_Unit" EntitySet="S_Unit" />
+            <End Role="S_Product" EntitySet="S_Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_S_SubMenu_S_MainMenu" Association="Self.FK_S_SubMenu_S_MainMenu">
+            <End Role="S_MainMenu" EntitySet="S_MainMenu" />
+            <End Role="S_SubMenu" EntitySet="S_SubMenu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_S_Supplier_S_Township" Association="Self.FK_S_Supplier_S_Township">
+            <End Role="S_Township" EntitySet="S_Township" />
+            <End Role="S_Supplier" EntitySet="S_Supplier" />
+          </AssociationSet>
+          <AssociationSet Name="FK_S_UserRightEntry_S_User" Association="Self.FK_S_UserRightEntry_S_User">
+            <End Role="S_User" EntitySet="S_User" />
+            <End Role="S_UserRightEntry" EntitySet="S_UserRightEntry" />
+          </AssociationSet>
+          <AssociationSet Name="FK_S_UserRightEntry_Sys_EntryModule" Association="Self.FK_S_UserRightEntry_Sys_EntryModule">
+            <End Role="Sys_EntryModule" EntitySet="Sys_EntryModule" />
+            <End Role="S_UserRightEntry" EntitySet="S_UserRightEntry" />
+          </AssociationSet>
+          <AssociationSet Name="FK_S_UserRightReport_S_User" Association="Self.FK_S_UserRightReport_S_User">
+            <End Role="S_User" EntitySet="S_User" />
+            <End Role="S_UserRightReport" EntitySet="S_UserRightReport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_S_UserRightReport_Sys_ReportModule" Association="Self.FK_S_UserRightReport_Sys_ReportModule">
+            <End Role="Sys_ReportModule" EntitySet="Sys_ReportModule" />
+            <End Role="S_UserRightReport" EntitySet="S_UserRightReport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_S_UserRightSetup_S_User" Association="Self.FK_S_UserRightSetup_S_User">
+            <End Role="S_User" EntitySet="S_User" />
+            <End Role="S_UserRightSetup" EntitySet="S_UserRightSetup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_S_UserRightSetup_Sys_SetupModule" Association="Self.FK_S_UserRightSetup_Sys_SetupModule">
+            <End Role="Sys_SetupModule" EntitySet="Sys_SetupModule" />
+            <End Role="S_UserRightSetup" EntitySet="S_UserRightSetup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_S_VouFormat_S_Location" Association="Self.FK_S_VouFormat_S_Location">
+            <End Role="S_Location" EntitySet="S_Location" />
+            <End Role="S_VoucherFormat" EntitySet="S_VoucherFormat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sys_EntryModule_Sys_MainModule" Association="Self.FK_Sys_EntryModule_Sys_MainModule">
+            <End Role="Sys_MainModule" EntitySet="Sys_MainModule" />
+            <End Role="Sys_EntryModule" EntitySet="Sys_EntryModule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sys_ReportModule_Sys_MainModule" Association="Self.FK_Sys_ReportModule_Sys_MainModule">
+            <End Role="Sys_MainModule" EntitySet="Sys_MainModule" />
+            <End Role="Sys_ReportModule" EntitySet="Sys_ReportModule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sys_SetupModule_Sys_MainModule" Association="Self.FK_Sys_SetupModule_Sys_MainModule">
+            <End Role="Sys_MainModule" EntitySet="Sys_MainModule" />
+            <End Role="Sys_SetupModule" EntitySet="Sys_SetupModule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_MasterSale_S_Currency" Association="Self.FK_T_MasterSale_S_Currency">
+            <End Role="Sys_Currency" EntitySet="Sys_Currency" />
+            <End Role="T_MasterSale" EntitySet="T_MasterSale" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_MasterSale_S_Customer" Association="Self.FK_T_MasterSale_S_Customer">
+            <End Role="S_Customer" EntitySet="S_Customer" />
+            <End Role="T_MasterSale" EntitySet="T_MasterSale" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_MasterSale_S_Location" Association="Self.FK_T_MasterSale_S_Location">
+            <End Role="S_Location" EntitySet="S_Location" />
+            <End Role="T_MasterSale" EntitySet="T_MasterSale" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_MasterSale_S_Payment" Association="Self.FK_T_MasterSale_S_Payment">
+            <End Role="S_Payment" EntitySet="S_Payment" />
+            <End Role="T_MasterSale" EntitySet="T_MasterSale" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_MasterSale_S_User" Association="Self.FK_T_MasterSale_S_User">
+            <End Role="S_User" EntitySet="S_User" />
+            <End Role="T_MasterSale" EntitySet="T_MasterSale" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_TranSale_S_Product" Association="Self.FK_T_TranSale_S_Product">
+            <End Role="S_Product" EntitySet="S_Product" />
+            <End Role="T_TranSale" EntitySet="T_TranSale" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="InventoryDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="User">
+        <EntityType Name="S_AdjustType">
+          <Key>
+            <PropertyRef Name="AdjustTypeID" />
+          </Key>
+          <Property Name="AdjustTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ShortName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsIncrease" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="S_Branch">
+          <Key>
+            <PropertyRef Name="BranchID" />
+          </Key>
+          <Property Name="BranchID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ShortName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Tax" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ServiceCharges" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LanguageID" Type="Int32" />
+          <NavigationProperty Name="S_Location" Relationship="Self.FK_S_Location_S_Branch" FromRole="S_Branch" ToRole="S_Location" />
+        </EntityType>
+        <EntityType Name="S_CompanySetting">
+          <Key>
+            <PropertyRef Name="CompanyID" />
+          </Key>
+          <Property Name="CompanyID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Logo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Website" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Tax" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ServiceCharges" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsMultiCurrency" Type="Boolean" />
+          <Property Name="IsMultiUnit" Type="Boolean" />
+          <Property Name="IsMultiBranch" Type="Boolean" />
+          <Property Name="IsProductByBranch" Type="Boolean" />
+          <Property Name="IsBarcode" Type="Boolean" />
+          <Property Name="LanguageID" Type="Int32" />
+          <Property Name="IsProductPhoto" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="S_Customer">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+          </Key>
+          <Property Name="CustomerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="TownshipID" Type="Int32" />
+          <Property Name="Contact" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="IsCredit" Type="Boolean" />
+          <Property Name="IsDefault" Type="Boolean" />
+          <Property Name="BranchID" Type="Int32" />
+          <NavigationProperty Name="S_Township" Relationship="Self.FK_S_Customer_S_Township" FromRole="S_Customer" ToRole="S_Township" />
+          <NavigationProperty Name="T_MasterSale" Relationship="Self.FK_T_MasterSale_S_Customer" FromRole="S_Customer" ToRole="T_MasterSale" />
+        </EntityType>
+        <EntityType Name="S_Location">
+          <Key>
+            <PropertyRef Name="LocationID" />
+          </Key>
+          <Property Name="LocationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BranchID" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ShortName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="S_Branch" Relationship="Self.FK_S_Location_S_Branch" FromRole="S_Location" ToRole="S_Branch" />
+          <NavigationProperty Name="S_VoucherFormat" Relationship="Self.FK_S_VouFormat_S_Location" FromRole="S_Location" ToRole="S_VoucherFormat" />
+          <NavigationProperty Name="T_MasterSale" Relationship="Self.FK_T_MasterSale_S_Location" FromRole="S_Location" ToRole="T_MasterSale" />
+        </EntityType>
+        <EntityType Name="S_MainMenu">
+          <Key>
+            <PropertyRef Name="MainMenuID" />
+          </Key>
+          <Property Name="MainMenuID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SortCode" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="S_SubMenu" Relationship="Self.FK_S_SubMenu_S_MainMenu" FromRole="S_MainMenu" ToRole="S_SubMenu" />
+        </EntityType>
+        <EntityType Name="S_Payment">
+          <Key>
+            <PropertyRef Name="PaymentID" />
+          </Key>
+          <Property Name="PaymentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Keyword" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsDefault" Type="Boolean" />
+          <NavigationProperty Name="T_MasterSale" Relationship="Self.FK_T_MasterSale_S_Payment" FromRole="S_Payment" ToRole="T_MasterSale" />
+        </EntityType>
+        <EntityType Name="S_Product">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SortCode" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="SubMenuID" Type="Int32" />
+          <Property Name="PurPrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="SalePrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="IsUnit" Type="Boolean" />
+          <Property Name="IsStock" Type="Boolean" />
+          <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="AlertQty" Type="Int32" />
+          <Property Name="DisPercent" Type="Int16" />
+          <Property Name="Barcode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="S_SubMenu" Relationship="Self.FK_S_Product_S_SubMenu" FromRole="S_Product" ToRole="S_SubMenu" />
+          <NavigationProperty Name="S_Unit" Relationship="Self.FK_S_Product_S_Unit" FromRole="S_Product" ToRole="S_Unit" />
+          <NavigationProperty Name="T_TranSale" Relationship="Self.FK_T_TranSale_S_Product" FromRole="S_Product" ToRole="T_TranSale" />
+        </EntityType>
+        <EntityType Name="S_ProductBranch">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductID" Type="Int32" />
+          <Property Name="BranchID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="S_ProductUnit">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductID" Type="Int32" />
+          <Property Name="UnitID" Type="Int32" />
+          <Property Name="PurPrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="SalePrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="DisPercent" Type="Int16" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="S_SubMenu">
+          <Key>
+            <PropertyRef Name="SubMenuID" />
+          </Key>
+          <Property Name="SubMenuID" Type="Int32" Nullable="false" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SortCode" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="MainMenuID" Type="Int32" />
+          <NavigationProperty Name="S_MainMenu" Relationship="Self.FK_S_SubMenu_S_MainMenu" FromRole="S_SubMenu" ToRole="S_MainMenu" />
+          <NavigationProperty Name="S_Product" Relationship="Self.FK_S_Product_S_SubMenu" FromRole="S_SubMenu" ToRole="S_Product" />
+        </EntityType>
+        <EntityType Name="S_Supplier">
+          <Key>
+            <PropertyRef Name="SupplierID" />
+          </Key>
+          <Property Name="SupplierID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="TownshipID" Type="Int32" />
+          <Property Name="Contact" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="IsCredit" Type="Boolean" />
+          <Property Name="IsDefault" Type="Boolean" />
+          <Property Name="BranchID" Type="Int32" />
+          <NavigationProperty Name="S_Township" Relationship="Self.FK_S_Supplier_S_Township" FromRole="S_Supplier" ToRole="S_Township" />
+        </EntityType>
+        <EntityType Name="S_Township">
+          <Key>
+            <PropertyRef Name="TownshipID" />
+          </Key>
+          <Property Name="TownshipID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IsDefault" Type="Boolean" />
+          <NavigationProperty Name="S_Customer" Relationship="Self.FK_S_Customer_S_Township" FromRole="S_Township" ToRole="S_Customer" />
+          <NavigationProperty Name="S_Supplier" Relationship="Self.FK_S_Supplier_S_Township" FromRole="S_Township" ToRole="S_Supplier" />
+        </EntityType>
+        <EntityType Name="S_Unit">
+          <Key>
+            <PropertyRef Name="UnitID" />
+          </Key>
+          <Property Name="UnitID" Type="Boolean" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Keyword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsDefault" Type="Boolean" />
+          <NavigationProperty Name="S_Product" Relationship="Self.FK_S_Product_S_Unit" FromRole="S_Unit" ToRole="S_Product" />
+        </EntityType>
+        <EntityType Name="S_User">
           <Key>
             <PropertyRef Name="UserID" />
           </Key>
-          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BranchID" Type="Int32" />
+          <NavigationProperty Name="S_UserRightEntry" Relationship="Self.FK_S_UserRightEntry_S_User" FromRole="S_User" ToRole="S_UserRightEntry" />
+          <NavigationProperty Name="S_UserRightReport" Relationship="Self.FK_S_UserRightReport_S_User" FromRole="S_User" ToRole="S_UserRightReport" />
+          <NavigationProperty Name="S_UserRightSetup" Relationship="Self.FK_S_UserRightSetup_S_User" FromRole="S_User" ToRole="S_UserRightSetup" />
+          <NavigationProperty Name="T_MasterSale" Relationship="Self.FK_T_MasterSale_S_User" FromRole="S_User" ToRole="T_MasterSale" />
         </EntityType>
+        <EntityType Name="S_UserRightEntry">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="EntryModuleID" Type="Int32" />
+          <Property Name="IsAllow" Type="Boolean" />
+          <NavigationProperty Name="S_User" Relationship="Self.FK_S_UserRightEntry_S_User" FromRole="S_UserRightEntry" ToRole="S_User" />
+          <NavigationProperty Name="Sys_EntryModule" Relationship="Self.FK_S_UserRightEntry_Sys_EntryModule" FromRole="S_UserRightEntry" ToRole="Sys_EntryModule" />
+        </EntityType>
+        <EntityType Name="S_UserRightReport">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="ReportModuleID" Type="Int32" />
+          <Property Name="IsAllow" Type="Boolean" />
+          <NavigationProperty Name="S_User" Relationship="Self.FK_S_UserRightReport_S_User" FromRole="S_UserRightReport" ToRole="S_User" />
+          <NavigationProperty Name="Sys_ReportModule" Relationship="Self.FK_S_UserRightReport_Sys_ReportModule" FromRole="S_UserRightReport" ToRole="Sys_ReportModule" />
+        </EntityType>
+        <EntityType Name="S_UserRightSetup">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="SetupModuleID" Type="Int32" />
+          <Property Name="IsAllow" Type="Boolean" />
+          <NavigationProperty Name="S_User" Relationship="Self.FK_S_UserRightSetup_S_User" FromRole="S_UserRightSetup" ToRole="S_User" />
+          <NavigationProperty Name="Sys_SetupModule" Relationship="Self.FK_S_UserRightSetup_Sys_SetupModule" FromRole="S_UserRightSetup" ToRole="Sys_SetupModule" />
+        </EntityType>
+        <EntityType Name="S_VoucherFormat">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BranchID" Type="Int32" />
+          <Property Name="PreFormat" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="MidFormat" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="PostFormat" Type="Int32" />
+          <NavigationProperty Name="S_Location" Relationship="Self.FK_S_VouFormat_S_Location" FromRole="S_VoucherFormat" ToRole="S_Location" />
+        </EntityType>
+        <EntityType Name="S_VoucherSetting">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BranchID" Type="Int32" />
+          <Property Name="LocationID" Type="Int32" />
+          <Property Name="VoucherLogo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="HeaderName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="HeaderDesp" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="HeaderPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HeaderAddress" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="OtherHeader1" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="OtherHeader2" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="FooterMessage1" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="FooterMessage2" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="FooterMessage3" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Sys_Admin">
+          <Key>
+            <PropertyRef Name="AdminID" />
+          </Key>
+          <Property Name="AdminID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Sys_AppWord">
+          <Key>
+            <PropertyRef Name="WordID" />
+          </Key>
+          <Property Name="WordID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="English" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Myanmar" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Chinese" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Keyword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Sys_Currency">
+          <Key>
+            <PropertyRef Name="CurrencyID" />
+          </Key>
+          <Property Name="CurrencyID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Keyword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Rate" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="IsDefault" Type="Boolean" />
+          <Property Name="IsMultiCurrency" Type="Boolean" />
+          <NavigationProperty Name="T_MasterSale" Relationship="Self.FK_T_MasterSale_S_Currency" FromRole="Sys_Currency" ToRole="T_MasterSale" />
+        </EntityType>
+        <EntityType Name="Sys_EntryModule">
+          <Key>
+            <PropertyRef Name="EntryModuleID" />
+          </Key>
+          <Property Name="EntryModuleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MainModuleID" Type="Int32" />
+          <Property Name="EntryModuleName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="SortCode" Type="Int32" />
+          <NavigationProperty Name="S_UserRightEntry" Relationship="Self.FK_S_UserRightEntry_Sys_EntryModule" FromRole="Sys_EntryModule" ToRole="S_UserRightEntry" />
+          <NavigationProperty Name="Sys_MainModule" Relationship="Self.FK_Sys_EntryModule_Sys_MainModule" FromRole="Sys_EntryModule" ToRole="Sys_MainModule" />
+        </EntityType>
+        <EntityType Name="Sys_Language">
+          <Key>
+            <PropertyRef Name="LanguageID" />
+          </Key>
+          <Property Name="LanguageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LanguageName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Sys_MainLanguage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LanguageID" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Word" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Keyword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Sys_MainModule">
+          <Key>
+            <PropertyRef Name="MainModuleID" />
+          </Key>
+          <Property Name="MainModuleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MainModuleName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Sys_EntryModule" Relationship="Self.FK_Sys_EntryModule_Sys_MainModule" FromRole="Sys_MainModule" ToRole="Sys_EntryModule" />
+          <NavigationProperty Name="Sys_ReportModule" Relationship="Self.FK_Sys_ReportModule_Sys_MainModule" FromRole="Sys_MainModule" ToRole="Sys_ReportModule" />
+          <NavigationProperty Name="Sys_SetupModule" Relationship="Self.FK_Sys_SetupModule_Sys_MainModule" FromRole="Sys_MainModule" ToRole="Sys_SetupModule" />
+        </EntityType>
+        <EntityType Name="Sys_ProductNature">
+          <Key>
+            <PropertyRef Name="NatureID" />
+          </Key>
+          <Property Name="NatureID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NatureType" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Sys_ReportModule">
+          <Key>
+            <PropertyRef Name="ReportModuleID" />
+          </Key>
+          <Property Name="ReportModuleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MainModuleID" Type="Int32" />
+          <Property Name="ReportModuleName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="SortCode" Type="Int32" />
+          <NavigationProperty Name="S_UserRightReport" Relationship="Self.FK_S_UserRightReport_Sys_ReportModule" FromRole="Sys_ReportModule" ToRole="S_UserRightReport" />
+          <NavigationProperty Name="Sys_MainModule" Relationship="Self.FK_Sys_ReportModule_Sys_MainModule" FromRole="Sys_ReportModule" ToRole="Sys_MainModule" />
+        </EntityType>
+        <EntityType Name="Sys_SetupModule">
+          <Key>
+            <PropertyRef Name="SetupModuleID" />
+          </Key>
+          <Property Name="SetupModuleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MainModuleID" Type="Int32" />
+          <Property Name="SetupModuleName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="SortCode" Type="Int32" />
+          <NavigationProperty Name="S_UserRightSetup" Relationship="Self.FK_S_UserRightSetup_Sys_SetupModule" FromRole="Sys_SetupModule" ToRole="S_UserRightSetup" />
+          <NavigationProperty Name="Sys_MainModule" Relationship="Self.FK_Sys_SetupModule_Sys_MainModule" FromRole="Sys_SetupModule" ToRole="Sys_MainModule" />
+        </EntityType>
+        <EntityType Name="Sys_TranID">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SaleTranID" Type="Int32" Nullable="false" />
+          <Property Name="SaleOrderTranID" Type="Int32" Nullable="false" />
+          <Property Name="SaleReturnTranID" Type="Int32" Nullable="false" />
+          <Property Name="SaleConsignTranID" Type="Int32" Nullable="false" />
+          <Property Name="PurTranID" Type="Int32" Nullable="false" />
+          <Property Name="PurOrderTranID" Type="Int32" Nullable="false" />
+          <Property Name="PurReturnTranID" Type="Int32" Nullable="false" />
+          <Property Name="PurConsignTranID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="T_Delivery">
+          <Key>
+            <PropertyRef Name="DeliveryID" />
+          </Key>
+          <Property Name="DeliveryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TranID" Type="Int32" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="Recipient" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="T_MasterSale">
+          <Key>
+            <PropertyRef Name="TranID" />
+          </Key>
+          <Property Name="SaleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TranID" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="Voucher" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="CustomerID" Type="Int32" />
+          <Property Name="LocationID" Type="Int32" />
+          <Property Name="PaymentID" Type="Int32" />
+          <Property Name="CurrencyID" Type="Int32" />
+          <Property Name="IsDelivery" Type="Boolean" />
+          <Property Name="VoucherDis" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="PaidAmt" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="FOCAmt" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="TaxAmt" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="ChargesAmt" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="TotalAmt" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="NetAmt" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="CreditLimitDay" Type="Int32" />
+          <NavigationProperty Name="S_Customer" Relationship="Self.FK_T_MasterSale_S_Customer" FromRole="T_MasterSale" ToRole="S_Customer" />
+          <NavigationProperty Name="S_Location" Relationship="Self.FK_T_MasterSale_S_Location" FromRole="T_MasterSale" ToRole="S_Location" />
+          <NavigationProperty Name="S_Payment" Relationship="Self.FK_T_MasterSale_S_Payment" FromRole="T_MasterSale" ToRole="S_Payment" />
+          <NavigationProperty Name="S_User" Relationship="Self.FK_T_MasterSale_S_User" FromRole="T_MasterSale" ToRole="S_User" />
+          <NavigationProperty Name="Sys_Currency" Relationship="Self.FK_T_MasterSale_S_Currency" FromRole="T_MasterSale" ToRole="Sys_Currency" />
+        </EntityType>
+        <EntityType Name="T_TranSale">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TranID" Type="Int32" Nullable="false" />
+          <Property Name="ProductID" Type="Int32" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="SalePrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="DiscountAmt" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="TotalAmount" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="S_Product" Relationship="Self.FK_T_TranSale_S_Product" FromRole="T_TranSale" ToRole="S_Product" />
+        </EntityType>
+        <Association Name="FK_S_Location_S_Branch">
+          <End Role="S_Branch" Type="Self.S_Branch" Multiplicity="0..1" />
+          <End Role="S_Location" Type="Self.S_Location" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="S_Branch">
+              <PropertyRef Name="BranchID" />
+            </Principal>
+            <Dependent Role="S_Location">
+              <PropertyRef Name="BranchID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_S_Customer_S_Township">
+          <End Role="S_Township" Type="Self.S_Township" Multiplicity="0..1" />
+          <End Role="S_Customer" Type="Self.S_Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="S_Township">
+              <PropertyRef Name="TownshipID" />
+            </Principal>
+            <Dependent Role="S_Customer">
+              <PropertyRef Name="TownshipID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_MasterSale_S_Customer">
+          <End Role="S_Customer" Type="Self.S_Customer" Multiplicity="0..1" />
+          <End Role="T_MasterSale" Type="Self.T_MasterSale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="S_Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="T_MasterSale">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_S_VouFormat_S_Location">
+          <End Role="S_Location" Type="Self.S_Location" Multiplicity="0..1" />
+          <End Role="S_VoucherFormat" Type="Self.S_VoucherFormat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="S_Location">
+              <PropertyRef Name="LocationID" />
+            </Principal>
+            <Dependent Role="S_VoucherFormat">
+              <PropertyRef Name="BranchID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_MasterSale_S_Location">
+          <End Role="S_Location" Type="Self.S_Location" Multiplicity="0..1" />
+          <End Role="T_MasterSale" Type="Self.T_MasterSale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="S_Location">
+              <PropertyRef Name="LocationID" />
+            </Principal>
+            <Dependent Role="T_MasterSale">
+              <PropertyRef Name="LocationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_S_SubMenu_S_MainMenu">
+          <End Role="S_MainMenu" Type="Self.S_MainMenu" Multiplicity="0..1" />
+          <End Role="S_SubMenu" Type="Self.S_SubMenu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="S_MainMenu">
+              <PropertyRef Name="MainMenuID" />
+            </Principal>
+            <Dependent Role="S_SubMenu">
+              <PropertyRef Name="MainMenuID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_MasterSale_S_Payment">
+          <End Role="S_Payment" Type="Self.S_Payment" Multiplicity="0..1" />
+          <End Role="T_MasterSale" Type="Self.T_MasterSale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="S_Payment">
+              <PropertyRef Name="PaymentID" />
+            </Principal>
+            <Dependent Role="T_MasterSale">
+              <PropertyRef Name="PaymentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_S_Product_S_SubMenu">
+          <End Role="S_SubMenu" Type="Self.S_SubMenu" Multiplicity="0..1" />
+          <End Role="S_Product" Type="Self.S_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="S_SubMenu">
+              <PropertyRef Name="SubMenuID" />
+            </Principal>
+            <Dependent Role="S_Product">
+              <PropertyRef Name="SubMenuID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_S_Product_S_Unit">
+          <End Role="S_Unit" Type="Self.S_Unit" Multiplicity="0..1" />
+          <End Role="S_Product" Type="Self.S_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="S_Unit">
+              <PropertyRef Name="UnitID" />
+            </Principal>
+            <Dependent Role="S_Product">
+              <PropertyRef Name="IsUnit" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_TranSale_S_Product">
+          <End Role="S_Product" Type="Self.S_Product" Multiplicity="0..1" />
+          <End Role="T_TranSale" Type="Self.T_TranSale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="S_Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="T_TranSale">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_S_Supplier_S_Township">
+          <End Role="S_Township" Type="Self.S_Township" Multiplicity="0..1" />
+          <End Role="S_Supplier" Type="Self.S_Supplier" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="S_Township">
+              <PropertyRef Name="TownshipID" />
+            </Principal>
+            <Dependent Role="S_Supplier">
+              <PropertyRef Name="TownshipID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_S_UserRightEntry_S_User">
+          <End Role="S_User" Type="Self.S_User" Multiplicity="0..1" />
+          <End Role="S_UserRightEntry" Type="Self.S_UserRightEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="S_User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="S_UserRightEntry">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_S_UserRightReport_S_User">
+          <End Role="S_User" Type="Self.S_User" Multiplicity="0..1" />
+          <End Role="S_UserRightReport" Type="Self.S_UserRightReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="S_User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="S_UserRightReport">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_S_UserRightSetup_S_User">
+          <End Role="S_User" Type="Self.S_User" Multiplicity="0..1" />
+          <End Role="S_UserRightSetup" Type="Self.S_UserRightSetup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="S_User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="S_UserRightSetup">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_MasterSale_S_User">
+          <End Role="S_User" Type="Self.S_User" Multiplicity="0..1" />
+          <End Role="T_MasterSale" Type="Self.T_MasterSale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="S_User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="T_MasterSale">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_S_UserRightEntry_Sys_EntryModule">
+          <End Role="Sys_EntryModule" Type="Self.Sys_EntryModule" Multiplicity="0..1" />
+          <End Role="S_UserRightEntry" Type="Self.S_UserRightEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sys_EntryModule">
+              <PropertyRef Name="EntryModuleID" />
+            </Principal>
+            <Dependent Role="S_UserRightEntry">
+              <PropertyRef Name="EntryModuleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_S_UserRightReport_Sys_ReportModule">
+          <End Role="Sys_ReportModule" Type="Self.Sys_ReportModule" Multiplicity="0..1" />
+          <End Role="S_UserRightReport" Type="Self.S_UserRightReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sys_ReportModule">
+              <PropertyRef Name="ReportModuleID" />
+            </Principal>
+            <Dependent Role="S_UserRightReport">
+              <PropertyRef Name="ReportModuleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_S_UserRightSetup_Sys_SetupModule">
+          <End Role="Sys_SetupModule" Type="Self.Sys_SetupModule" Multiplicity="0..1" />
+          <End Role="S_UserRightSetup" Type="Self.S_UserRightSetup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sys_SetupModule">
+              <PropertyRef Name="SetupModuleID" />
+            </Principal>
+            <Dependent Role="S_UserRightSetup">
+              <PropertyRef Name="SetupModuleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_MasterSale_S_Currency">
+          <End Role="Sys_Currency" Type="Self.Sys_Currency" Multiplicity="0..1" />
+          <End Role="T_MasterSale" Type="Self.T_MasterSale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sys_Currency">
+              <PropertyRef Name="CurrencyID" />
+            </Principal>
+            <Dependent Role="T_MasterSale">
+              <PropertyRef Name="CurrencyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sys_EntryModule_Sys_MainModule">
+          <End Role="Sys_MainModule" Type="Self.Sys_MainModule" Multiplicity="0..1" />
+          <End Role="Sys_EntryModule" Type="Self.Sys_EntryModule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sys_MainModule">
+              <PropertyRef Name="MainModuleID" />
+            </Principal>
+            <Dependent Role="Sys_EntryModule">
+              <PropertyRef Name="MainModuleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sys_ReportModule_Sys_MainModule">
+          <End Role="Sys_MainModule" Type="Self.Sys_MainModule" Multiplicity="0..1" />
+          <End Role="Sys_ReportModule" Type="Self.Sys_ReportModule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sys_MainModule">
+              <PropertyRef Name="MainModuleID" />
+            </Principal>
+            <Dependent Role="Sys_ReportModule">
+              <PropertyRef Name="MainModuleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sys_SetupModule_Sys_MainModule">
+          <End Role="Sys_MainModule" Type="Self.Sys_MainModule" Multiplicity="0..1" />
+          <End Role="Sys_SetupModule" Type="Self.Sys_SetupModule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sys_MainModule">
+              <PropertyRef Name="MainModuleID" />
+            </Principal>
+            <Dependent Role="Sys_SetupModule">
+              <PropertyRef Name="MainModuleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="InventoryDBEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="S_AdjustType" EntityType="Self.S_AdjustType" />
+          <EntitySet Name="S_Branch" EntityType="Self.S_Branch" />
+          <EntitySet Name="S_CompanySetting" EntityType="Self.S_CompanySetting" />
+          <EntitySet Name="S_Customer" EntityType="Self.S_Customer" />
+          <EntitySet Name="S_Location" EntityType="Self.S_Location" />
+          <EntitySet Name="S_MainMenu" EntityType="Self.S_MainMenu" />
+          <EntitySet Name="S_Payment" EntityType="Self.S_Payment" />
+          <EntitySet Name="S_Product" EntityType="Self.S_Product" />
+          <EntitySet Name="S_ProductBranch" EntityType="Self.S_ProductBranch" />
+          <EntitySet Name="S_ProductUnit" EntityType="Self.S_ProductUnit" />
+          <EntitySet Name="S_SubMenu" EntityType="Self.S_SubMenu" />
+          <EntitySet Name="S_Supplier" EntityType="Self.S_Supplier" />
+          <EntitySet Name="S_Township" EntityType="Self.S_Township" />
+          <EntitySet Name="S_Unit" EntityType="Self.S_Unit" />
+          <EntitySet Name="S_User" EntityType="Self.S_User" />
+          <EntitySet Name="S_UserRightEntry" EntityType="Self.S_UserRightEntry" />
+          <EntitySet Name="S_UserRightReport" EntityType="Self.S_UserRightReport" />
+          <EntitySet Name="S_UserRightSetup" EntityType="Self.S_UserRightSetup" />
+          <EntitySet Name="S_VoucherFormat" EntityType="Self.S_VoucherFormat" />
+          <EntitySet Name="S_VoucherSetting" EntityType="Self.S_VoucherSetting" />
+          <EntitySet Name="Sys_Admin" EntityType="Self.Sys_Admin" />
+          <EntitySet Name="Sys_AppWord" EntityType="Self.Sys_AppWord" />
+          <EntitySet Name="Sys_Currency" EntityType="Self.Sys_Currency" />
+          <EntitySet Name="Sys_EntryModule" EntityType="Self.Sys_EntryModule" />
+          <EntitySet Name="Sys_Language" EntityType="Self.Sys_Language" />
+          <EntitySet Name="Sys_MainLanguage" EntityType="Self.Sys_MainLanguage" />
+          <EntitySet Name="Sys_MainModule" EntityType="Self.Sys_MainModule" />
+          <EntitySet Name="Sys_ProductNature" EntityType="Self.Sys_ProductNature" />
+          <EntitySet Name="Sys_ReportModule" EntityType="Self.Sys_ReportModule" />
+          <EntitySet Name="Sys_SetupModule" EntityType="Self.Sys_SetupModule" />
+          <EntitySet Name="Sys_TranID" EntityType="Self.Sys_TranID" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="T_Delivery" EntityType="Self.T_Delivery" />
+          <EntitySet Name="T_MasterSale" EntityType="Self.T_MasterSale" />
+          <EntitySet Name="T_TranSale" EntityType="Self.T_TranSale" />
+          <AssociationSet Name="FK_S_Location_S_Branch" Association="Self.FK_S_Location_S_Branch">
+            <End Role="S_Branch" EntitySet="S_Branch" />
+            <End Role="S_Location" EntitySet="S_Location" />
+          </AssociationSet>
+          <AssociationSet Name="FK_S_Customer_S_Township" Association="Self.FK_S_Customer_S_Township">
+            <End Role="S_Township" EntitySet="S_Township" />
+            <End Role="S_Customer" EntitySet="S_Customer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_MasterSale_S_Customer" Association="Self.FK_T_MasterSale_S_Customer">
+            <End Role="S_Customer" EntitySet="S_Customer" />
+            <End Role="T_MasterSale" EntitySet="T_MasterSale" />
+          </AssociationSet>
+          <AssociationSet Name="FK_S_VouFormat_S_Location" Association="Self.FK_S_VouFormat_S_Location">
+            <End Role="S_Location" EntitySet="S_Location" />
+            <End Role="S_VoucherFormat" EntitySet="S_VoucherFormat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_MasterSale_S_Location" Association="Self.FK_T_MasterSale_S_Location">
+            <End Role="S_Location" EntitySet="S_Location" />
+            <End Role="T_MasterSale" EntitySet="T_MasterSale" />
+          </AssociationSet>
+          <AssociationSet Name="FK_S_SubMenu_S_MainMenu" Association="Self.FK_S_SubMenu_S_MainMenu">
+            <End Role="S_MainMenu" EntitySet="S_MainMenu" />
+            <End Role="S_SubMenu" EntitySet="S_SubMenu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_MasterSale_S_Payment" Association="Self.FK_T_MasterSale_S_Payment">
+            <End Role="S_Payment" EntitySet="S_Payment" />
+            <End Role="T_MasterSale" EntitySet="T_MasterSale" />
+          </AssociationSet>
+          <AssociationSet Name="FK_S_Product_S_SubMenu" Association="Self.FK_S_Product_S_SubMenu">
+            <End Role="S_SubMenu" EntitySet="S_SubMenu" />
+            <End Role="S_Product" EntitySet="S_Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_S_Product_S_Unit" Association="Self.FK_S_Product_S_Unit">
+            <End Role="S_Unit" EntitySet="S_Unit" />
+            <End Role="S_Product" EntitySet="S_Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_TranSale_S_Product" Association="Self.FK_T_TranSale_S_Product">
+            <End Role="S_Product" EntitySet="S_Product" />
+            <End Role="T_TranSale" EntitySet="T_TranSale" />
+          </AssociationSet>
+          <AssociationSet Name="FK_S_Supplier_S_Township" Association="Self.FK_S_Supplier_S_Township">
+            <End Role="S_Township" EntitySet="S_Township" />
+            <End Role="S_Supplier" EntitySet="S_Supplier" />
+          </AssociationSet>
+          <AssociationSet Name="FK_S_UserRightEntry_S_User" Association="Self.FK_S_UserRightEntry_S_User">
+            <End Role="S_User" EntitySet="S_User" />
+            <End Role="S_UserRightEntry" EntitySet="S_UserRightEntry" />
+          </AssociationSet>
+          <AssociationSet Name="FK_S_UserRightReport_S_User" Association="Self.FK_S_UserRightReport_S_User">
+            <End Role="S_User" EntitySet="S_User" />
+            <End Role="S_UserRightReport" EntitySet="S_UserRightReport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_S_UserRightSetup_S_User" Association="Self.FK_S_UserRightSetup_S_User">
+            <End Role="S_User" EntitySet="S_User" />
+            <End Role="S_UserRightSetup" EntitySet="S_UserRightSetup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_MasterSale_S_User" Association="Self.FK_T_MasterSale_S_User">
+            <End Role="S_User" EntitySet="S_User" />
+            <End Role="T_MasterSale" EntitySet="T_MasterSale" />
+          </AssociationSet>
+          <AssociationSet Name="FK_S_UserRightEntry_Sys_EntryModule" Association="Self.FK_S_UserRightEntry_Sys_EntryModule">
+            <End Role="Sys_EntryModule" EntitySet="Sys_EntryModule" />
+            <End Role="S_UserRightEntry" EntitySet="S_UserRightEntry" />
+          </AssociationSet>
+          <AssociationSet Name="FK_S_UserRightReport_Sys_ReportModule" Association="Self.FK_S_UserRightReport_Sys_ReportModule">
+            <End Role="Sys_ReportModule" EntitySet="Sys_ReportModule" />
+            <End Role="S_UserRightReport" EntitySet="S_UserRightReport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_S_UserRightSetup_Sys_SetupModule" Association="Self.FK_S_UserRightSetup_Sys_SetupModule">
+            <End Role="Sys_SetupModule" EntitySet="Sys_SetupModule" />
+            <End Role="S_UserRightSetup" EntitySet="S_UserRightSetup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_MasterSale_S_Currency" Association="Self.FK_T_MasterSale_S_Currency">
+            <End Role="Sys_Currency" EntitySet="Sys_Currency" />
+            <End Role="T_MasterSale" EntitySet="T_MasterSale" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sys_EntryModule_Sys_MainModule" Association="Self.FK_Sys_EntryModule_Sys_MainModule">
+            <End Role="Sys_MainModule" EntitySet="Sys_MainModule" />
+            <End Role="Sys_EntryModule" EntitySet="Sys_EntryModule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sys_ReportModule_Sys_MainModule" Association="Self.FK_Sys_ReportModule_Sys_MainModule">
+            <End Role="Sys_MainModule" EntitySet="Sys_MainModule" />
+            <End Role="Sys_ReportModule" EntitySet="Sys_ReportModule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sys_SetupModule_Sys_MainModule" Association="Self.FK_Sys_SetupModule_Sys_MainModule">
+            <End Role="Sys_MainModule" EntitySet="Sys_MainModule" />
+            <End Role="Sys_SetupModule" EntitySet="Sys_SetupModule" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -38,12 +1638,438 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="InventoryDBModelStoreContainer" CdmEntityContainer="InventoryDBEntities">
-          <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="InventoryDBModel.User">
-              <MappingFragment StoreEntitySet="User">
+          <EntitySetMapping Name="S_AdjustType">
+            <EntityTypeMapping TypeName="InventoryDBModel.S_AdjustType">
+              <MappingFragment StoreEntitySet="S_AdjustType">
+                <ScalarProperty Name="AdjustTypeID" ColumnName="AdjustTypeID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ShortName" ColumnName="ShortName" />
+                <ScalarProperty Name="IsIncrease" ColumnName="IsIncrease" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="S_Branch">
+            <EntityTypeMapping TypeName="InventoryDBModel.S_Branch">
+              <MappingFragment StoreEntitySet="S_Branch">
+                <ScalarProperty Name="BranchID" ColumnName="BranchID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ShortName" ColumnName="ShortName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Tax" ColumnName="Tax" />
+                <ScalarProperty Name="ServiceCharges" ColumnName="ServiceCharges" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="S_CompanySetting">
+            <EntityTypeMapping TypeName="InventoryDBModel.S_CompanySetting">
+              <MappingFragment StoreEntitySet="S_CompanySetting">
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Logo" ColumnName="Logo" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Website" ColumnName="Website" />
+                <ScalarProperty Name="Tax" ColumnName="Tax" />
+                <ScalarProperty Name="ServiceCharges" ColumnName="ServiceCharges" />
+                <ScalarProperty Name="IsMultiCurrency" ColumnName="IsMultiCurrency" />
+                <ScalarProperty Name="IsMultiUnit" ColumnName="IsMultiUnit" />
+                <ScalarProperty Name="IsMultiBranch" ColumnName="IsMultiBranch" />
+                <ScalarProperty Name="IsProductByBranch" ColumnName="IsProductByBranch" />
+                <ScalarProperty Name="IsBarcode" ColumnName="IsBarcode" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="IsProductPhoto" ColumnName="IsProductPhoto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="S_Customer">
+            <EntityTypeMapping TypeName="InventoryDBModel.S_Customer">
+              <MappingFragment StoreEntitySet="S_Customer">
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="TownshipID" ColumnName="TownshipID" />
+                <ScalarProperty Name="Contact" ColumnName="Contact" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="IsCredit" ColumnName="IsCredit" />
+                <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
+                <ScalarProperty Name="BranchID" ColumnName="BranchID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="S_Location">
+            <EntityTypeMapping TypeName="InventoryDBModel.S_Location">
+              <MappingFragment StoreEntitySet="S_Location">
+                <ScalarProperty Name="LocationID" ColumnName="LocationID" />
+                <ScalarProperty Name="BranchID" ColumnName="BranchID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ShortName" ColumnName="ShortName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="S_MainMenu">
+            <EntityTypeMapping TypeName="InventoryDBModel.S_MainMenu">
+              <MappingFragment StoreEntitySet="S_MainMenu">
+                <ScalarProperty Name="MainMenuID" ColumnName="MainMenuID" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="SortCode" ColumnName="SortCode" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="S_Payment">
+            <EntityTypeMapping TypeName="InventoryDBModel.S_Payment">
+              <MappingFragment StoreEntitySet="S_Payment">
+                <ScalarProperty Name="PaymentID" ColumnName="PaymentID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Keyword" ColumnName="Keyword" />
+                <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="S_Product">
+            <EntityTypeMapping TypeName="InventoryDBModel.S_Product">
+              <MappingFragment StoreEntitySet="S_Product">
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="SortCode" ColumnName="SortCode" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="SubMenuID" ColumnName="SubMenuID" />
+                <ScalarProperty Name="PurPrice" ColumnName="PurPrice" />
+                <ScalarProperty Name="SalePrice" ColumnName="SalePrice" />
+                <ScalarProperty Name="IsUnit" ColumnName="IsUnit" />
+                <ScalarProperty Name="IsStock" ColumnName="IsStock" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="AlertQty" ColumnName="AlertQty" />
+                <ScalarProperty Name="DisPercent" ColumnName="DisPercent" />
+                <ScalarProperty Name="Barcode" ColumnName="Barcode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="S_ProductBranch">
+            <EntityTypeMapping TypeName="InventoryDBModel.S_ProductBranch">
+              <MappingFragment StoreEntitySet="S_ProductBranch">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="BranchID" ColumnName="BranchID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="S_ProductUnit">
+            <EntityTypeMapping TypeName="InventoryDBModel.S_ProductUnit">
+              <MappingFragment StoreEntitySet="S_ProductUnit">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="UnitID" ColumnName="UnitID" />
+                <ScalarProperty Name="PurPrice" ColumnName="PurPrice" />
+                <ScalarProperty Name="SalePrice" ColumnName="SalePrice" />
+                <ScalarProperty Name="DisPercent" ColumnName="DisPercent" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="S_SubMenu">
+            <EntityTypeMapping TypeName="InventoryDBModel.S_SubMenu">
+              <MappingFragment StoreEntitySet="S_SubMenu">
+                <ScalarProperty Name="SubMenuID" ColumnName="SubMenuID" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="SortCode" ColumnName="SortCode" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="MainMenuID" ColumnName="MainMenuID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="S_Supplier">
+            <EntityTypeMapping TypeName="InventoryDBModel.S_Supplier">
+              <MappingFragment StoreEntitySet="S_Supplier">
+                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="TownshipID" ColumnName="TownshipID" />
+                <ScalarProperty Name="Contact" ColumnName="Contact" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="IsCredit" ColumnName="IsCredit" />
+                <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
+                <ScalarProperty Name="BranchID" ColumnName="BranchID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="S_Township">
+            <EntityTypeMapping TypeName="InventoryDBModel.S_Township">
+              <MappingFragment StoreEntitySet="S_Township">
+                <ScalarProperty Name="TownshipID" ColumnName="TownshipID" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="S_Unit">
+            <EntityTypeMapping TypeName="InventoryDBModel.S_Unit">
+              <MappingFragment StoreEntitySet="S_Unit">
+                <ScalarProperty Name="UnitID" ColumnName="UnitID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Keyword" ColumnName="Keyword" />
+                <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="S_User">
+            <EntityTypeMapping TypeName="InventoryDBModel.S_User">
+              <MappingFragment StoreEntitySet="S_User">
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="BranchID" ColumnName="BranchID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="S_UserRightEntry">
+            <EntityTypeMapping TypeName="InventoryDBModel.S_UserRightEntry">
+              <MappingFragment StoreEntitySet="S_UserRightEntry">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="EntryModuleID" ColumnName="EntryModuleID" />
+                <ScalarProperty Name="IsAllow" ColumnName="IsAllow" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="S_UserRightReport">
+            <EntityTypeMapping TypeName="InventoryDBModel.S_UserRightReport">
+              <MappingFragment StoreEntitySet="S_UserRightReport">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ReportModuleID" ColumnName="ReportModuleID" />
+                <ScalarProperty Name="IsAllow" ColumnName="IsAllow" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="S_UserRightSetup">
+            <EntityTypeMapping TypeName="InventoryDBModel.S_UserRightSetup">
+              <MappingFragment StoreEntitySet="S_UserRightSetup">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="SetupModuleID" ColumnName="SetupModuleID" />
+                <ScalarProperty Name="IsAllow" ColumnName="IsAllow" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="S_VoucherFormat">
+            <EntityTypeMapping TypeName="InventoryDBModel.S_VoucherFormat">
+              <MappingFragment StoreEntitySet="S_VoucherFormat">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="BranchID" ColumnName="BranchID" />
+                <ScalarProperty Name="PreFormat" ColumnName="PreFormat" />
+                <ScalarProperty Name="MidFormat" ColumnName="MidFormat" />
+                <ScalarProperty Name="PostFormat" ColumnName="PostFormat" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="S_VoucherSetting">
+            <EntityTypeMapping TypeName="InventoryDBModel.S_VoucherSetting">
+              <MappingFragment StoreEntitySet="S_VoucherSetting">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="BranchID" ColumnName="BranchID" />
+                <ScalarProperty Name="LocationID" ColumnName="LocationID" />
+                <ScalarProperty Name="VoucherLogo" ColumnName="VoucherLogo" />
+                <ScalarProperty Name="HeaderName" ColumnName="HeaderName" />
+                <ScalarProperty Name="HeaderDesp" ColumnName="HeaderDesp" />
+                <ScalarProperty Name="HeaderPhone" ColumnName="HeaderPhone" />
+                <ScalarProperty Name="HeaderAddress" ColumnName="HeaderAddress" />
+                <ScalarProperty Name="OtherHeader1" ColumnName="OtherHeader1" />
+                <ScalarProperty Name="OtherHeader2" ColumnName="OtherHeader2" />
+                <ScalarProperty Name="FooterMessage1" ColumnName="FooterMessage1" />
+                <ScalarProperty Name="FooterMessage2" ColumnName="FooterMessage2" />
+                <ScalarProperty Name="FooterMessage3" ColumnName="FooterMessage3" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sys_Admin">
+            <EntityTypeMapping TypeName="InventoryDBModel.Sys_Admin">
+              <MappingFragment StoreEntitySet="Sys_Admin">
+                <ScalarProperty Name="AdminID" ColumnName="AdminID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sys_AppWord">
+            <EntityTypeMapping TypeName="InventoryDBModel.Sys_AppWord">
+              <MappingFragment StoreEntitySet="Sys_AppWord">
+                <ScalarProperty Name="WordID" ColumnName="WordID" />
+                <ScalarProperty Name="English" ColumnName="English" />
+                <ScalarProperty Name="Myanmar" ColumnName="Myanmar" />
+                <ScalarProperty Name="Chinese" ColumnName="Chinese" />
+                <ScalarProperty Name="Keyword" ColumnName="Keyword" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sys_Currency">
+            <EntityTypeMapping TypeName="InventoryDBModel.Sys_Currency">
+              <MappingFragment StoreEntitySet="Sys_Currency">
+                <ScalarProperty Name="CurrencyID" ColumnName="CurrencyID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Keyword" ColumnName="Keyword" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+                <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
+                <ScalarProperty Name="IsMultiCurrency" ColumnName="IsMultiCurrency" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sys_EntryModule">
+            <EntityTypeMapping TypeName="InventoryDBModel.Sys_EntryModule">
+              <MappingFragment StoreEntitySet="Sys_EntryModule">
+                <ScalarProperty Name="EntryModuleID" ColumnName="EntryModuleID" />
+                <ScalarProperty Name="MainModuleID" ColumnName="MainModuleID" />
+                <ScalarProperty Name="EntryModuleName" ColumnName="EntryModuleName" />
+                <ScalarProperty Name="SortCode" ColumnName="SortCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sys_Language">
+            <EntityTypeMapping TypeName="InventoryDBModel.Sys_Language">
+              <MappingFragment StoreEntitySet="Sys_Language">
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="LanguageName" ColumnName="LanguageName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sys_MainLanguage">
+            <EntityTypeMapping TypeName="InventoryDBModel.Sys_MainLanguage">
+              <MappingFragment StoreEntitySet="Sys_MainLanguage">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="Word" ColumnName="Word" />
+                <ScalarProperty Name="Keyword" ColumnName="Keyword" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sys_MainModule">
+            <EntityTypeMapping TypeName="InventoryDBModel.Sys_MainModule">
+              <MappingFragment StoreEntitySet="Sys_MainModule">
+                <ScalarProperty Name="MainModuleID" ColumnName="MainModuleID" />
+                <ScalarProperty Name="MainModuleName" ColumnName="MainModuleName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sys_ProductNature">
+            <EntityTypeMapping TypeName="InventoryDBModel.Sys_ProductNature">
+              <MappingFragment StoreEntitySet="Sys_ProductNature">
+                <ScalarProperty Name="NatureID" ColumnName="NatureID" />
+                <ScalarProperty Name="NatureType" ColumnName="NatureType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sys_ReportModule">
+            <EntityTypeMapping TypeName="InventoryDBModel.Sys_ReportModule">
+              <MappingFragment StoreEntitySet="Sys_ReportModule">
+                <ScalarProperty Name="ReportModuleID" ColumnName="ReportModuleID" />
+                <ScalarProperty Name="MainModuleID" ColumnName="MainModuleID" />
+                <ScalarProperty Name="ReportModuleName" ColumnName="ReportModuleName" />
+                <ScalarProperty Name="SortCode" ColumnName="SortCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sys_SetupModule">
+            <EntityTypeMapping TypeName="InventoryDBModel.Sys_SetupModule">
+              <MappingFragment StoreEntitySet="Sys_SetupModule">
+                <ScalarProperty Name="SetupModuleID" ColumnName="SetupModuleID" />
+                <ScalarProperty Name="MainModuleID" ColumnName="MainModuleID" />
+                <ScalarProperty Name="SetupModuleName" ColumnName="SetupModuleName" />
+                <ScalarProperty Name="SortCode" ColumnName="SortCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sys_TranID">
+            <EntityTypeMapping TypeName="InventoryDBModel.Sys_TranID">
+              <MappingFragment StoreEntitySet="Sys_TranID">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SaleTranID" ColumnName="SaleTranID" />
+                <ScalarProperty Name="SaleOrderTranID" ColumnName="SaleOrderTranID" />
+                <ScalarProperty Name="SaleReturnTranID" ColumnName="SaleReturnTranID" />
+                <ScalarProperty Name="SaleConsignTranID" ColumnName="SaleConsignTranID" />
+                <ScalarProperty Name="PurTranID" ColumnName="PurTranID" />
+                <ScalarProperty Name="PurOrderTranID" ColumnName="PurOrderTranID" />
+                <ScalarProperty Name="PurReturnTranID" ColumnName="PurReturnTranID" />
+                <ScalarProperty Name="PurConsignTranID" ColumnName="PurConsignTranID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="InventoryDBModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Delivery">
+            <EntityTypeMapping TypeName="InventoryDBModel.T_Delivery">
+              <MappingFragment StoreEntitySet="T_Delivery">
+                <ScalarProperty Name="DeliveryID" ColumnName="DeliveryID" />
+                <ScalarProperty Name="TranID" ColumnName="TranID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Recipient" ColumnName="Recipient" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_MasterSale">
+            <EntityTypeMapping TypeName="InventoryDBModel.T_MasterSale">
+              <MappingFragment StoreEntitySet="T_MasterSale">
+                <ScalarProperty Name="SaleID" ColumnName="SaleID" />
+                <ScalarProperty Name="TranID" ColumnName="TranID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Voucher" ColumnName="Voucher" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="LocationID" ColumnName="LocationID" />
+                <ScalarProperty Name="PaymentID" ColumnName="PaymentID" />
+                <ScalarProperty Name="CurrencyID" ColumnName="CurrencyID" />
+                <ScalarProperty Name="IsDelivery" ColumnName="IsDelivery" />
+                <ScalarProperty Name="VoucherDis" ColumnName="VoucherDis" />
+                <ScalarProperty Name="PaidAmt" ColumnName="PaidAmt" />
+                <ScalarProperty Name="FOCAmt" ColumnName="FOCAmt" />
+                <ScalarProperty Name="TaxAmt" ColumnName="TaxAmt" />
+                <ScalarProperty Name="ChargesAmt" ColumnName="ChargesAmt" />
+                <ScalarProperty Name="TotalAmt" ColumnName="TotalAmt" />
+                <ScalarProperty Name="NetAmt" ColumnName="NetAmt" />
+                <ScalarProperty Name="CreditLimitDay" ColumnName="CreditLimitDay" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_TranSale">
+            <EntityTypeMapping TypeName="InventoryDBModel.T_TranSale">
+              <MappingFragment StoreEntitySet="T_TranSale">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="TranID" ColumnName="TranID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="SalePrice" ColumnName="SalePrice" />
+                <ScalarProperty Name="DiscountAmt" ColumnName="DiscountAmt" />
+                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

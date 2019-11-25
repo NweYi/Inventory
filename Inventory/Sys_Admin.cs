@@ -12,10 +12,10 @@ namespace Inventory
     using System;
     using System.Collections.Generic;
     
-    public partial class User
+    public partial class Sys_Admin
     {
-        public int UserID { get; set; }
-        public string UserName { get; set; }
+        public int AdminID { get; set; }
+        public string Name { get; set; }
         public string Password { get; set; }
     }
 }
