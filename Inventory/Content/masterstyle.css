@@ -63,7 +63,7 @@ a:focus {
     height: 100vh;
     z-index: 999;
     transition: all 0.3s;
-    background-color:#4f52bb;
+    background-color:#333A4D;
 }
 
 #sidebar.active {
@@ -72,13 +72,13 @@ a:focus {
 
 #sidebar .sidebar-header {
     padding: 20px;
-    background-color:#6164c1;
+    background-color:#3E445C;
     color:#ffffff;
 }
 
 #sidebar ul.components {
     padding: 20px 0;
-    border-bottom: 1px solid #23a59c;
+    border-bottom: 1px solid #3E445C;
 }
 
 #sidebar ul p {
@@ -96,13 +96,13 @@ a:focus {
 #sidebar ul li a:hover {
     text-decoration:none;
     background-color:#ffffff;
-    color:#4f52bb;
+    color:#425367;
 }
 
 #sidebar ul li.active>a,
 a[aria-expanded="true"] {
     color: #fff;
-    background: #4f52bb;
+    background: #3E445C;
 }
 
 a[data-toggle="collapse"] {
@@ -120,7 +120,7 @@ a[data-toggle="collapse"] {
 ul ul a {
     font-size: 0.9em !important;
     padding-left: 30px !important;
-    background: #6164c1;
+    background: #3E445C;
 }
 
 ul.CTAs {
@@ -137,12 +137,12 @@ ul.CTAs a {
 
 a.download {
     background: #ffffff;
-    color: #4f52bb;
+    color: #FAFAFA;
 }
 
 a.article,
 a.article:hover {
-    background: #3e41aa !important;
+    background: #FE5455 !important;
     color: #fff !important;
 }
 
@@ -164,7 +164,7 @@ a.article:hover {
 }
 
 .menu-divider{
-    background-color: #6164c1;height: 1px;margin: 10px;
+    background-color: #3E445C;height: 1px;margin: 10px;
 }
 
 /* ---------------------------------------------------

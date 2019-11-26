@@ -1,0 +1,22 @@
+﻿
+/**  color
+
+    primary-color - #333A4D;
+    primary-soft-color - #3E445C;
+
+	red-color - #FE5455;
+	red-dark-color - #EE4E4F;
+	blue-color - #3D98E2;
+	yellow-color - #F0B81B;
+	light-color - #F8FBFF;
+
+	black-gray-color - #425367;
+
+    gray-color - #FAFAFA;
+    gray-dark-color - #999999;
+*/
+
+Rules
+
+- for css class -   all small letters,  
+					.nav (or) .nav-btn .. [not .nav_btn]
