@@ -1,22 +1,32 @@
 ﻿
 /**  color
 
-    primary-color - #333A4D;
-    primary-soft-color - #3E445C;
+    black-color - #333A4D;
+    black-soft-color - #3E445C;
 
 	red-color - #FE5455;
 	red-dark-color - #EE4E4F;
+
 	blue-color - #3D98E2;
+	blue-color-dark - #328ED9;
+
 	yellow-color - #F0B81B;
 	light-color - #F8FBFF;
 
 	black-gray-color - #425367;
 
-    gray-color - #FAFAFA;
-    gray-dark-color - #999999;
+    gray-color - #F4F4F4;
+    gray-dark-color - #E1E1E1;
 */
 
 Rules
 
 - for css class -   all small letters,  
 					.nav (or) .nav-btn .. [not .nav_btn]
+
+- gridview paging size - 30
+
+- query method for entity framework - use LINQ-to-Entities method
+									  if need, use Entity SQL and Native SQL methods 
+
+

@@ -23,8 +23,8 @@ namespace Inventory
     
         public int TownshipID { get; set; }
         public string Code { get; set; }
-        public string Name { get; set; }
         public Nullable<bool> IsDefault { get; set; }
+        public string TownshipName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<S_Customer> S_Customer { get; set; }

@@ -12,6 +12,8 @@ namespace Inventory
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class InventoryDBEntities : DbContext
     {
@@ -60,5 +62,31 @@ namespace Inventory
         public virtual DbSet<T_Delivery> T_Delivery { get; set; }
         public virtual DbSet<T_MasterSale> T_MasterSale { get; set; }
         public virtual DbSet<T_TranSale> T_TranSale { get; set; }
+    
+        public virtual ObjectResult<Nullable<int>> PrcValidateUser(Nullable<int> userID, string userPassword)
+        {
+            var userIDParameter = userID.HasValue ?
+                new ObjectParameter("UserID", userID) :
+                new ObjectParameter("UserID", typeof(int));
+    
+            var userPasswordParameter = userPassword != null ?
+                new ObjectParameter("UserPassword", userPassword) :
+                new ObjectParameter("UserPassword", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("PrcValidateUser", userIDParameter, userPasswordParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> PrcValidateAdmin(string adminName, string adminPassword)
+        {
+            var adminNameParameter = adminName != null ?
+                new ObjectParameter("AdminName", adminName) :
+                new ObjectParameter("AdminName", typeof(string));
+    
+            var adminPasswordParameter = adminPassword != null ?
+                new ObjectParameter("AdminPassword", adminPassword) :
+                new ObjectParameter("AdminPassword", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("PrcValidateAdmin", adminNameParameter, adminPasswordParameter);
+        }
     }
 }

@@ -22,7 +22,6 @@ namespace Inventory
     
         public int CustomerID { get; set; }
         public string Code { get; set; }
-        public string Name { get; set; }
         public Nullable<int> TownshipID { get; set; }
         public string Contact { get; set; }
         public string Address { get; set; }
@@ -31,6 +30,7 @@ namespace Inventory
         public Nullable<bool> IsCredit { get; set; }
         public Nullable<bool> IsDefault { get; set; }
         public Nullable<int> BranchID { get; set; }
+        public string CustomerName { get; set; }
     
         public virtual S_Township S_Township { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

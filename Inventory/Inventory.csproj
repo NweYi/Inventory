@@ -203,7 +203,6 @@
     <Compile Include="Controllers\SettingController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="General\DBConnector.cs" />
-    <Compile Include="General\Procedures.cs" />
     <Compile Include="General\SystemInfo.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -224,6 +223,7 @@
       <DependentUpon>Inventory.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\BranchModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\SettingModels.cs" />
@@ -346,6 +346,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Image\companylogo.jpg" />
     <Content Include="Inventory.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Inventory.edmx</DependentUpon>
@@ -429,6 +430,7 @@
     <Content Include="Views\Shared\_LayoutReport.cshtml" />
     <Content Include="Views\Home\IndexReport.cshtml" />
     <Content Include="Views\Setting\Startup.cshtml" />
+    <Content Include="Views\User\AdminLogin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

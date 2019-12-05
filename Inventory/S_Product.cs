@@ -23,7 +23,6 @@ namespace Inventory
         public int ProductID { get; set; }
         public string Code { get; set; }
         public Nullable<int> SortCode { get; set; }
-        public string Name { get; set; }
         public string Description { get; set; }
         public Nullable<int> SubMenuID { get; set; }
         public Nullable<decimal> PurPrice { get; set; }
@@ -34,6 +33,7 @@ namespace Inventory
         public Nullable<int> AlertQty { get; set; }
         public Nullable<short> DisPercent { get; set; }
         public string Barcode { get; set; }
+        public string ProductName { get; set; }
     
         public virtual S_SubMenu S_SubMenu { get; set; }
         public virtual S_Unit S_Unit { get; set; }

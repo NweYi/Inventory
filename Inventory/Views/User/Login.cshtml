@@ -1,5 +1,5 @@
 ﻿@using Inventory.Models
-@model LoginViewModel
+@model UserModels.LoginUserModel
 @{
     Layout = null;
 }
@@ -12,7 +12,13 @@
     <title>Login</title>
   
     @Styles.Render("~/Content/bootstrap.min.css")
+    @Styles.Render("~/Content/Site.css")
     @Scripts.Render("~/Scripts/jquery-1.10.2.min.js")
+    @Scripts.Render("~/Scripts/bootstrap.min.js")
+    @Scripts.Render("~/Scripts/jquery-1.10.2.min.js")
+    @Scripts.Render("~/Scripts/jquery.validate.min.js")
+    @Scripts.Render("~/Scripts/jquery.validate.unobtrusive.min.js")
+  
     <style>
         .container-login {
             width: 100%;
@@ -52,18 +58,23 @@
             width:100%;
             color:#ffffff;
             background-color:#3E445C;
+            margin-bottom:40px;
         }
         .inner-login {
             width: 100%;
             position: relative;
         }
-        .create-user {
-            font-size: 15px;
+        .bos-link {
+            font-size: 13px;
             line-height: 1.2;
             text-align: center;
             display: block;
-            padding-top: 120px;
             width:100%;
+            padding-top:10px;
+        }
+        .btn-admin {
+            width:25px;
+            height:25px;
         }
         #btnLogin{
             color:#ffffff;
@@ -75,60 +86,143 @@
     </style>
 </head>
 <body>
+
     <div class="container-login">
 
         <div class="wrap-login">
 
             <div class="inner-login">
 
+           @using (Html.BeginForm("Login","User",FormMethod.Post))
+           {
                 <div class="row">
                     <div class="col-md-12 col-sm-12">
                         @Html.Label("Quick Inventory", new { @class = "title" })
                     </div>
                 </div>
 
-                <div class="row" style="padding:40px 30px 0 30px">
-                    <div class="col-md-12 col-sm-12">
-                        <div class="form-group">     
-                            @Html.DropDownList("UserName", (IEnumerable<SelectListItem>)ViewData["UserList"], new { @class = "form-control" })
+                <div class="row" style="padding:10px 30px 0 30px">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="form-group">
+                                @Html.HiddenFor(m => m.BranchName)
+                                @Html.DropDownListFor(m => m.BranchID, Model.Branches, new { @class = "form-control" , onchange = "document.forms[0].submit();" })
+                            </div>
                         </div>
                     </div>
-                </div>
 
                 <div class="row" style="padding:10px 30px 0 30px">
-                    <div class="col-md-12 col-sm-12">
-                        <div class="form-group">
-                            @Html.TextBoxFor(m => m.Password, new { placeholder = "Password", @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                        <div class="col-md-12 col-sm-12">
+                            <div class="form-group">
+                                @Html.HiddenFor(m => m.UserName)
+                                @Html.DropDownListFor(m => m.UserID, Model.Users, new { @class = "form-control" })
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="row" style="padding:20px 30px 0 30px">
-                    <div class="col-md-12 col-sm-12">
-                        <button id="btnLogin" class="btn btn-lg btn-block">LOGIN</button>
+                <div class="row" style="padding:10px 30px 0 30px">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="form-group">
+                                @Html.PasswordFor(m => m.UserPassword, new { placeholder = "Password", @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.UserPassword, null, new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                <div class="row" style="padding:30px 30px 0 30px">
+                        <div class="col-md-12 col-sm-12">   
+                            @Html.HiddenFor(m => m.ClickedLogin)                         
+                            <button id="btnLogin" class="btn btn-lg btn-block">LOGIN</button>
+                        </div>
+                   </div>
+
+           }
+
+                <div class="row">
+                    <div class="col-md-12 col-sm-12" style="align-self:center;width:100%;text-align:center;padding-top:90px">
+                        <input class="btn-admin" type="image" src="~/Image/companylogo.jpg" value="Admin" data-toggle="modal" data-target="#adminLogin" />
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="col-md-12 col-sm-12">
-                        @Html.ActionLink("New User? Create Now","Register",null,new { @class = "create-user" })
+                   <div class="col-md-12 col-sm-12">
+                        @Html.ActionLink("Blue Ocean Strategy Co.Ltd", "", null, new { @class = "bos-link" })
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+     </div>
+
+    <!-- Modal -->
+    @using (Html.BeginForm("AdminLogin", "User",FormMethod.Post))
+    {
+        <div class="modal fade" id="adminLogin" tabindex="-1" role="dialog" aria-labelledby="adminModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="adminModalLongTitle">ADMIN LOGIN</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12">
+                                <div class="form-group">
+                                    @Html.TextBoxFor(m => m.AdminName, new { placeholder = "Admin", @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.AdminName, null, new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.PasswordFor(m => m.AdminPassword, new { placeholder = "Password", @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.AdminPassword, null, new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="btnAdminLogin" class="btn btn-lg btn-second">LOGIN</button>
                     </div>
                 </div>
             </div>
         </div>
-     </div>
+
+    }
 
     <script type="text/javascript">
         $(document).ready(function () {
-            $("#btnLogin").click(function () {
-                if ($("#Password").val() == "") {
-                    alert("Enter Password.");
-                    $("#Password").focus() = true;
-                }
+
+            $("#BranchID").change(function () {
+                var branchName = $("#BranchID option:selected").text();
+                $("#BranchName").val(branchName);
             });
-        });
+
+            $("#UserID").change(function () {
+                var userName = $("#UserID option:selected").text();
+                $("#UserName").val(userName);
+            });
+
+            $("#btnLogin").click(function () {
+                var userName = $("#UserID option:selected").text();
+                $("#UserName").val(userName);
+                var branchName = $("#BranchID option:selected").text();
+                $("#BranchName").val(branchName);
+                $("#ClickedLogin").val(true);
+            });
+
+        })
     </script>
+
+    @if (ViewBag.Message != null)
+    {
+        <script type="text/javascript">
+
+         $(function() {
+              alert("@ViewBag.Message")
+         });
+
+        </script>
+    }
 
 </body>
 </html>

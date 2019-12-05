@@ -21,9 +21,9 @@ namespace Inventory
         }
     
         public bool UnitID { get; set; }
-        public string Name { get; set; }
         public string Keyword { get; set; }
         public Nullable<bool> IsDefault { get; set; }
+        public string UnitName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<S_Product> S_Product { get; set; }

@@ -15,6 +15,8 @@
     @Scripts.Render("~/Scripts/solid.js")
     @Scripts.Render("~/Scripts/fontawesome.js")
     @Scripts.Render("~/Scripts/Site.js")
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 </head>
 <body>
     <div class="wrapper">
@@ -31,43 +33,55 @@
                 <div class="menu-divider"></div>
                
                 <li>
-                    <a href="#">User</a>
+                    <a href="#" onclick="changeModuleName('Product');"><i class="fas fa-cubes menu-icon"></i>Product</a>
                 </li>
                 <li>
-                    <a href="#">Location</a>
+                    <a href="#" onclick="changeModuleName('Customer');"><i class="fas fa-user-tie menu-icon"></i>Customer</a>
                 </li>
                 <li>
-                    <a href="#">Currency</a>
+                    <a href="#" onclick="changeModuleName('Supplier');"><i class="fas fa-user-tie menu-icon"></i>Supplier</a>
                 </li>
                 <li>
-                    <a href="#">Unit</a>
+                   <a href="#" onclick="changeModuleName('User');"><i class="fas fa-user menu-icon"></i>User</a>
                 </li>
                 <li>
-                    <a href="#">Township</a>
+                    <a href="#" onclick="changeModuleName('User Right');"><i class="fas fa-user-md menu-icon"></i>User Right</a>
                 </li>
                 <li>
-                    <a href="#">Customer</a>
+                    <a href="#" onclick="changeModuleName('Township');"><i class="fas fa-building menu-icon"></i>Township</a>
                 </li>
                 <li>
-                    <a href="#">Supplier</a>
+                    <a href="#" onclick="changeModuleName('Branch');"><i class="fas fa-industry menu-icon"></i>Branch</a>
                 </li>
                 <li>
-                    <a href="#">Employee</a>
+                    <a href="#" onclick="changeModuleName('Location');"><i class="fas fa-store menu-icon"></i>Location</a>
                 </li>
                 <li>
-                    <a href="#">Adjust Type</a>
+                    <a href="#" onclick="changeModuleName('Unit');"><i class="fas fa-ruler menu-icon"></i>Unit</a>
                 </li>
                 <li>
-                    <a href="#">Payment Type</a>
+                    <a href="#" onclick="changeModuleName('Adjust Type');"><i class="fas fa-adjust menu-icon"></i>Adjust Type</a>
                 </li>
                 <li>
-                    <a href="#">Voucher Format</a>
+                    <a href="#" onclick="changeModuleName('Payment');"><i class="fas fa-money-bill-wave-alt menu-icon"></i>Payment</a>
+                </li>
+                <li>
+                    <a href="#" onclick="changeModuleName('Voucher Format');"><i class="fas fa-clipboard-list menu-icon"></i>Voucher Format</a>
+                </li>
+                <li>
+                    <a href="#" onclick="changeModuleName('Voucher Setting');"><i class="fas fa-cog menu-icon"></i>Voucher Setting</a>
+                </li>
+                <li>
+                    <a href="#" onclick="changeModuleName('Company Setting');"><i class="fas fa-cog menu-icon"></i>Company Setting</a>
+                </li>
+                <li>
+                    <a href="#" onclick="changeModuleName('System Setting');"><i class="fas fa-cog menu-icon"></i>System Setting</a>
                 </li>
             </ul>
 
             <ul class="list-unstyled CTAs">
                 <li>
-                    <a href="#" class="download" style="color:#1a827b">BACK</a>
+                    <a href="~/Home/Index" class="download" style="color:#1a827b">BACK</a>
                 </li>
             </ul>
         </nav>
@@ -84,7 +98,7 @@
                         </button>
 
                         <div style="margin-left: 10px;font-weight: bold;color:#425367">
-                            Module Name
+                            <label id="lblModuleName">SETUP</label>
                         </div>
 
                         <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -94,10 +108,10 @@
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="nav navbar-nav ml-auto">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#" style="color:#425367">User Name</a>
+                                    <a class="nav-link" href="#" style="color:#425367">@Session["LoginUserName"]</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" style="color:#FE5455" href="#">Logout</a>
+                                    <a class="nav-link" style="color:#FE5455" href="~/User/Login">Logout</a>
                                 </li>
                             </ul>
                         </div>
@@ -137,6 +151,9 @@
                 $('a[aria-expanded=true]').attr('aria-expanded', 'false');
             });
         });
+        function changeModuleName(name) {
+            $("#lblModuleName").text(name);
+        }
     </script>
 
 

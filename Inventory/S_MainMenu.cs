@@ -23,8 +23,8 @@ namespace Inventory
         public int MainMenuID { get; set; }
         public string Code { get; set; }
         public Nullable<int> SortCode { get; set; }
-        public string Name { get; set; }
         public byte[] Photo { get; set; }
+        public string MainMenuName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<S_SubMenu> S_SubMenu { get; set; }

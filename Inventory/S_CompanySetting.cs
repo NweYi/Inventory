@@ -15,7 +15,6 @@ namespace Inventory
     public partial class S_CompanySetting
     {
         public int CompanyID { get; set; }
-        public string Name { get; set; }
         public string Description { get; set; }
         public byte[] Logo { get; set; }
         public string Phone { get; set; }
@@ -31,5 +30,6 @@ namespace Inventory
         public Nullable<bool> IsBarcode { get; set; }
         public Nullable<int> LanguageID { get; set; }
         public Nullable<bool> IsProductPhoto { get; set; }
+        public string CompanyName { get; set; }
     }
 }

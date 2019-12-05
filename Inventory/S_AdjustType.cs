@@ -15,8 +15,8 @@ namespace Inventory
     public partial class S_AdjustType
     {
         public int AdjustTypeID { get; set; }
-        public string Name { get; set; }
         public string ShortName { get; set; }
         public Nullable<bool> IsIncrease { get; set; }
+        public string AdjustTypeName { get; set; }
     }
 }

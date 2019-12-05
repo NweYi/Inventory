@@ -15,7 +15,7 @@ namespace Inventory
     public partial class Sys_Admin
     {
         public int AdminID { get; set; }
-        public string Name { get; set; }
-        public string Password { get; set; }
+        public string AdminName { get; set; }
+        public string AdminPassword { get; set; }
     }
 }

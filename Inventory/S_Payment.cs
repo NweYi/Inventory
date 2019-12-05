@@ -21,9 +21,9 @@ namespace Inventory
         }
     
         public int PaymentID { get; set; }
-        public string Name { get; set; }
         public string Keyword { get; set; }
         public Nullable<bool> IsDefault { get; set; }
+        public string PaymentName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<T_MasterSale> T_MasterSale { get; set; }

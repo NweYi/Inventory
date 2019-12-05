@@ -14,6 +14,9 @@
     @Scripts.Render("~/Scripts/solid.js")
     @Scripts.Render("~/Scripts/fontawesome.js")
     @Scripts.Render("~/Scripts/Site.js")
+    @Scripts.Render("~/Scripts/jquery-1.10.2.min.js")
+    @Scripts.Render("~/Scripts/jquery.validate.min.js")
+    @Scripts.Render("~/Scripts/jquery.validate.unobtrusive.min.js")
 
 </head>
 <body>
@@ -26,113 +29,99 @@
                 </div>
 
                 <ul class="list-unstyled components">
-                    <p style="color:#f0b81b">Dashboard</p>
+                    <p style="color:#f0b81b;cursor:pointer" onclick="changeModuleName('Dashboard');"><i class="fas fa-tachometer-alt menu-icon"></i>Dashboard</p>
                     <div class="menu-divider"></div>
-                    <p>Touch Sale</p>
+                    <p style="cursor:pointer" onclick="changeModuleName('Touch Sale');"><i class="fas fa-tablet menu-icon"></i>Touch Sale</p>
                     <div class="menu-divider"></div>
                     <li>
-                        <a href="#pos" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">POS</a>
+                        <a href="#pos" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-calculator menu-icon"></i>POS</a>
                         <ul class="collapse list-unstyled" id="pos">
                             <li>
-                                <a href="#">Sale</a>
+                                <a href="#" onclick="changeModuleName('Sale');">Sale</a>
                             </li>
                             <li>
-                                <a href="#">Sale Order</a>
+                                <a href="#" onclick="changeModuleName('Sale Order');">Sale Order</a>
                             </li>
                             <li>
-                                <a href="#">Sale Return</a>
+                                <a href="#" onclick="changeModuleName('Sale Return');">Sale Return</a>
                             </li>
                             <li>
-                                <a href="#">Sale Consign</a>
+                                <a href="#" onclick="changeModuleName('Sale Consign');">Sale Consign</a>
                             </li>
                             <li>
-                                <a href="#">Delivery</a>
+                                <a href="#" onclick="changeModuleName('Delivery');">Delivery</a>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        <a href="#inventory" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Inventory</a>
+                        <a href="#inventory" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-cubes menu-icon"></i>Inventory</a>
                         <ul class="collapse list-unstyled" id="inventory">
                             <li>
-                                <a href="#">Product</a>
+                                <a href="#" onclick="changeModuleName('Opening Stock');">Opening Stock</a>
                             </li>
                             <li>
-                                <a href="#">Price List</a>
+                                <a href="#" onclick="changeModuleName('Stock Adjust');">Stock Adjust</a>
                             </li>
                             <li>
-                                <a href="#">Stock Adjust</a>
+                                <a href="#" onclick="changeModuleName('Stock Transfer');">Stock Transfer</a>
                             </li>
                             <li>
-                                <a href="#">Stock Transfer</a>
+                                <a href="#" onclick="changeModuleName('Stock Conversion');">Stock Conversion</a>
                             </li>
                             <li>
-                                <a href="#">Stock Conversion</a>
-                            </li>
-                            <li>
-                                <a href="#">Opening Stock</a>
+                                <a href="#" onclick="changeModuleName('Price List');">Price List</a>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        <a href="#purchase" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Purchase</a>
+                        <a href="#purchase" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-donate menu-icon"></i>Purchase</a>
                         <ul class="collapse list-unstyled" id="purchase">
                             <li>
-                                <a href="#">Purchase</a>
+                                <a href="#" onclick="changeModuleName('Purchase');">Purchase</a>
                             </li>
                             <li>
-                                <a href="#">Purchase Order</a>
+                                <a href="#" onclick="changeModuleName('Purchase Order');">Purchase Order</a>
                             </li>
                             <li>
-                                <a href="#">Purchase Return</a>
+                                <a href="#" onclick="changeModuleName('Purchase Return');">Purchase Return</a>
                             </li>
                             <li>
-                                <a href="#">Purchase Consign</a>
+                                <a href="#" onclick="changeModuleName('Purchase Consign');">Purchase Consign</a>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        <a href="#outstanding" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Outstanding</a>
+                        <a href="#outstanding" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-hand-holding-usd menu-icon"></i>Outstanding</a>
                         <ul class="collapse list-unstyled" id="outstanding">
                             <li>
-                                <a href="#">Customer Opening</a>
+                                <a href="#" onclick="changeModuleName('Customer Opening');">Customer Opening</a>
                             </li>
                             <li>
-                                <a href="#">Customer Outstanding</a>
+                                <a href="#" onclick="changeModuleName('Customer Outstanding');">Customer Outstanding</a>
                             </li>
                             <li>
-                                <a href="#">Supplier Opening</a>
+                                <a href="#" onclick="changeModuleName('Supplier Opening');">Supplier Opening</a>
                             </li>
                             <li>
-                                <a href="#">Supplier Outstanding</a>
+                                <a href="#" onclick="changeModuleName('Supplier Outstanding');">Supplier Outstanding</a>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        <a href="#">Stock Status</a>
+                        <a href="#" onclick="changeModuleName('Stock Status');"><i class="fas fa-clipboard-check menu-icon"></i>Stock Status</a>
                     </li>
                     <li>
-                        <a href="#">Stock Valuation</a>
+                        <a href="#" onclick="changeModuleName('Stock Valuation');"><i class="fas fa-clipboard-check menu-icon"></i>Stock Valuation</a>
                     </li>
 
-                    <div class="menu-divider"></div>
-
-                    <li>
-                        <a href="#">User Right Setting</a>
-                    </li>
-                    <li>
-                        <a href="#">Shop Setting</a>
-                    </li>
-                    <li>
-                        <a href="#">System Setting</a>
-                    </li>
                 </ul>
 
                 <ul class="list-unstyled CTAs">
                     <li>
-                        <a href="#" class="download" style="color:#425367">SETUP</a>
+                        <a href="~/Home/IndexSetup" class="download" style="color:#425367">SETUP</a>
                     </li>
                     <li>
-                        <a href="#" class="article">REPORT</a>
+                        <a href="~/Home/IndexReport" class="article">REPORT</a>
                     </li>
                 </ul>
             </nav>
@@ -149,7 +138,7 @@
                             </button>
 
                             <div style="margin-left: 10px;font-weight: bold;color: #425367">
-                                Module Name
+                                <label id="lblModuleName">Dashboard</label>
                             </div>
 
                             <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -159,10 +148,10 @@
                             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul class="nav navbar-nav ml-auto">
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#" style="color:#425367">User Name</a>
+                                        <a class="nav-link" href="#" style="color:#425367">@Session["LoginUserName"]</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" style="color:#FE5455" href="#">Logout</a>
+                                        <a class="nav-link" style="color:#FE5455" href="~/User/Login">Logout</a>
                                     </li>
                                 </ul>
                             </div>
@@ -191,17 +180,25 @@
         @Scripts.Render("~/Scripts/jquery.mCustomScrollbar.concat.min.js")
         
         <script type="text/javascript">
-        $(document).ready(function () {
-            $("#sidebar").mCustomScrollbar({
-                theme: "minimal"
+
+            $(document).ready(function () {
+
+                $("#sidebar").mCustomScrollbar({
+                    theme: "minimal"
+                });
+
+                $('#sidebarCollapse').on('click', function () {
+                    $('#sidebar, #content').toggleClass('active');
+                    $('.collapse.in').toggleClass('in');
+                    $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+                });
+
             });
 
-            $('#sidebarCollapse').on('click', function () {
-                $('#sidebar, #content').toggleClass('active');
-                $('.collapse.in').toggleClass('in');
-                $('a[aria-expanded=true]').attr('aria-expanded', 'false');
-            });
-        });
+            function changeModuleName(name) {
+                $("#lblModuleName").text(name);
+            }
+
         </script>
 
    
