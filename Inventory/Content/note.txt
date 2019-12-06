@@ -27,6 +27,8 @@ Rules
 - gridview paging size - 30
 
 - query method for entity framework - use LINQ-to-Entities method
-									  if need, use Entity SQL and Native SQL methods 
+									  if need, use Entity SQL and Native SQL methods
+
+- data and tran clean
 
 
