@@ -29,4 +29,19 @@
 .btn-white-border:hover{
      background-color:#F4F4F4;
 }
+.page-title {
+  line-height: 1.5;
+  color:#425367;
+}
+.control-label {
+  color:#425367;
+}
+.grid-header {
+  font-weight:400;
+  color:#425367;
+}
+.grid-item {
+  color:#425367;
+}
+
 

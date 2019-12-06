@@ -29,6 +29,8 @@ Rules
 - query method for entity framework - use LINQ-to-Entities method
 									  if need, use Entity SQL and Native SQL methods
 
-- data and tran clean
+- page title - use <h3></h3> tag
+
+
 
 

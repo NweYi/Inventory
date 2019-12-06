@@ -69,7 +69,8 @@ namespace Inventory.Controllers
                         Session["LoginBranchName"] = branchName;
                         return RedirectToAction("Index", "Home");
 
-                    case -1: ViewBag.Message = "Password is incorrect.";
+                    case -1:
+                        ViewBag.Message = "Password is incorrect.";
                         break;
                  
                     default: break;
