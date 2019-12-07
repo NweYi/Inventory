@@ -88,5 +88,6 @@ namespace Inventory
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("PrcValidateAdmin", adminNameParameter, adminPasswordParameter);
         }
+        
     }
 }

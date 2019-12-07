@@ -115,5 +115,13 @@ namespace Inventory.Controllers
             return View();
         }
 
+        //GET : User Data
+        public ActionResult UserList()
+        {
+            InventoryDBEntities Entities = new InventoryDBEntities();
+            UserModels user_model = new UserModels();
+            user_model.lstUser = Entities.Database.SqlQuery<UserModels.UserModel>("exec PrcRetrieveUser").ToList();
+            return View(user_model);
+        }
     }
 }

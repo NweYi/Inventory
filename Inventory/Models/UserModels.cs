@@ -44,5 +44,15 @@ namespace Inventory.Models
 
             public bool ClickedLogin { get; set; }
         }
+
+        public class UserModel
+        {
+            public int UserID { get; set; }
+            public String UserName { get; set; }
+            public string UserPassword { get; set; }
+            public int BranchID { get; set; }
+            public string BranchName { get; set; }
+        }
+        public List<UserModel> lstUser { get; set; }
     }
 }

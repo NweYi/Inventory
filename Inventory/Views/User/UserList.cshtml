@@ -1,0 +1,47 @@
+﻿@model Inventory.Models.UserModels
+@{
+    ViewBag.Title = "UserList";
+    Layout = "~/Views/Shared/_LayoutSetup.cshtml";
+}
+
+<div class="container">
+    <div class="row border">
+        <div class="col-6 col-sm-6 col-md-6 col-lg-6 pt-2 pb-2">
+            <label>Users</label>
+        </div>
+        <div class="col-6 col-sm-6 col-md-6 col-lg-6 pt-2 pb-2">
+            <input type="button" value="ADD" class="btn btn-black float-md-right float-lg-right" />
+        </div>
+    </div>
+    <div class="row border mt-2 pt-2 pb-3">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+            @Html.TextBox("txtSearchUser",null, new { @class="form-control",@placeholder="Search..."})
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 mt-3">
+            <table class="pt-2 pl-3 pr-3 row">
+                <thead class="col-sm-12 col-md-12 col-lg-12 bg-gray border">
+                    <tr class="row">
+                        <th class="col-sm-3 col-md-3 col-lg-3">User Name</th>
+                        <th class="col-sm-3 col-md-3 col-lg-3">Password</th>
+                        <th class="col-sm-3 col-md-3 col-lg-3">Branch</th>
+                        <th colspan="2" class="col-sm-3 col-md-3 col-lg-3"></th>
+                    </tr>
+                </thead>
+                <tbody class="col-sm-12 col-md-12 col-lg-12 border">
+                    @foreach (var item in Model.lstUser)
+                    {
+                        <tr class="row border border-bottom-0 border-left-0 border-right-0">
+                            <td class="col-sm-3 col-md-3 col-lg-3">@Html.DisplayName(item.UserName)</td>
+                            <td class="col-sm-3 col-md-3 col-lg-3">@Html.DisplayName(item.UserPassword)</td>
+                            <td class="col-sm-3 col-md-3 col-lg-3">@Html.DisplayName(item.BranchName)</td>
+                            <td class=""><input type="button" value="Edit" class="btn btn-blue" /></td>
+                            <td class=""><input type="button" value="Delete" class="btn btn-red ml-2" /></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+</div>
+
