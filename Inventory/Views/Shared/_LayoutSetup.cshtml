@@ -15,6 +15,7 @@
     @Scripts.Render("~/Scripts/solid.js")
     @Scripts.Render("~/Scripts/fontawesome.js")
     @Scripts.Render("~/Scripts/Site.js")
+    
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 </head>
@@ -36,7 +37,7 @@
                     <a href="#" onclick="changeModuleName('Product');"><i class="fas fa-cubes menu-icon"></i>Product</a>
                 </li>
                 <li>
-                    <a href="#" onclick="changeModuleName('Customer');"><i class="fas fa-user-tie menu-icon"></i>Customer</a>
+                    <a href="~/Customer/CustomerList" onclick="changeModuleName('Customer');"><i class="fas fa-user-tie menu-icon"></i>Customer</a>
                 </li>
                 <li>
                     <a href="#" onclick="changeModuleName('Supplier');"><i class="fas fa-user-tie menu-icon"></i>Supplier</a>
@@ -51,10 +52,10 @@
                     <a href="#" onclick="changeModuleName('Township');"><i class="fas fa-building menu-icon"></i>Township</a>
                 </li>
                 <li>
-                    <a href="#" onclick="changeModuleName('Branch');"><i class="fas fa-industry menu-icon"></i>Branch</a>
+                    <a href="~/Branch/BranchList" onclick="changeModuleName('Branch');"><i class="fas fa-industry menu-icon"></i>Branch</a>
                 </li>
                 <li>
-                    <a href="#" onclick="changeModuleName('Location');"><i class="fas fa-store menu-icon"></i>Location</a>
+                    <a href="~/Location/LocationList" onclick="changeModuleName('Location');"><i class="fas fa-store menu-icon"></i>Location</a>
                 </li>
                 <li>
                     <a href="#" onclick="changeModuleName('Unit');"><i class="fas fa-ruler menu-icon"></i>Unit</a>
@@ -138,8 +139,8 @@
     @Scripts.Render("~/Scripts/popper.min.js")
     @Scripts.Render("~/Scripts/bootstrap.min.js")
     @Scripts.Render("~/Scripts/jquery.mCustomScrollbar.concat.min.js")
-
     <script type="text/javascript">
+       
         $(document).ready(function () {
             $("#sidebar").mCustomScrollbar({
                 theme: "minimal"
@@ -153,6 +154,7 @@
         });
         function changeModuleName(name) {
             $("#lblModuleName").text(name);
+            
         }
     </script>
 

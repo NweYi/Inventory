@@ -88,6 +88,188 @@ namespace Inventory
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("PrcValidateAdmin", adminNameParameter, adminPasswordParameter);
         }
-        
+    
+        public virtual ObjectResult<PrcRetrieveUser_Result> PrcRetrieveUser()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PrcRetrieveUser_Result>("PrcRetrieveUser");
+        }
+    
+        public virtual int PrcUpdateUserData(Nullable<int> user_id, string user_name, string password, Nullable<int> branch_id, Nullable<bool> default_location, Nullable<int> location_id)
+        {
+            var user_idParameter = user_id.HasValue ?
+                new ObjectParameter("user_id", user_id) :
+                new ObjectParameter("user_id", typeof(int));
+    
+            var user_nameParameter = user_name != null ?
+                new ObjectParameter("user_name", user_name) :
+                new ObjectParameter("user_name", typeof(string));
+    
+            var passwordParameter = password != null ?
+                new ObjectParameter("password", password) :
+                new ObjectParameter("password", typeof(string));
+    
+            var branch_idParameter = branch_id.HasValue ?
+                new ObjectParameter("branch_id", branch_id) :
+                new ObjectParameter("branch_id", typeof(int));
+    
+            var default_locationParameter = default_location.HasValue ?
+                new ObjectParameter("default_location", default_location) :
+                new ObjectParameter("default_location", typeof(bool));
+    
+            var location_idParameter = location_id.HasValue ?
+                new ObjectParameter("location_id", location_id) :
+                new ObjectParameter("location_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("PrcUpdateUserData", user_idParameter, user_nameParameter, passwordParameter, branch_idParameter, default_locationParameter, location_idParameter);
+        }
+    
+        public virtual ObjectResult<PrcRetrieveLocationData_Result> PrcRetrieveLocationData()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PrcRetrieveLocationData_Result>("PrcRetrieveLocationData");
+        }
+    
+        public virtual int PrcUpdateLocationData(Nullable<int> location_id, string location_name, string short_name, string description, string code, string phone, string address, string email, Nullable<int> branch_id)
+        {
+            var location_idParameter = location_id.HasValue ?
+                new ObjectParameter("location_id", location_id) :
+                new ObjectParameter("location_id", typeof(int));
+    
+            var location_nameParameter = location_name != null ?
+                new ObjectParameter("location_name", location_name) :
+                new ObjectParameter("location_name", typeof(string));
+    
+            var short_nameParameter = short_name != null ?
+                new ObjectParameter("short_name", short_name) :
+                new ObjectParameter("short_name", typeof(string));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var codeParameter = code != null ?
+                new ObjectParameter("code", code) :
+                new ObjectParameter("code", typeof(string));
+    
+            var phoneParameter = phone != null ?
+                new ObjectParameter("phone", phone) :
+                new ObjectParameter("phone", typeof(string));
+    
+            var addressParameter = address != null ?
+                new ObjectParameter("address", address) :
+                new ObjectParameter("address", typeof(string));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            var branch_idParameter = branch_id.HasValue ?
+                new ObjectParameter("branch_id", branch_id) :
+                new ObjectParameter("branch_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("PrcUpdateLocationData", location_idParameter, location_nameParameter, short_nameParameter, descriptionParameter, codeParameter, phoneParameter, addressParameter, emailParameter, branch_idParameter);
+        }
+    
+        public virtual int PrcUpdateBranchData(Nullable<int> branch_id, string branch_name, string short_name, string description, string code, string phone, string address, string email, string tax, string service_charges, Nullable<int> language_id)
+        {
+            var branch_idParameter = branch_id.HasValue ?
+                new ObjectParameter("branch_id", branch_id) :
+                new ObjectParameter("branch_id", typeof(int));
+    
+            var branch_nameParameter = branch_name != null ?
+                new ObjectParameter("branch_name", branch_name) :
+                new ObjectParameter("branch_name", typeof(string));
+    
+            var short_nameParameter = short_name != null ?
+                new ObjectParameter("short_name", short_name) :
+                new ObjectParameter("short_name", typeof(string));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var codeParameter = code != null ?
+                new ObjectParameter("code", code) :
+                new ObjectParameter("code", typeof(string));
+    
+            var phoneParameter = phone != null ?
+                new ObjectParameter("phone", phone) :
+                new ObjectParameter("phone", typeof(string));
+    
+            var addressParameter = address != null ?
+                new ObjectParameter("address", address) :
+                new ObjectParameter("address", typeof(string));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            var taxParameter = tax != null ?
+                new ObjectParameter("tax", tax) :
+                new ObjectParameter("tax", typeof(string));
+    
+            var service_chargesParameter = service_charges != null ?
+                new ObjectParameter("service_charges", service_charges) :
+                new ObjectParameter("service_charges", typeof(string));
+    
+            var language_idParameter = language_id.HasValue ?
+                new ObjectParameter("language_id", language_id) :
+                new ObjectParameter("language_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("PrcUpdateBranchData", branch_idParameter, branch_nameParameter, short_nameParameter, descriptionParameter, codeParameter, phoneParameter, addressParameter, emailParameter, taxParameter, service_chargesParameter, language_idParameter);
+        }
+    
+        public virtual ObjectResult<PrcRetrieveCustomer_Result> PrcRetrieveCustomer()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PrcRetrieveCustomer_Result>("PrcRetrieveCustomer");
+        }
+    
+        public virtual int PrcUpdateCustomerData(Nullable<int> customerid, string code, string name, Nullable<int> townshipid, string contact, string address, string phone, string email, Nullable<bool> iscredit, Nullable<bool> isdefault, Nullable<int> branchid)
+        {
+            var customeridParameter = customerid.HasValue ?
+                new ObjectParameter("customerid", customerid) :
+                new ObjectParameter("customerid", typeof(int));
+    
+            var codeParameter = code != null ?
+                new ObjectParameter("code", code) :
+                new ObjectParameter("code", typeof(string));
+    
+            var nameParameter = name != null ?
+                new ObjectParameter("name", name) :
+                new ObjectParameter("name", typeof(string));
+    
+            var townshipidParameter = townshipid.HasValue ?
+                new ObjectParameter("townshipid", townshipid) :
+                new ObjectParameter("townshipid", typeof(int));
+    
+            var contactParameter = contact != null ?
+                new ObjectParameter("contact", contact) :
+                new ObjectParameter("contact", typeof(string));
+    
+            var addressParameter = address != null ?
+                new ObjectParameter("address", address) :
+                new ObjectParameter("address", typeof(string));
+    
+            var phoneParameter = phone != null ?
+                new ObjectParameter("phone", phone) :
+                new ObjectParameter("phone", typeof(string));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            var iscreditParameter = iscredit.HasValue ?
+                new ObjectParameter("iscredit", iscredit) :
+                new ObjectParameter("iscredit", typeof(bool));
+    
+            var isdefaultParameter = isdefault.HasValue ?
+                new ObjectParameter("isdefault", isdefault) :
+                new ObjectParameter("isdefault", typeof(bool));
+    
+            var branchidParameter = branchid.HasValue ?
+                new ObjectParameter("branchid", branchid) :
+                new ObjectParameter("branchid", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("PrcUpdateCustomerData", customeridParameter, codeParameter, nameParameter, townshipidParameter, contactParameter, addressParameter, phoneParameter, emailParameter, iscreditParameter, isdefaultParameter, branchidParameter);
+        }
     }
 }

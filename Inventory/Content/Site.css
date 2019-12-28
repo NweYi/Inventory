@@ -52,5 +52,21 @@
 .bg-red-color{
     background-color:#F4F4F4;
 }
+.textarea-height
+{
+    height:125px;
+}
+.btn-clear
+{
+    background:url(/Image/icon-clear.png) no-repeat;
+    background-position:right;
+    background-size:65% 50%;
+    border-left:1px solid #D1D1D1;
+    width:40px;
+}
+.btn-save-width
+{
+    width:100px;
+}
 
 

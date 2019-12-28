@@ -27,6 +27,8 @@ namespace Inventory
         public string UserName { get; set; }
         public Nullable<int> BranchID { get; set; }
         public string UserPassword { get; set; }
+        public Nullable<bool> IsDefaultLocation { get; set; }
+        public Nullable<int> LocationID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<S_UserRightEntry> S_UserRightEntry { get; set; }

@@ -1,0 +1,102 @@
+﻿@model IEnumerable<Inventory.Models.BranchModels.BranchModel>
+@{
+    ViewBag.Title = "BranchList";
+    Layout = "~/Views/Shared/_LayoutSetup.cshtml";
+}
+@section scripts
+{
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>    
+    <script src="~/Scripts/bootstrap.js"></script>    
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script>
+    $(function () {
+        $(".Detail").click(function () {
+            debugger;
+            var $buttonClicked = $(this);
+            var id = $buttonClicked.attr('data-id');
+            var options = { "backdrop": "static", keyboard: true };
+            $.ajax({
+                type: "POST",
+                url: "/Branch/BranchDetail",
+                data: { "Id": id },
+                datatype: "json",
+                success: function (data) {
+                    debugger;
+                    $('#myModalContent').html(data);
+                    $('#myModal').modal(options);
+                    $('#myModal').modal('show');
+                },
+                error: function () {
+                    alert("Dynamic content load failed.");
+                }
+            });
+        });
+        $("#closbtn").click(function () {
+            $('#myModal').modal('hide');
+        });
+    });
+    </script>
+}
+ 
+<div class="container">
+    <div class="row border-bottom pb-2">
+        <div class="col-sm-6 col-md-6 col-lg-6"><h3>Branch</h3></div>
+        <div class="col-sm-6 col-md-6 col-lg-6">@Html.ActionLink("ADD","CreateBranch",null,new { @class="btn btn-black float-right" })</div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-sm-6 col-md-4 col-lg-4">
+            @Html.TextBox("txtSearch",null,new { @class="form-control",@placeholder="Search..." })
+        </div>
+        <div class="col-sm-6 col-md-8 col-lg-8"></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <table class="row pt-2 pl-3 pr-3 mb-3">
+                <thead class="col-sm-12 col-md-12 col-lg-12 border">
+                    <tr class="row bg-gray-color">
+                        <th class="col-sm-5 col-md-5 col-lg-5">Name</th>
+                        <th class="col-sm-4 col-md-4 col-lg-4">Code</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody class="col-sm-12 col-md-12 col-lg-12 border">
+                    @if (Model.Count() > 0)
+                    {
+                        foreach (var model in Model)
+                        {
+                            using (Html.BeginForm())
+                            {
+                                <tr class="row border border-bottom-0 border-left-0 border-right-0">
+                                    <td class="col-sm-5 col-md-5 col-lg-5">@Html.DisplayFor(m => model.BranchName)</td>
+                                    <td class="col-sm-4 col-md-4 col-lg-4">@Html.DisplayFor(m => model.Code)</td>
+                                    <td class="col-sm-3 col-md-3 col-lg-3 justify-content-end">
+                                        <a href="javascript:void(0);" class="Detail btn btn-black" data-id="model.BranchID">View</a>
+                                        <input type="submit" value="Edit" formaction="@Url.Action("EditBranch","Branch",new { id=model.BranchID })" class="btn btn-blue" />
+                                        <input type="submit" value="Delete" formaction="@Url.Action("DeleteBranch","Branch",new { id=model.BranchID })" class="btn btn-red" />
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td>
+                                <label>There is no data found...</label>
+                            </td>
+                        </tr>
+                    }                   
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div id='myModal' class='modal'>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id='myModalContent'></div>
+        </div>
+    </div>
+
+</div>
+
