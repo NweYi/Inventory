@@ -34,6 +34,8 @@ namespace Inventory
         public Nullable<short> DisPercent { get; set; }
         public string Barcode { get; set; }
         public string ProductName { get; set; }
+        public Nullable<decimal> WholeSalePrice { get; set; }
+        public string QRcode { get; set; }
     
         public virtual S_SubMenu S_SubMenu { get; set; }
         public virtual S_Unit S_Unit { get; set; }

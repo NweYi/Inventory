@@ -48,11 +48,8 @@ namespace Inventory
         public virtual DbSet<S_VoucherFormat> S_VoucherFormat { get; set; }
         public virtual DbSet<S_VoucherSetting> S_VoucherSetting { get; set; }
         public virtual DbSet<Sys_Admin> Sys_Admin { get; set; }
-        public virtual DbSet<Sys_AppWord> Sys_AppWord { get; set; }
         public virtual DbSet<Sys_Currency> Sys_Currency { get; set; }
         public virtual DbSet<Sys_EntryModule> Sys_EntryModule { get; set; }
-        public virtual DbSet<Sys_Language> Sys_Language { get; set; }
-        public virtual DbSet<Sys_MainLanguage> Sys_MainLanguage { get; set; }
         public virtual DbSet<Sys_MainModule> Sys_MainModule { get; set; }
         public virtual DbSet<Sys_ProductNature> Sys_ProductNature { get; set; }
         public virtual DbSet<Sys_ReportModule> Sys_ReportModule { get; set; }
@@ -88,6 +85,5 @@ namespace Inventory
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("PrcValidateAdmin", adminNameParameter, adminPasswordParameter);
         }
-        
     }
 }

@@ -14,12 +14,6 @@ namespace Inventory
     
     public partial class S_Branch
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public S_Branch()
-        {
-            this.S_Location = new HashSet<S_Location>();
-        }
-    
         public int BranchID { get; set; }
         public string ShortName { get; set; }
         public string Description { get; set; }
@@ -29,10 +23,6 @@ namespace Inventory
         public string Email { get; set; }
         public string Tax { get; set; }
         public string ServiceCharges { get; set; }
-        public Nullable<int> LanguageID { get; set; }
         public string BranchName { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<S_Location> S_Location { get; set; }
     }
 }

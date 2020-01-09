@@ -28,7 +28,6 @@
           <Property Name="Email" Type="varchar" MaxLength="200" />
           <Property Name="Tax" Type="varchar" MaxLength="50" />
           <Property Name="ServiceCharges" Type="varchar" MaxLength="50" />
-          <Property Name="LanguageID" Type="int" />
         </EntityType>
         <EntityType Name="S_CompanySetting">
           <Key>
@@ -49,8 +48,9 @@
           <Property Name="IsMultiBranch" Type="bit" />
           <Property Name="IsProductByBranch" Type="bit" />
           <Property Name="IsBarcode" Type="bit" />
-          <Property Name="LanguageID" Type="int" />
           <Property Name="IsProductPhoto" Type="bit" />
+          <Property Name="IsQRcode" Type="bit" />
+          <Property Name="IsProductVariant" Type="bit" />
         </EntityType>
         <EntityType Name="S_Customer">
           <Key>
@@ -113,12 +113,14 @@
           <Property Name="SubMenuID" Type="int" />
           <Property Name="PurPrice" Type="money" />
           <Property Name="SalePrice" Type="money" />
+          <Property Name="WholeSalePrice" Type="money" />
           <Property Name="IsUnit" Type="bit" />
           <Property Name="IsStock" Type="bit" />
           <Property Name="Photo" Type="image" />
           <Property Name="AlertQty" Type="int" />
           <Property Name="DisPercent" Type="smallint" />
           <Property Name="Barcode" Type="varchar" MaxLength="50" />
+          <Property Name="QRcode" Type="varchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="S_ProductBranch">
           <Key>
@@ -193,6 +195,8 @@
           <Property Name="UserName" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="UserPassword" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="BranchID" Type="int" />
+          <Property Name="IsDefaultLocation" Type="bit" />
+          <Property Name="LocationID" Type="int" />
         </EntityType>
         <EntityType Name="S_UserRightEntry">
           <Key>
@@ -257,16 +261,6 @@
           <Property Name="AdminName" Type="nvarchar" MaxLength="200" />
           <Property Name="AdminPassword" Type="varchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="Sys_AppWord">
-          <Key>
-            <PropertyRef Name="WordID" />
-          </Key>
-          <Property Name="WordID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="English" Type="varchar" MaxLength="200" />
-          <Property Name="Myanmar" Type="nvarchar" MaxLength="500" />
-          <Property Name="Chinese" Type="nvarchar" MaxLength="500" />
-          <Property Name="Keyword" Type="varchar" MaxLength="50" />
-        </EntityType>
         <EntityType Name="Sys_Currency">
           <Key>
             <PropertyRef Name="CurrencyID" />
@@ -286,22 +280,6 @@
           <Property Name="MainModuleID" Type="int" />
           <Property Name="EntryModuleName" Type="nvarchar" MaxLength="200" />
           <Property Name="SortCode" Type="int" />
-        </EntityType>
-        <EntityType Name="Sys_Language">
-          <Key>
-            <PropertyRef Name="LanguageID" />
-          </Key>
-          <Property Name="LanguageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="LanguageName" Type="nvarchar" MaxLength="50" />
-        </EntityType>
-        <EntityType Name="Sys_MainLanguage">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="LanguageID" Type="varchar" MaxLength="200" />
-          <Property Name="Word" Type="nvarchar" MaxLength="1000" />
-          <Property Name="Keyword" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Sys_MainModule">
           <Key>
@@ -699,11 +677,8 @@
           <EntitySet Name="S_VoucherFormat" EntityType="Self.S_VoucherFormat" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="S_VoucherSetting" EntityType="Self.S_VoucherSetting" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sys_Admin" EntityType="Self.Sys_Admin" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Sys_AppWord" EntityType="Self.Sys_AppWord" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sys_Currency" EntityType="Self.Sys_Currency" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sys_EntryModule" EntityType="Self.Sys_EntryModule" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Sys_Language" EntityType="Self.Sys_Language" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Sys_MainLanguage" EntityType="Self.Sys_MainLanguage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sys_MainModule" EntityType="Self.Sys_MainModule" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sys_ProductNature" EntityType="Self.Sys_ProductNature" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sys_ReportModule" EntityType="Self.Sys_ReportModule" Schema="dbo" store:Type="Tables" />
@@ -828,8 +803,6 @@
           <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="Tax" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ServiceCharges" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="LanguageID" Type="Int32" />
-          <NavigationProperty Name="S_Location" Relationship="Self.FK_S_Location_S_Branch" FromRole="S_Branch" ToRole="S_Location" />
           <Property Name="BranchName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="S_CompanySetting">
@@ -850,9 +823,10 @@
           <Property Name="IsMultiBranch" Type="Boolean" />
           <Property Name="IsProductByBranch" Type="Boolean" />
           <Property Name="IsBarcode" Type="Boolean" />
-          <Property Name="LanguageID" Type="Int32" />
           <Property Name="IsProductPhoto" Type="Boolean" />
           <Property Name="CompanyName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IsQRcode" Type="Boolean" />
+          <Property Name="IsProductVariant" Type="Boolean" />
         </EntityType>
         <EntityType Name="S_Customer">
           <Key>
@@ -931,6 +905,8 @@
           <NavigationProperty Name="S_Unit" Relationship="Self.FK_S_Product_S_Unit" FromRole="S_Product" ToRole="S_Unit" />
           <NavigationProperty Name="T_TranSale" Relationship="Self.FK_T_TranSale_S_Product" FromRole="S_Product" ToRole="T_TranSale" />
           <Property Name="ProductName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="WholeSalePrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="QRcode" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="S_ProductBranch">
           <Key>
@@ -1015,6 +991,8 @@
           <NavigationProperty Name="S_UserRightSetup" Relationship="Self.FK_S_UserRightSetup_S_User" FromRole="S_User" ToRole="S_UserRightSetup" />
           <NavigationProperty Name="T_MasterSale" Relationship="Self.FK_T_MasterSale_S_User" FromRole="S_User" ToRole="T_MasterSale" />
           <Property Name="UserPassword" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsDefaultLocation" Type="Boolean" />
+          <Property Name="LocationID" Type="Int32" />
         </EntityType>
         <EntityType Name="S_UserRightEntry">
           <Key>
@@ -1086,16 +1064,6 @@
           <Property Name="AdminName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="AdminPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="Sys_AppWord">
-          <Key>
-            <PropertyRef Name="WordID" />
-          </Key>
-          <Property Name="WordID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="English" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="Myanmar" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Chinese" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Keyword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="Sys_Currency">
           <Key>
             <PropertyRef Name="CurrencyID" />
@@ -1118,22 +1086,6 @@
           <Property Name="SortCode" Type="Int32" />
           <NavigationProperty Name="S_UserRightEntry" Relationship="Self.FK_S_UserRightEntry_Sys_EntryModule" FromRole="Sys_EntryModule" ToRole="S_UserRightEntry" />
           <NavigationProperty Name="Sys_MainModule" Relationship="Self.FK_Sys_EntryModule_Sys_MainModule" FromRole="Sys_EntryModule" ToRole="Sys_MainModule" />
-        </EntityType>
-        <EntityType Name="Sys_Language">
-          <Key>
-            <PropertyRef Name="LanguageID" />
-          </Key>
-          <Property Name="LanguageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="LanguageName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="Sys_MainLanguage">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="LanguageID" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="Word" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="Keyword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Sys_MainModule">
           <Key>
@@ -1536,11 +1488,8 @@
           <EntitySet Name="S_VoucherFormat" EntityType="Self.S_VoucherFormat" />
           <EntitySet Name="S_VoucherSetting" EntityType="Self.S_VoucherSetting" />
           <EntitySet Name="Sys_Admin" EntityType="Self.Sys_Admin" />
-          <EntitySet Name="Sys_AppWord" EntityType="Self.Sys_AppWord" />
           <EntitySet Name="Sys_Currency" EntityType="Self.Sys_Currency" />
           <EntitySet Name="Sys_EntryModule" EntityType="Self.Sys_EntryModule" />
-          <EntitySet Name="Sys_Language" EntityType="Self.Sys_Language" />
-          <EntitySet Name="Sys_MainLanguage" EntityType="Self.Sys_MainLanguage" />
           <EntitySet Name="Sys_MainModule" EntityType="Self.Sys_MainModule" />
           <EntitySet Name="Sys_ProductNature" EntityType="Self.Sys_ProductNature" />
           <EntitySet Name="Sys_ReportModule" EntityType="Self.Sys_ReportModule" />
@@ -1676,13 +1625,14 @@
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Tax" ColumnName="Tax" />
                 <ScalarProperty Name="ServiceCharges" ColumnName="ServiceCharges" />
-                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="S_CompanySetting">
             <EntityTypeMapping TypeName="InventoryDBModel.S_CompanySetting">
               <MappingFragment StoreEntitySet="S_CompanySetting">
+                <ScalarProperty Name="IsProductVariant" ColumnName="IsProductVariant" />
+                <ScalarProperty Name="IsQRcode" ColumnName="IsQRcode" />
                 <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
                 <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
@@ -1698,7 +1648,6 @@
                 <ScalarProperty Name="IsMultiBranch" ColumnName="IsMultiBranch" />
                 <ScalarProperty Name="IsProductByBranch" ColumnName="IsProductByBranch" />
                 <ScalarProperty Name="IsBarcode" ColumnName="IsBarcode" />
-                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
                 <ScalarProperty Name="IsProductPhoto" ColumnName="IsProductPhoto" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1759,6 +1708,8 @@
           <EntitySetMapping Name="S_Product">
             <EntityTypeMapping TypeName="InventoryDBModel.S_Product">
               <MappingFragment StoreEntitySet="S_Product">
+                <ScalarProperty Name="QRcode" ColumnName="QRcode" />
+                <ScalarProperty Name="WholeSalePrice" ColumnName="WholeSalePrice" />
                 <ScalarProperty Name="ProductName" ColumnName="ProductName" />
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
                 <ScalarProperty Name="Code" ColumnName="Code" />
@@ -1850,6 +1801,8 @@
           <EntitySetMapping Name="S_User">
             <EntityTypeMapping TypeName="InventoryDBModel.S_User">
               <MappingFragment StoreEntitySet="S_User">
+                <ScalarProperty Name="LocationID" ColumnName="LocationID" />
+                <ScalarProperty Name="IsDefaultLocation" ColumnName="IsDefaultLocation" />
                 <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
@@ -1926,17 +1879,6 @@
                 </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Sys_AppWord">
-            <EntityTypeMapping TypeName="InventoryDBModel.Sys_AppWord">
-              <MappingFragment StoreEntitySet="Sys_AppWord">
-                <ScalarProperty Name="WordID" ColumnName="WordID" />
-                <ScalarProperty Name="English" ColumnName="English" />
-                <ScalarProperty Name="Myanmar" ColumnName="Myanmar" />
-                <ScalarProperty Name="Chinese" ColumnName="Chinese" />
-                <ScalarProperty Name="Keyword" ColumnName="Keyword" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Sys_Currency">
             <EntityTypeMapping TypeName="InventoryDBModel.Sys_Currency">
               <MappingFragment StoreEntitySet="Sys_Currency">
@@ -1956,24 +1898,6 @@
                 <ScalarProperty Name="MainModuleID" ColumnName="MainModuleID" />
                 <ScalarProperty Name="EntryModuleName" ColumnName="EntryModuleName" />
                 <ScalarProperty Name="SortCode" ColumnName="SortCode" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Sys_Language">
-            <EntityTypeMapping TypeName="InventoryDBModel.Sys_Language">
-              <MappingFragment StoreEntitySet="Sys_Language">
-                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
-                <ScalarProperty Name="LanguageName" ColumnName="LanguageName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Sys_MainLanguage">
-            <EntityTypeMapping TypeName="InventoryDBModel.Sys_MainLanguage">
-              <MappingFragment StoreEntitySet="Sys_MainLanguage">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
-                <ScalarProperty Name="Word" ColumnName="Word" />
-                <ScalarProperty Name="Keyword" ColumnName="Keyword" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -90,9 +90,9 @@
         @*<p class="alert alert-danger" id="successMessage">@ViewBag.Message</p>*@
         <div class="alert alert-danger" role="alert">
                 <strong>@ViewBag.Message</strong>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                @*<button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
-                </button>
+                </button>*@
             </div>
     }
 
@@ -110,14 +110,17 @@
                     </div>
                 </div>
 
-                <div class="row" style="padding:10px 30px 0 30px">
+                if (ViewBag.IsMultiBranch == true)
+                {
+                    <div class="row" style="padding:10px 30px 0 30px">
                         <div class="col-md-12 col-sm-12">
                             <div class="form-group">
                                 @Html.HiddenFor(m => m.BranchName)
-                                @Html.DropDownListFor(m => m.BranchID, Model.Branches, new { @class = "form-control" , onchange = "document.forms[0].submit();" })
+                                @Html.DropDownListFor(m => m.BranchID, Model.Branches, new { @class = "form-control", onchange = "document.forms[0].submit();" })
                             </div>
                         </div>
                     </div>
+                }
 
                 <div class="row" style="padding:10px 30px 0 30px">
                         <div class="col-md-12 col-sm-12">
@@ -140,14 +143,25 @@
                 <div class="row" style="padding:30px 30px 0 30px">
                         <div class="col-md-12 col-sm-12">   
                             @Html.HiddenFor(m => m.ClickedLogin)                         
-                            <button id="btnLogin" class="btn btn-lg btn-block">LOGIN</button>
+                            <button id="btnLogin" class="btn btn-lg btn-block">@Inventory.Resource.Login</button>
                         </div>
                    </div>
 
            }
 
                 <div class="row">
-                    <div class="col-md-12 col-sm-12" style="align-self:center;width:100%;text-align:center;padding-top:90px">
+                    <div class="col-md-12 col-sm-12" style="align-self:center;width:100%;text-align:center;padding-top:30px">
+                        @{
+                            foreach (var i in Inventory.LanguageMang.AvailableLanguages)
+                            {
+                                @Html.ActionLink(i.LanguageFullName, "ChangeLanguage", "User", new { lang = i.LanguageCultureName }, null) <text> </text>
+                            }
+                        }
+                    </div>
+                </div>
+                 
+                <div class="row">
+                    <div class="col-md-12 col-sm-12" style="align-self:center;width:100%;text-align:center;padding-top:40px">
                         <input class="btn-admin" type="image" src="~/Image/companylogo.jpg" value="Admin" data-toggle="modal" data-target="#adminLogin" />
                     </div>
                 </div>
@@ -190,7 +204,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button id="btnAdminLogin" class="btn btn-lg btn-red">LOGIN</button>
+                        <button id="btnAdminLogin" class="btn btn-lg btn-red">@Inventory.Resource.Login</button>
                     </div>
                 </div>
             </div>
@@ -221,6 +235,7 @@
 
             $(".alert").delay(4000).slideUp(200, function () {
                 $(this).alert('close');
+                $("#ClickedLogin").val(false);
             });
 
         })

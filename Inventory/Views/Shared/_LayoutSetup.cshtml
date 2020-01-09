@@ -29,17 +29,17 @@
 
             <ul class="list-unstyled components">
 
-                <p style="color:#F0B81B">SETUP</p>
+                <p style="color:#F0B81B">@Inventory.Resource.Setup</p>
                 <div class="menu-divider"></div>
                
                 <li>
-                    <a href="#" onclick="changeModuleName('Product');"><i class="fas fa-cubes menu-icon"></i>Product</a>
+                    <a href="#" onclick="changeModuleName('@Inventory.Resource.Product');"><i class="fas fa-cubes menu-icon"></i>@Inventory.Resource.Product</a>
                 </li>
                 <li>
-                    <a href="#" onclick="changeModuleName('Customer');"><i class="fas fa-user-tie menu-icon"></i>Customer</a>
+                    <a href="#" onclick="changeModuleName('@Inventory.Resource.Customer');"><i class="fas fa-user-tie menu-icon"></i>@Inventory.Resource.Customer</a>
                 </li>
                 <li>
-                    <a href="#" onclick="changeModuleName('Supplier');"><i class="fas fa-user-tie menu-icon"></i>Supplier</a>
+                    <a href="#" onclick="changeModuleName('@Inventory.Resource.Supplier');"><i class="fas fa-user-tie menu-icon"></i>@Inventory.Resource.Supplier</a>
                 </li>
                 <li>
                    <a href="~/User/UserList" onclick="changeModuleName('User');"><i class="fas fa-user menu-icon"></i>User</a>
@@ -98,7 +98,7 @@
                         </button>
 
                         <div style="margin-left: 10px;font-weight: bold;color:#425367">
-                            <label id="lblModuleName">SETUP</label>
+                            <label id="lblModuleName">@Inventory.Resource.Setup</label>
                         </div>
 
                         <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

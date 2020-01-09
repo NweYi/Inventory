@@ -28,8 +28,9 @@ namespace Inventory
         public Nullable<bool> IsMultiBranch { get; set; }
         public Nullable<bool> IsProductByBranch { get; set; }
         public Nullable<bool> IsBarcode { get; set; }
-        public Nullable<int> LanguageID { get; set; }
         public Nullable<bool> IsProductPhoto { get; set; }
         public string CompanyName { get; set; }
+        public Nullable<bool> IsQRcode { get; set; }
+        public Nullable<bool> IsProductVariant { get; set; }
     }
 }

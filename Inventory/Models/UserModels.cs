@@ -25,7 +25,7 @@ namespace Inventory.Models
 
             public string UserName { get; set; }
 
-            [Required(ErrorMessage = "Please enter Password.")]
+            [Required(ErrorMessageResourceType = typeof(Resource),ErrorMessageResourceName = "PasswordRequired")]
             [DataType(DataType.Password)]
             public string UserPassword { get; set; }
 

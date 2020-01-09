@@ -8,7 +8,7 @@ using System.Data.Entity.Core.Objects;
 
 namespace Inventory.Controllers
 {
-    public class UserController : Controller
+    public class UserController : MyController
     { 
         // GET: User
         public ActionResult Index()
@@ -16,37 +16,51 @@ namespace Inventory.Controllers
             return View();
         }
 
+        public ActionResult ChangeLanguage(string lang)
+        {
+            new LanguageMang().SetLanguage(lang);
+            return RedirectToAction("Login", "User");
+        }
+
         [HttpGet]
         public ActionResult Login()
         {
-            //using (InventoryDBEntities entity = new InventoryDBEntities())
-            //{
-            //    var branches = new SelectList(entity.S_Branch.ToList(), "BranchID", "Name");
-            //    ViewData["BranchList"] = branches;
-
-            //    var users = new SelectList(entity.S_User.ToList(),"UserID","UserName");
-            //    ViewData["UserList"] = users;
-            //}
             InventoryDBEntities entity = new InventoryDBEntities();
             UserModels.LoginUserModel model = new UserModels.LoginUserModel();
+            CompanySettingModels cModel = new CompanySettingModels();
             int? firstBranchId = 0;
-            foreach (var branch in entity.S_Branch)
-            {
-                model.Branches.Add(new SelectListItem { Text = branch.BranchName, Value = branch.BranchID.ToString() });
+
+            var isMultiBranch = entity.S_CompanySetting.Select(c => c.IsMultiBranch);
+            cModel.IsMultiBranch = isMultiBranch.FirstOrDefault();
+            ViewBag.IsMultiBranch = cModel.IsMultiBranch;
+
+            if (cModel.IsMultiBranch.Value) {
+                foreach (var branch in entity.S_Branch)
+                {
+                    model.Branches.Add(new SelectListItem { Text = branch.BranchName, Value = branch.BranchID.ToString() });
+                }
+                for (int i = 0; i < model.Branches.Count(); i++)
+                {
+                    firstBranchId = Convert.ToInt32(model.Branches[i].Value);
+                    break;
+                }
+                if (firstBranchId.HasValue)
+                {
+                    var users = (from user in entity.S_User where user.BranchID == firstBranchId.Value select user).ToList();
+                    foreach (var user in users)
+                    {
+                        model.Users.Add(new SelectListItem { Text = user.UserName, Value = user.UserID.ToString() });
+                    }
+                }
             }
-            for(int i = 0; i < model.Branches.Count();i++)
+            else
             {
-                firstBranchId =Convert.ToInt32(model.Branches[i].Value);
-                break;
-            }
-            if (firstBranchId.HasValue)
-            {
-                var users = (from user in entity.S_User where user.BranchID == firstBranchId.Value select user).ToList();
-                foreach (var user in users)
+                foreach (var user in entity.S_User)
                 {
                     model.Users.Add(new SelectListItem { Text = user.UserName, Value = user.UserID.ToString() });
                 }
             }
+
             return View(model);
         }
 
@@ -55,6 +69,11 @@ namespace Inventory.Controllers
         {
             InventoryDBEntities entity = new InventoryDBEntities();
             UserModels.LoginUserModel model = new UserModels.LoginUserModel();
+            CompanySettingModels cModel = new CompanySettingModels();
+
+            var isMultiBranch = entity.S_CompanySetting.Select(c => c.IsMultiBranch);
+            cModel.IsMultiBranch = isMultiBranch.FirstOrDefault();
+            ViewBag.IsMultiBranch = cModel.IsMultiBranch;
 
             if (clickedLogin)
             {
@@ -75,17 +94,26 @@ namespace Inventory.Controllers
                  
                     default: break;
                 }
-                
             }
-           
-            foreach (var branch in entity.S_Branch)
+
+            if (cModel.IsMultiBranch.Value)
             {
-                model.Branches.Add(new SelectListItem { Text = branch.BranchName, Value = branch.BranchID.ToString() });
+                foreach (var branch in entity.S_Branch)
+                {
+                    model.Branches.Add(new SelectListItem { Text = branch.BranchName, Value = branch.BranchID.ToString() });
+                }
+                if (branchId.HasValue)
+                {
+                    var users = (from user in entity.S_User where user.BranchID == branchId.Value select user).ToList();
+                    foreach (var user in users)
+                    {
+                        model.Users.Add(new SelectListItem { Text = user.UserName, Value = user.UserID.ToString() });
+                    }
+                }
             }
-            if (branchId.HasValue)
+            else
             {
-                var users = (from user in entity.S_User where user.BranchID == branchId.Value select user).ToList();
-                foreach(var user in users)
+                foreach (var user in entity.S_User)
                 {
                     model.Users.Add(new SelectListItem { Text = user.UserName, Value = user.UserID.ToString() });
                 }
