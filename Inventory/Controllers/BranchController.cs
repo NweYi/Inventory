@@ -127,14 +127,20 @@ namespace Inventory.Controllers
             }
             return View("BranchList",lstBranch);
         }
-        [HttpPost]
+        
         public ActionResult BranchDetail(int id)
         {
             BranchModels.BranchModel model = new BranchModels.BranchModel();
             var customer = Entities.S_Branch.Find(id);
             model.BranchName = customer.BranchName.ToString();
-            model.ShortName = customer.ShortName.ToString();
-            model.Phone = customer.Phone.ToString();
+            if(customer.ShortName!=null)model.ShortName = customer.ShortName.ToString();
+            if(customer.Phone!=null)model.Phone = customer.Phone.ToString();
+            if(customer.Description!=null) model.Description = customer.Description.ToString();
+            if(customer.Code!=null)model.Code = customer.Code.ToString();
+            if(customer.Address!=null)model.Address = customer.Address.ToString();
+            if(customer.Email!=null)model.Email = customer.Email.ToString();
+            if(customer.Tax!=null)model.Tax = customer.Tax.ToString();
+            if(customer.ServiceCharges!=null)model.ServiceCharges = customer.ServiceCharges.ToString();
             return PartialView("BranchDetail",model);
         }
     }

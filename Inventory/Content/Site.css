@@ -68,5 +68,8 @@
 {
     width:100px;
 }
-
+.border-red
+{
+    border:1px solid red;
+}
 
