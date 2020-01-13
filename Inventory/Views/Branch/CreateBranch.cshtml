@@ -6,8 +6,8 @@
 
 <div class="container pl-0 pr-0 pt-0">
     <div class="row border-bottom pb-2">
-        <div class="col-sm-6 col-md-6 col-lg-6"><h3>Create Branch</h3></div>
-        <div class="col-sm-6 col-md-6 col-lg-6">@Html.ActionLink("All Branch","BranchList","Branch",null,new { @class="btn btn-black float-right" })</div>
+        <div class="col-sm-6 col-md-6 col-lg-6"><h5>Create Branch</h5></div>
+        <div class="col-sm-6 col-md-6 col-lg-6">@Html.ActionLink("All Branch","BranchList","Branch",null,new { @class= "btn btn-second float-right" })</div>
     </div>
     <div class="row">
         <div class="col-sm-6 col-md-6 col-lg-6"></div>
@@ -30,8 +30,10 @@
     {
         <div class="row mt-3 border ml-0 mr-0">
             <div class="col-sm-12 col-md-12 col-lg-12 bg-gray-color">
-                <label class="mt-2 font-weight-bold" >Branch Detail</label>
-                <input type="button" value="" onclick="location.href='@Url.Action("CreateBranch", "Branch")'" class="btn btn-clear float-right" />
+                <div class="row">
+                    <div class="col-sm-6 col-md-6 col-lg-6"><label class="mt-2 page-title">Branch Detail</label></div>
+                    <div class="col-sm-6 col-md-6 col-lg-6" onclick="location.href='@Url.Action("CreateBranch", "Branch")'"><button class="btn btn-setup-clear"><i class="fas fa-redo clear-icon"></i></button></div>
+                </div>
             </div>
             <div class="col-sm-12 col-md-12 col-lg-12 mt-2">
                 <div class="row">
@@ -40,7 +42,7 @@
                             <div class="col-sm-12 col-md-12 col-lg-12">
                                 <div class="form-group">
                                     @Html.HiddenFor(m => m.BranchID)
-                                    @Html.LabelFor(m => m.BranchName)
+                                    @Html.LabelFor(m => m.BranchName, new { @class = "control-label" })
                                     @Html.TextBoxFor(m => m.BranchName, new { @class = "form-control" })
                                 </div>
                             </div>
@@ -48,7 +50,7 @@
                         <div class="row">
                             <div class="col-sm-12 col-md-12 col-lg-12">
                                 <div class="form-group">
-                                    @Html.LabelFor(m => m.ShortName)
+                                    @Html.LabelFor(m => m.ShortName, new { @class = "control-label" })
                                     @Html.TextBoxFor(m => m.ShortName, new { @class = "form-control" })
                                 </div>
                             </div>
@@ -56,7 +58,7 @@
                         <div class="row">
                             <div class="col-sm-12 col-md-12 col-lg-12">
                                 <div class="form-group">
-                                    @Html.LabelFor(m => m.Description)
+                                    @Html.LabelFor(m => m.Description, new { @class = "control-label" })
                                     @Html.TextBoxFor(m => m.Description, new { @class = "form-control" })
                                 </div>
                             </div>
@@ -64,7 +66,7 @@
                         <div class="row">
                             <div class="col-sm-12 col-md-12 col-lg-12">
                                 <div class="form-group">
-                                    @Html.LabelFor(m => m.Code)
+                                    @Html.LabelFor(m => m.Code, new { @class = "control-label" })
                                     @Html.TextBoxFor(m => m.Code, new { @class = "form-control" })
                                 </div>
                             </div>
@@ -72,7 +74,7 @@
                         <div class="row">
                             <div class="col-sm-12 col-md-12 col-lg-12">
                                 <div class="form-group">
-                                    @Html.LabelFor(m => m.Phone)
+                                    @Html.LabelFor(m => m.Phone, new { @class = "control-label" })
                                     @Html.TextBoxFor(m => m.Phone, new { @class = "form-control" })
                                 </div>
                             </div>
@@ -82,7 +84,7 @@
                         <div class="row">
                             <div class="col-sm-12 col-md-12 col-lg-12">
                                 <div class="form-group">
-                                    @Html.LabelFor(m => m.Email)
+                                    @Html.LabelFor(m => m.Email, new { @class = "control-label" })
                                     @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
                                 </div>
                             </div>
@@ -90,7 +92,7 @@
                         <div class="row">
                             <div class="col-sm-12 col-md-12 col-lg-12">
                                 <div class="form-group">
-                                    @Html.LabelFor(m => m.Address)
+                                    @Html.LabelFor(m => m.Address, new { @class = "control-label" })
                                     @Html.TextAreaFor(m => m.Address, new { @class = "form-control textarea-height" })
                                 </div>
                             </div>
@@ -98,13 +100,13 @@
                         <div class="row">
                             <div class="col-sm-6 col-md-6 col-lg-6">
                                 <div class="form-group">
-                                    @Html.LabelFor(m => m.Tax)
+                                    @Html.LabelFor(m => m.Tax, new { @class = "control-label" })
                                     @Html.TextBoxFor(m => m.Tax, new { @class = "form-control" })
                                 </div>
                             </div>
                             <div class="col-sm-6 col-md-6 col-lg-6">
                                 <div class="form-group">
-                                    @Html.LabelFor(m => m.ServiceCharges)
+                                    @Html.LabelFor(m => m.ServiceCharges, new { @class = "control-label" })
                                     @Html.TextBoxFor(m => m.ServiceCharges, new { @class = "form-control" })
                                 </div>
                             </div>
@@ -113,11 +115,11 @@
                             <div class="col-sm-12 col-md-12 col-lg-12">
                                 @if (ViewBag.FormType != 2)
                                 {
-                                    <input type="submit" value="SAVE" formaction="@Url.Action("InsertBranch","Branch")" class="btn btn-lg btn-red float-right" />
+                                    <input type="submit" value="SAVE" formaction="@Url.Action("InsertBranch","Branch")" class="btn btn-save-width btn-first float-right" />
                                 }
                                 else
                                 {
-                                    <input type="submit" value="UPDATE" formaction="@Url.Action("UpdateBranch","Branch")" class="btn btn-lg btn-red float-right" />
+                                    <input type="submit" value="UPDATE" formaction="@Url.Action("UpdateBranch","Branch")" class="btn btn-save-width btn-first float-right" />
                                 }
                             </div>
                         </div>

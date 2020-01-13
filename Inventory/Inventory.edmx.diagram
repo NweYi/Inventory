@@ -4,10 +4,10 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="e181c2137b3744888f31481946ce7152" Name="Diagram1" ZoomLevel="66">
+      <Diagram DiagramId="e181c2137b3744888f31481946ce7152" Name="Diagram1">
         <EntityTypeShape EntityType="InventoryDBModel.S_AdjustType" Width="1.5" PointX="5.75" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="InventoryDBModel.S_Branch" Width="1.5" PointX="1.625" PointY="18" IsExpanded="true" />
-        <EntityTypeShape EntityType="InventoryDBModel.S_CompanySetting" Width="1.5" PointX="8.75" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="InventoryDBModel.S_Branch" Width="1.5" PointX="1.5" PointY="19.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="InventoryDBModel.S_CompanySetting" Width="2.375" PointX="15.375" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="InventoryDBModel.S_Customer" Width="1.5" PointX="3.75" PointY="15" IsExpanded="true" />
         <EntityTypeShape EntityType="InventoryDBModel.S_Location" Width="1.5" PointX="3.75" PointY="19.25" IsExpanded="true" />
         <EntityTypeShape EntityType="InventoryDBModel.S_MainMenu" Width="1.5" PointX="8.75" PointY="2.25" IsExpanded="true" />

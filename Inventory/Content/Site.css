@@ -1,4 +1,23 @@
 ﻿
+
+/** buttons */
+
+.btn-first{
+     color:#ffffff;
+     background-color:#3A3972;
+}
+.btn-first:hover{
+     color:#ffffff;
+     background-color:#262555;
+}
+.btn-second{
+     color:#ffffff;
+     background-color:#E5A031;
+}
+.btn-second:hover{
+     color:#ffffff;
+     background-color:#BF8426;
+}
 .btn-black{
      color:#ffffff;
      background-color:#425367;
@@ -20,6 +39,16 @@
 .btn-blue:hover{
      background-color:#328ED9;
 }
+.btn-first-radius{
+     color:#ffffff;
+     background-color:#3A3972;
+     border-radius:5px;
+}
+.btn-second-radius{
+     color:#ffffff;
+     background-color:#E5A031;
+     border-radius:5px;
+}
 .btn-white-border {
     border-radius: 5px;
     border-color: #E1E1E1;
@@ -29,22 +58,76 @@
 .btn-white-border:hover{
      background-color:#F4F4F4;
 }
+.btn-setup-clear
+{
+    border-left:1px solid #D1D1D1;
+    float:right;
+    background-color:#DEE2E6;
+}
+.btn-save-width
+{
+    width:100px;
+}
+.btn-grid-second{
+     color:#ffffff;
+     background-color:#DB982C;
+     font-size:0.9em;
+     border:none;
+     border-radius:3px;
+}
+.btn-grid-second:hover{
+     background-color:#bF8426;
+}
+.btn-grid-red{
+     color:#ffffff;
+     background-color:#FE5455;
+     font-size:0.9em;
+     border:none;
+     border-radius:3px;
+}
+.btn-grid-red:hover{
+     background-color:#EE4E4F;
+}
+.btn-grid-first{
+     color:#ffffff;
+     background-color:#3A3972;
+     font-size:0.9em;
+     border:none;
+     border-radius:3px;
+}
+.btn-grid-first:hover{
+     background-color:#262555;
+}
+
+/** end buttons */
+
+/** general */
+
+.logout:hover{
+     color:#EE4E4F;
+}
 .page-title {
   line-height: 1.5;
   color:#425367;
+  font-size:0.9em;
 }
 .control-label {
   color:#425367;
+  font-size:0.9em;
 }
 .grid-header {
-  font-weight:400;
+  font-size:0.8em;
   color:#425367;
+  padding:5px;
+  background-color:#DEE2E6;
 }
 .grid-item {
-  color:#425367;
+   color:#425367;
+   padding:5px;
+   font-size:0.9em;
 }
 .bg-gray-color{
-    background-color:#F4F4F4;
+    background-color:#DEE2E6;
 }
 .bg-blue-color{
      background-color:#F4F4F4;
@@ -52,25 +135,26 @@
 .bg-red-color{
     background-color:#F4F4F4;
 }
+.bg-light-color{
+    background-color:#F8FBFF;
+}
 .textarea-height
 {
     height:125px;
 }
-.btn-clear
+.grid-nodata
 {
-    background:url(/Image/icon-clear.png) no-repeat;
-    background-position:right;
-    background-size:65% 50%;
-    border-left:1px solid #D1D1D1;
-    width:40px;
+  font-size:0.9em;
+  color:#425367;
+  padding:5px;
 }
-.btn-save-width
+.clear-icon
 {
-    width:100px;
+  color:#328ED9;
 }
-.border-red
-{
-    border:1px solid red;
-}
+
+/** end general */
+
+
 
 

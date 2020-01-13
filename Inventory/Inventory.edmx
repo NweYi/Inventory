@@ -120,6 +120,8 @@
           <Property Name="AlertQty" Type="int" />
           <Property Name="DisPercent" Type="smallint" />
           <Property Name="Barcode" Type="varchar" MaxLength="50" />
+          <Property Name="QRcode" Type="nvarchar" MaxLength="200" />
+          <Property Name="IsVariant" Type="bit" />
         </EntityType>
         <EntityType Name="S_ProductBranch">
           <Key>
@@ -849,7 +851,6 @@
           <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="Tax" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ServiceCharges" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="S_Location" Relationship="Self.FK_S_Location_S_Branch" FromRole="S_Branch" ToRole="S_Location" />
           <Property Name="BranchName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="S_CompanySetting">
@@ -871,6 +872,9 @@
           <Property Name="IsBarcode" Type="Boolean" />
           <Property Name="IsProductPhoto" Type="Boolean" />
           <Property Name="CompanyName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IsQRcode" Type="Boolean" />
+          <Property Name="IsProductVariant" Type="Boolean" />
+          <Property Name="IsDifProductByBranch" Type="Boolean" />
         </EntityType>
         <EntityType Name="S_Customer">
           <Key>
@@ -949,6 +953,9 @@
           <NavigationProperty Name="S_Unit" Relationship="Self.FK_S_Product_S_Unit" FromRole="S_Product" ToRole="S_Unit" />
           <NavigationProperty Name="T_TranSale" Relationship="Self.FK_T_TranSale_S_Product" FromRole="S_Product" ToRole="T_TranSale" />
           <Property Name="ProductName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="WholeSalePrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="QRcode" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IsVariant" Type="Boolean" />
         </EntityType>
         <EntityType Name="S_ProductBranch">
           <Key>
@@ -1757,6 +1764,9 @@
           <EntitySetMapping Name="S_CompanySetting">
             <EntityTypeMapping TypeName="InventoryDBModel.S_CompanySetting">
               <MappingFragment StoreEntitySet="S_CompanySetting">
+                <ScalarProperty Name="IsDifProductByBranch" ColumnName="IsDifProductByBranch" />
+                <ScalarProperty Name="IsProductVariant" ColumnName="IsProductVariant" />
+                <ScalarProperty Name="IsQRcode" ColumnName="IsQRcode" />
                 <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
                 <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
@@ -1831,6 +1841,9 @@
           <EntitySetMapping Name="S_Product">
             <EntityTypeMapping TypeName="InventoryDBModel.S_Product">
               <MappingFragment StoreEntitySet="S_Product">
+                <ScalarProperty Name="IsVariant" ColumnName="IsVariant" />
+                <ScalarProperty Name="QRcode" ColumnName="QRcode" />
+                <ScalarProperty Name="WholeSalePrice" ColumnName="WholeSalePrice" />
                 <ScalarProperty Name="ProductName" ColumnName="ProductName" />
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
                 <ScalarProperty Name="Code" ColumnName="Code" />

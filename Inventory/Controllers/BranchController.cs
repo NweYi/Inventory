@@ -4,18 +4,19 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Inventory.Models;
-using System.Data.Entity.Core.Objects;
 
 namespace Inventory.Controllers
 {
     public class BranchController : MyController
     {
         InventoryDBEntities Entities = new InventoryDBEntities();
+
         // GET: Branch
         public ActionResult Index()
         {
             return View();
         }
+
         public ActionResult BranchList()
         {
             var branch = (from B in Entities.S_Branch
@@ -26,7 +27,7 @@ namespace Inventory.Controllers
                               Code = B.Code
                           }).ToList();
             List<BranchModels.BranchModel> lstBranch = new List<BranchModels.BranchModel>();
-            foreach(var item in branch)
+            foreach (var item in branch)
             {
                 BranchModels.BranchModel model = new BranchModels.BranchModel();
                 model.BranchID = Convert.ToInt32(item.BranchID);
@@ -60,7 +61,7 @@ namespace Inventory.Controllers
                 ViewBag.Message = "New Branch is inserted successful..";
                 ViewBag.Type = 1;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ViewBag.Message = "Please enter complete branch data";
                 ViewBag.Type = 2;
@@ -71,7 +72,7 @@ namespace Inventory.Controllers
         public ActionResult EditBranch(int id)
         {
             var branch = Entities.S_Branch.Find(id);
-            if(branch!=null)
+            if (branch != null)
             {
                 BranchModels.BranchModel branch_model = new BranchModels.BranchModel();
                 branch_model.BranchID = Convert.ToInt32(branch.BranchID);
@@ -90,7 +91,7 @@ namespace Inventory.Controllers
             else
             {
                 return View("CreateBranch");
-            }           
+            }
         }
         public ActionResult UpdateBranch(BranchModels.BranchModel branch)
         {
@@ -122,24 +123,17 @@ namespace Inventory.Controllers
                 model.Code = Convert.ToString(item.Code);
                 lstBranch.Add(model);
             }
-            return View("BranchList",lstBranch);
+            return View("BranchList", lstBranch);
         }
-        
+        [HttpPost]
         public ActionResult BranchDetail(int id)
         {
             BranchModels.BranchModel model = new BranchModels.BranchModel();
             var customer = Entities.S_Branch.Find(id);
             model.BranchName = customer.BranchName.ToString();
-            if(customer.ShortName!=null)model.ShortName = customer.ShortName.ToString();
-            if(customer.Phone!=null)model.Phone = customer.Phone.ToString();
-            if(customer.Description!=null) model.Description = customer.Description.ToString();
-            if(customer.Code!=null)model.Code = customer.Code.ToString();
-            if(customer.Address!=null)model.Address = customer.Address.ToString();
-            if(customer.Email!=null)model.Email = customer.Email.ToString();
-            if(customer.Tax!=null)model.Tax = customer.Tax.ToString();
-            if(customer.ServiceCharges!=null)model.ServiceCharges = customer.ServiceCharges.ToString();
-            return PartialView("BranchDetail",model);
+            model.ShortName = customer.ShortName.ToString();
+            model.Phone = customer.Phone.ToString();
+            return PartialView("BranchDetail", model);
         }
     }
-
 }

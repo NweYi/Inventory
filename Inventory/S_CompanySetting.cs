@@ -29,5 +29,8 @@ namespace Inventory
         public Nullable<bool> IsBarcode { get; set; }
         public Nullable<bool> IsProductPhoto { get; set; }
         public string CompanyName { get; set; }
+        public Nullable<bool> IsQRcode { get; set; }
+        public Nullable<bool> IsProductVariant { get; set; }
+        public Nullable<bool> IsDifProductByBranch { get; set; }
     }
 }

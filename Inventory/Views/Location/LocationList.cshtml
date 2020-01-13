@@ -33,10 +33,10 @@
 <div class="container pl-0 pr-0">
     <div class="row ml-0 mr-0">
         <div class="col-6 col-sm-6 col-md-6 col-lg-6 pt-2 pb-2">
-            <h3>Location</h3>
+            <h5>Location</h5>
         </div>
         <div class="col-6 col-sm-6 col-md-6 col-lg-6 pt-2 pb-2">
-            @Html.ActionLink("ADD","CreateLocation","Location",null,new { @class="btn btn-black float-right" })
+            @Html.ActionLink("ADD","CreateLocation","Location",null,new { @class= "btn btn-first float-right" })
         </div>
     </div>
     <div class="row mt-1 border-bottom"></div>
@@ -52,7 +52,7 @@
         <div class="col-12 col-sm-12 col-md-12 col-lg-12">
             <table class="pt-3 pl-3 pr-3 row">
                 <thead class="col-sm-12 col-md-12 col-lg-12 bg-gray border">
-                    <tr class="row bg-gray-color">
+                    <tr class="row grid-header">
                         <th class="col-sm-3 col-md-3 col-lg-3">Name</th>
                         <th class="col-sm-3 col-md-3 col-lg-3">Code</th>
                         <th class="col-sm-3 col-md-3 col-lg-3">Branch</th>
@@ -66,7 +66,7 @@
                         {
                             using (Html.BeginForm("DeleteLocation", "Location",new { id=location.LocationID }))
                             {
-                                <tr class="row border border-bottom-0 border-left-0 border-right-0">
+                                <tr class="row border border-bottom-0 border-left-0 border-right-0 grid-item">
                                     <td class="col-sm-3 col-md-3 col-lg-3">
                                         @Html.DisplayFor(m => location.LocationName)
                                     </td>
@@ -83,9 +83,9 @@
                     }
                     else
                     {
-                        <tr class="row bg-gray-color">
+                        <tr class="row bg-light-color">
                             <td class="col-sm-12 col-md-12 col-lg-12">
-                                <label class="text-center">There is no location data...</label>
+                                <label class="text-center grid-nodata">There is no location data...</label>
                             </td>
                         </tr>
                     }

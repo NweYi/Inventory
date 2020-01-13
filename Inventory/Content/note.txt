@@ -1,8 +1,10 @@
 ﻿
 /**  color
 
-    black-color - #333A4D;
-    black-soft-color - #3E445C;
+    first-color - #3A3972;
+	first-dark-color - #262555;
+    second-color - #E5A031;
+	second-dark-color - #BF8426;
 
 	red-color - #FE5455;
 	red-dark-color - #EE4E4F;
@@ -14,8 +16,9 @@
 	light-color - #F8FBFF;
 
 	black-gray-color - #425367;
+	black-soft-color - #3E445C;
 
-    gray-color - #F4F4F4;
+    gray-color - #DEE2E6;
     gray-dark-color - #E1E1E1;
 */
 
@@ -29,7 +32,7 @@ Rules
 - query method for entity framework - use LINQ-to-Entities method
 									  if need, use Entity SQL and Native SQL methods
 
-- page title - use <h3></h3> tag
+- page title - use <h5></h5> tag
 
 - not use zawgyi font , use Unicode
 

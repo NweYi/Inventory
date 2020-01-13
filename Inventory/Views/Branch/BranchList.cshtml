@@ -5,23 +5,21 @@
 }
 @section scripts
 {
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>    
-    <script src="~/Scripts/bootstrap.js"></script>    
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
+
     <script>
     $(function () {
         $(".Detail").click(function () {
-            debugger;
             var $buttonClicked = $(this);
             var id = $buttonClicked.attr('data-id');
             var options = { "backdrop": "static", keyboard: true };
             $.ajax({
-                type: "POST",
-                url: "/Branch/BranchDetail",
-                data: { "Id": id },
-                datatype: "json",
+                type: "GET",
+                url: "/Branch/BranchDetail/",
+                data:"id="+3,
                 success: function (data) {
-                    debugger;
                     $('#myModalContent').html(data);
                     $('#myModal').modal(options);
                     $('#myModal').modal('show');
@@ -35,17 +33,35 @@
             $('#myModal').modal('hide');
         });
     });
+
+    function ShowDetail(id)
+    {
+        var options = { "backdrop": "static", keyboard: true };
+        $.ajax({
+            type: "GET",
+            url: "/Branch/BranchDetail/",
+            data: "id=" + id,
+            success: function (data) {
+                $('#myModalContent').html(data);
+                $('#myModal').modal(options);
+                $('#myModal').modal('show');
+            },
+            error: function () {
+                alert("Dynamic content load failed.");
+            }
+        });
+    }
     </script>
 }
- 
-<div class="container">
+
+<div class="container pl-0 pr-0">
     <div class="row border-bottom pb-2">
-        <div class="col-sm-6 col-md-6 col-lg-6"><h3>Branch</h3></div>
-        <div class="col-sm-6 col-md-6 col-lg-6">@Html.ActionLink("ADD","CreateBranch",null,new { @class="btn btn-black float-right" })</div>
+        <div class="col-sm-6 col-md-6 col-lg-6"><h5>Branch</h5></div>
+        <div class="col-sm-6 col-md-6 col-lg-6">@Html.ActionLink("ADD", "CreateBranch", null, new { @class = "btn btn-first float-right" })</div>
     </div>
     <div class="row mt-2">
         <div class="col-sm-6 col-md-4 col-lg-4">
-            @Html.TextBox("txtSearch",null,new { @class="form-control",@placeholder="Search..." })
+            @Html.TextBox("txtSearch", null, new { @class = "form-control", @placeholder = "Search..." })
         </div>
         <div class="col-sm-6 col-md-8 col-lg-8"></div>
     </div>
@@ -53,7 +69,7 @@
         <div class="col-sm-12 col-md-12 col-lg-12">
             <table class="row pt-2 pl-3 pr-3 mb-3">
                 <thead class="col-sm-12 col-md-12 col-lg-12 border">
-                    <tr class="row bg-gray-color">
+                    <tr class="row grid-header">
                         <th class="col-sm-5 col-md-5 col-lg-5">Name</th>
                         <th class="col-sm-4 col-md-4 col-lg-4">Code</th>
                         <th></th>
@@ -66,13 +82,13 @@
                         {
                             using (Html.BeginForm())
                             {
-                                <tr class="row border border-bottom-0 border-left-0 border-right-0">
+                                <tr class="row border border-bottom-0 border-left-0 border-right-0 grid-item">
                                     <td class="col-sm-5 col-md-5 col-lg-5">@Html.DisplayFor(m => model.BranchName)</td>
                                     <td class="col-sm-4 col-md-4 col-lg-4">@Html.DisplayFor(m => model.Code)</td>
                                     <td class="col-sm-3 col-md-3 col-lg-3 justify-content-end">
-                                        <a href="javascript:void(0);" class="Detail btn btn-black" data-id="model.BranchID">View</a>
-                                        <input type="submit" value="Edit" formaction="@Url.Action("EditBranch","Branch",new { id=model.BranchID })" class="btn btn-blue" />
-                                        <input type="submit" value="Delete" formaction="@Url.Action("DeleteBranch","Branch",new { id=model.BranchID })" class="btn btn-red" />
+                                        <input type="button" class="btn-grid-second" value="View" onclick="ShowDetail(@Convert.ToInt32(model.BranchID));" />
+                                        <input type="submit" value="Edit" formaction="@Url.Action("EditBranch","Branch",new { id=model.BranchID })" class="btn-grid-first" />
+                                        <input type="submit" value="Delete" formaction="@Url.Action("DeleteBranch","Branch",new { id=model.BranchID })" class="btn-grid-red" />
                                     </td>
                                 </tr>
                             }
@@ -80,21 +96,24 @@
                     }
                     else
                     {
-                        <tr>
-                            <td>
-                                <label>There is no data found...</label>
+                        <tr class="row bg-light-color">
+                            <td class="col-sm-12 col-md-12 col-lg-12">
+                                <label class="text-center grid-nodata">There is no data found...</label>
                             </td>
                         </tr>
-                    }                   
+                    }
                 </tbody>
             </table>
         </div>
     </div>
 </div>
-<div id='myModal' class='modal'>
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div id='myModalContent'></div>
+<div id='myModal' class='modal border'>
+    <div class="row ml-0 mr-0">
+        <div class="col-sm-2 col-md-2 col-lg-2"></div>
+        <div class="col-sm-8 col-md-8 col-lg-8 ml-2">
+            <div class="modal-content">
+                <div id='myModalContent'></div>
+            </div>
         </div>
     </div>
 
