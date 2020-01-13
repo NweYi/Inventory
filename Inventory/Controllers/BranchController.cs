@@ -54,8 +54,6 @@ namespace Inventory.Controllers
                 tbl_branch.Address = branch.Address;
                 tbl_branch.Tax = branch.Tax.ToString();
                 tbl_branch.ServiceCharges = branch.ServiceCharges.ToString();
-                if (branch.LanguageID!= null || branch.LanguageID != 0) tbl_branch.LanguageID = Convert.ToInt32(branch.LanguageID);
-                else tbl_branch.LanguageID = null;
                 Entities.S_Branch.Add(tbl_branch);
                 Entities.SaveChanges();
                 ModelState.Clear();
@@ -86,7 +84,6 @@ namespace Inventory.Controllers
                 branch_model.Address = Convert.ToString(branch.Address);
                 branch_model.Tax = Convert.ToString(branch.Tax);
                 branch_model.ServiceCharges = Convert.ToString(branch.ServiceCharges);
-                branch_model.LanguageID = Convert.ToInt32(branch.LanguageID);
                 ViewBag.formType = 2;
                 return View("CreateBranch", branch_model);
             }
@@ -97,7 +94,7 @@ namespace Inventory.Controllers
         }
         public ActionResult UpdateBranch(BranchModels.BranchModel branch)
         {
-            Entities.PrcUpdateBranchData(branch.BranchID, branch.BranchName, branch.ShortName, branch.Description, branch.Code, branch.Phone, branch.Address, branch.Email, branch.Tax, branch.ServiceCharges, branch.LanguageID);
+            Entities.PrcUpdateBranchData(branch.BranchID, branch.BranchName, branch.ShortName, branch.Description, branch.Code, branch.Phone, branch.Address, branch.Email, branch.Tax, branch.ServiceCharges);
             return RedirectToAction("BranchList");
         }
         [HttpPost]

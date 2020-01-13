@@ -48,11 +48,8 @@ namespace Inventory
         public virtual DbSet<S_VoucherFormat> S_VoucherFormat { get; set; }
         public virtual DbSet<S_VoucherSetting> S_VoucherSetting { get; set; }
         public virtual DbSet<Sys_Admin> Sys_Admin { get; set; }
-        public virtual DbSet<Sys_AppWord> Sys_AppWord { get; set; }
         public virtual DbSet<Sys_Currency> Sys_Currency { get; set; }
         public virtual DbSet<Sys_EntryModule> Sys_EntryModule { get; set; }
-        public virtual DbSet<Sys_Language> Sys_Language { get; set; }
-        public virtual DbSet<Sys_MainLanguage> Sys_MainLanguage { get; set; }
         public virtual DbSet<Sys_MainModule> Sys_MainModule { get; set; }
         public virtual DbSet<Sys_ProductNature> Sys_ProductNature { get; set; }
         public virtual DbSet<Sys_ReportModule> Sys_ReportModule { get; set; }
@@ -169,7 +166,7 @@ namespace Inventory
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("PrcUpdateLocationData", location_idParameter, location_nameParameter, short_nameParameter, descriptionParameter, codeParameter, phoneParameter, addressParameter, emailParameter, branch_idParameter);
         }
     
-        public virtual int PrcUpdateBranchData(Nullable<int> branch_id, string branch_name, string short_name, string description, string code, string phone, string address, string email, string tax, string service_charges, Nullable<int> language_id)
+        public virtual int PrcUpdateBranchData(Nullable<int> branch_id, string branch_name, string short_name, string description, string code, string phone, string address, string email, string tax, string service_charges)
         {
             var branch_idParameter = branch_id.HasValue ?
                 new ObjectParameter("branch_id", branch_id) :
@@ -211,11 +208,7 @@ namespace Inventory
                 new ObjectParameter("service_charges", service_charges) :
                 new ObjectParameter("service_charges", typeof(string));
     
-            var language_idParameter = language_id.HasValue ?
-                new ObjectParameter("language_id", language_id) :
-                new ObjectParameter("language_id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("PrcUpdateBranchData", branch_idParameter, branch_nameParameter, short_nameParameter, descriptionParameter, codeParameter, phoneParameter, addressParameter, emailParameter, taxParameter, service_chargesParameter, language_idParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("PrcUpdateBranchData", branch_idParameter, branch_nameParameter, short_nameParameter, descriptionParameter, codeParameter, phoneParameter, addressParameter, emailParameter, taxParameter, service_chargesParameter);
         }
     
         public virtual ObjectResult<PrcRetrieveCustomer_Result> PrcRetrieveCustomer()

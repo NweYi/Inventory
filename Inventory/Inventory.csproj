@@ -253,19 +253,10 @@
     <Compile Include="Sys_Admin.cs">
       <DependentUpon>Inventory.tt</DependentUpon>
     </Compile>
-    <Compile Include="Sys_AppWord.cs">
-      <DependentUpon>Inventory.tt</DependentUpon>
-    </Compile>
     <Compile Include="Sys_Currency.cs">
       <DependentUpon>Inventory.tt</DependentUpon>
     </Compile>
     <Compile Include="Sys_EntryModule.cs">
-      <DependentUpon>Inventory.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Sys_Language.cs">
-      <DependentUpon>Inventory.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Sys_MainLanguage.cs">
       <DependentUpon>Inventory.tt</DependentUpon>
     </Compile>
     <Compile Include="Sys_MainModule.cs">

@@ -29,7 +29,6 @@ namespace Inventory
         public string Email { get; set; }
         public string Tax { get; set; }
         public string ServiceCharges { get; set; }
-        public Nullable<int> LanguageID { get; set; }
         public string BranchName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

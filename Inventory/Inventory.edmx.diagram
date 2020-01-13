@@ -4,9 +4,9 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="e181c2137b3744888f31481946ce7152" Name="Diagram1">
+      <Diagram DiagramId="e181c2137b3744888f31481946ce7152" Name="Diagram1" ZoomLevel="66">
         <EntityTypeShape EntityType="InventoryDBModel.S_AdjustType" Width="1.5" PointX="5.75" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="InventoryDBModel.S_Branch" Width="1.5" PointX="1.5" PointY="19.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="InventoryDBModel.S_Branch" Width="1.5" PointX="1.625" PointY="18" IsExpanded="true" />
         <EntityTypeShape EntityType="InventoryDBModel.S_CompanySetting" Width="1.5" PointX="8.75" PointY="10.875" IsExpanded="true" />
         <EntityTypeShape EntityType="InventoryDBModel.S_Customer" Width="1.5" PointX="3.75" PointY="15" IsExpanded="true" />
         <EntityTypeShape EntityType="InventoryDBModel.S_Location" Width="1.5" PointX="3.75" PointY="19.25" IsExpanded="true" />
@@ -26,11 +26,8 @@
         <EntityTypeShape EntityType="InventoryDBModel.S_VoucherFormat" Width="1.5" PointX="6" PointY="19.875" IsExpanded="true" />
         <EntityTypeShape EntityType="InventoryDBModel.S_VoucherSetting" Width="1.5" PointX="12.75" PointY="10.875" IsExpanded="true" />
         <EntityTypeShape EntityType="InventoryDBModel.Sys_Admin" Width="1.5" PointX="13.75" PointY="6.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="InventoryDBModel.Sys_AppWord" Width="1.5" PointX="14.75" PointY="9.875" IsExpanded="true" />
         <EntityTypeShape EntityType="InventoryDBModel.Sys_Currency" Width="1.5" PointX="3.75" PointY="24.125" IsExpanded="true" />
         <EntityTypeShape EntityType="InventoryDBModel.Sys_EntryModule" Width="1.5" PointX="0.75" PointY="11.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="InventoryDBModel.Sys_Language" Width="1.5" PointX="5.75" PointY="3.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="InventoryDBModel.Sys_MainLanguage" Width="1.5" PointX="14.75" PointY="12.875" IsExpanded="true" />
         <EntityTypeShape EntityType="InventoryDBModel.Sys_MainModule" Width="1.5" PointX="1.5" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="InventoryDBModel.Sys_ProductNature" Width="1.5" PointX="15.75" PointY="5.875" IsExpanded="true" />
         <EntityTypeShape EntityType="InventoryDBModel.Sys_ReportModule" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
