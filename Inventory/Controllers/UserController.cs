@@ -16,19 +16,18 @@ namespace Inventory.Controllers
             return View();
         }
 
+        public ActionResult ChangeLanguage(string lang)
+        {
+            new LanguageMang().SetLanguage(lang);
+            return RedirectToAction("Login", "User");
+        }
+
         [HttpGet]
         public ActionResult Login()
         {
-            //using (InventoryDBEntities entity = new InventoryDBEntities())
-            //{
-            //    var branches = new SelectList(entity.S_Branch.ToList(), "BranchID", "Name");
-            //    ViewData["BranchList"] = branches;
-
-            //    var users = new SelectList(entity.S_User.ToList(),"UserID","UserName");
-            //    ViewData["UserList"] = users;
-            //}
             InventoryDBEntities entity = new InventoryDBEntities();
             UserModels.LoginUserModel model = new UserModels.LoginUserModel();
+            CompanySettingModels cModel = new CompanySettingModels();
             int? firstBranchId = 0;
             foreach (var branch in entity.S_Branch)
             {
@@ -55,6 +54,11 @@ namespace Inventory.Controllers
         {
             InventoryDBEntities entity = new InventoryDBEntities();
             UserModels.LoginUserModel model = new UserModels.LoginUserModel();
+            CompanySettingModels cModel = new CompanySettingModels();
+
+            var isMultiBranch = entity.S_CompanySetting.Select(c => c.IsMultiBranch);
+            cModel.IsMultiBranch = isMultiBranch.FirstOrDefault();
+            ViewBag.IsMultiBranch = cModel.IsMultiBranch;
 
             if (clickedLogin)
             {

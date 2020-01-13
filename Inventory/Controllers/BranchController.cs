@@ -8,7 +8,7 @@ using System.Data.Entity.Core.Objects;
 
 namespace Inventory.Controllers
 {
-    public class BranchController : Controller
+    public class BranchController : MyController
     {
         InventoryDBEntities Entities = new InventoryDBEntities();
         // GET: Branch

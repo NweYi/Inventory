@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace Inventory.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : MyController
     {
         public ActionResult Index()
         {

@@ -31,7 +31,7 @@ Rules
 
 - page title - use <h3></h3> tag
 
-- test
+- not use zawgyi font , use Unicode
 
 
 

@@ -14,7 +14,24 @@ namespace Inventory.Models
         {
             public int BranchID { get; set; }
 
-            public string Name { get; set; }
+            public string BranchName { get; set; }
+
+            public string ShortName { get; set; }
+
+            public string Description { get; set; }
+
+            public string Code { get; set; }
+
+            public string Phone { get; set; }
+
+            public string Address { get; set; }
+
+            public string Email { get; set; }
+
+            public string Tax { get; set; }
+
+            public string ServiceCharges { get; set; }
+
         }
         public class BranchModel
         {
@@ -32,7 +49,6 @@ namespace Inventory.Models
             public string Tax { get; set; }
             [DisplayName("Service Charges(%)")]
             public string ServiceCharges { get; set; }
-            public int LanguageID { get; set; }
         }
     }
 }
