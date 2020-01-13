@@ -3,36 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Inventory.Models;
 
 namespace Inventory.Controllers
 {
     public class BranchController : MyController
     {
-        // GET: Branch
-        public ActionResult Index()
-        {
-            return View();
-        }
-    }
-}
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Inventory.Models;
-using System.Data.Entity.Core.Objects;
-
-namespace Inventory.Controllers
-{
-    public class BranchController : Controller
-    {
         InventoryDBEntities Entities = new InventoryDBEntities();
+
         // GET: Branch
         public ActionResult Index()
         {
             return View();
         }
+
         public ActionResult BranchList()
         {
             var branch = (from B in Entities.S_Branch
@@ -43,7 +27,7 @@ namespace Inventory.Controllers
                               Code = B.Code
                           }).ToList();
             List<BranchModels.BranchModel> lstBranch = new List<BranchModels.BranchModel>();
-            foreach(var item in branch)
+            foreach (var item in branch)
             {
                 BranchModels.BranchModel model = new BranchModels.BranchModel();
                 model.BranchID = Convert.ToInt32(item.BranchID);
@@ -71,15 +55,13 @@ namespace Inventory.Controllers
                 tbl_branch.Address = branch.Address;
                 tbl_branch.Tax = branch.Tax.ToString();
                 tbl_branch.ServiceCharges = branch.ServiceCharges.ToString();
-                if (branch.LanguageID!= null || branch.LanguageID != 0) tbl_branch.LanguageID = Convert.ToInt32(branch.LanguageID);
-                else tbl_branch.LanguageID = null;
                 Entities.S_Branch.Add(tbl_branch);
                 Entities.SaveChanges();
                 ModelState.Clear();
                 ViewBag.Message = "New Branch is inserted successful..";
                 ViewBag.Type = 1;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ViewBag.Message = "Please enter complete branch data";
                 ViewBag.Type = 2;
@@ -90,7 +72,7 @@ namespace Inventory.Controllers
         public ActionResult EditBranch(int id)
         {
             var branch = Entities.S_Branch.Find(id);
-            if(branch!=null)
+            if (branch != null)
             {
                 BranchModels.BranchModel branch_model = new BranchModels.BranchModel();
                 branch_model.BranchID = Convert.ToInt32(branch.BranchID);
@@ -103,18 +85,17 @@ namespace Inventory.Controllers
                 branch_model.Address = Convert.ToString(branch.Address);
                 branch_model.Tax = Convert.ToString(branch.Tax);
                 branch_model.ServiceCharges = Convert.ToString(branch.ServiceCharges);
-                branch_model.LanguageID = Convert.ToInt32(branch.LanguageID);
                 ViewBag.formType = 2;
                 return View("CreateBranch", branch_model);
             }
             else
             {
                 return View("CreateBranch");
-            }           
+            }
         }
         public ActionResult UpdateBranch(BranchModels.BranchModel branch)
         {
-            Entities.PrcUpdateBranchData(branch.BranchID, branch.BranchName, branch.ShortName, branch.Description, branch.Code, branch.Phone, branch.Address, branch.Email, branch.Tax, branch.ServiceCharges, branch.LanguageID);
+            Entities.PrcUpdateBranchData(branch.BranchID, branch.BranchName, branch.ShortName, branch.Description, branch.Code, branch.Phone, branch.Address, branch.Email, branch.Tax, branch.ServiceCharges);
             return RedirectToAction("BranchList");
         }
         [HttpPost]
@@ -142,7 +123,7 @@ namespace Inventory.Controllers
                 model.Code = Convert.ToString(item.Code);
                 lstBranch.Add(model);
             }
-            return View("BranchList",lstBranch);
+            return View("BranchList", lstBranch);
         }
         [HttpPost]
         public ActionResult BranchDetail(int id)
@@ -152,8 +133,7 @@ namespace Inventory.Controllers
             model.BranchName = customer.BranchName.ToString();
             model.ShortName = customer.ShortName.ToString();
             model.Phone = customer.Phone.ToString();
-            return PartialView("BranchDetail",model);
+            return PartialView("BranchDetail", model);
         }
     }
-
 }

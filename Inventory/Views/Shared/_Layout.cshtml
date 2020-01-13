@@ -29,7 +29,7 @@
                 </div>
 
                 <ul class="list-unstyled components">
-                    <p style="color:#f0b81b;cursor:pointer" onclick="changeModuleName('Dashboard');"><i class="fas fa-tachometer-alt menu-icon"></i>Dashboard</p>
+                    <p style="color:#E5A031;cursor:pointer" onclick="changeModuleName('Dashboard');"><i class="fas fa-tachometer-alt menu-icon"></i>Dashboard</p>
                     <div class="menu-divider"></div>
                     <p style="cursor:pointer" onclick="changeModuleName('Touch Sale');"><i class="fas fa-tablet menu-icon"></i>Touch Sale</p>
                     <div class="menu-divider"></div>
@@ -116,14 +116,14 @@
 
                 </ul>
 
-                <ul class="list-unstyled CTAs">
+                @*<ul class="list-unstyled CTAs">
                     <li>
                         <a href="~/Home/IndexSetup" class="download" style="color:#425367">@Inventory.Resource.Setup</a>
                     </li>
                     <li>
                         <a href="~/Home/IndexReport" class="article">@Inventory.Resource.Report</a>
                     </li>
-                </ul>
+                </ul>*@
             </nav>
 
             <!-- Page Content -->
@@ -148,16 +148,16 @@
                             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul class="nav navbar-nav ml-auto">
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#" style="color:#425367">@Inventory.Resource.Setup</a>
+                                        <a class="nav-link" href="~/Home/IndexSetup" style="font-size: 0.9em !important;color:#3A3972;font-weight:bold">@Inventory.Resource.Setup</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#" style="color:#425367">@Inventory.Resource.Report</a>
+                                        <a class="nav-link" href="~/Home/IndexReport" style="font-size: 0.9em !important;color:#3A3972;font-weight:bold">@Inventory.Resource.Report</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#" style="color:#425367">@Session["LoginUserName"]</a>
+                                        <a class="nav-link" href="#" style="color:#425367;font-size: 0.9em !important;">@Session["LoginUserName"]</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" style="color:#FE5455" href="~/User/Login">Logout</a>
+                                        <a class="nav-link" style="color:#FE5455;font-size: 0.9em !important;" href="~/User/Login"><i class="fas fa-power-off logout"></i></a>
                                     </li>
                                 </ul>
                             </div>
@@ -171,7 +171,7 @@
                     <div/>
 
                     <footer>
-                        <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+                        @*<p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>*@
                     </footer>
 
                 </div>

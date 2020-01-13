@@ -13,10 +13,10 @@
 <div class="container pl-0 pr-0">
     <div class="row">
         <div class="col-sm-6 col-md-6 col-lg-6">
-            <h3>Create Customer</h3>
+            <h5>Create Customer</h5>
         </div>
         <div class="col-sm-6 col-md-6 col-lg-6">
-            @Html.ActionLink("All Customer","CustomerList","Customer",null,new { @class="btn btn-black float-right" })
+            @Html.ActionLink("All Customer","CustomerList","Customer",null,new { @class="btn btn-second float-right" })
         </div>
     </div>
     <div class="row border-bottom mt-2"></div>
@@ -41,9 +41,9 @@
         <div class="row border ml-0 mr-0 mt-2">
             <div class="col-sm-12 col-md-12 col-lg-12 bg-gray-color">
                 <div class="row">
-                    <div class="col-sm-6 col-md-6 col-lg-6"><label class="mt-2 font-weight-bold">Customer Detail</label></div>
-                    <div class="col-sm-6 col-md-6 col-lg-6"><input type="button" value="" onclick="location.href='@Url.Action("CreateCustomer", "Customer")'" class="btn btn-clear float-right" /></div>
-                </div>
+                    <div class="col-sm-6 col-md-6 col-lg-6"><label class="mt-2 page-title">Customer Detail</label></div>
+                    <div class="col-sm-6 col-md-6 col-lg-6" onclick="location.href='@Url.Action("CreateCustomer", "Customer")'"><button class="btn btn-setup-clear"><i class="fas fa-redo clear-icon"></i></button></div>
+                </div> 
             </div>
             <div class="col-sm-12 col-md-12 col-lg-12 mt-2">
                 <div class="row mb-3">
@@ -52,7 +52,7 @@
                             <div class="col-sm-12 col-md-12 col-lg-12">
                                 <div class="form-group">
                                     @Html.HiddenFor(m=>m.CustomerID)
-                                    @Html.LabelFor(m=>m.CustomerName)
+                                    @Html.LabelFor(m=>m.CustomerName, new { @class = "control-label" })
                                     @Html.TextBoxFor(m=>m.CustomerName,new { @class="form-control" })
                                 </div>
                             </div>
@@ -60,7 +60,7 @@
                         <div class="row">
                             <div class="col-sm-12 col-md-12 col-lg-12">
                                 <div class="form-group">                                  
-                                    @Html.LabelFor(m => m.Code)
+                                    @Html.LabelFor(m => m.Code, new { @class = "control-label" })
                                     @Html.TextBoxFor(m => m.Code, new { @class = "form-control" })
                                 </div>
                             </div>
@@ -68,7 +68,7 @@
                         <div class="row">
                             <div class="col-sm-12 col-md-12 col-lg-12">
                                 <div class="form-group">
-                                    @Html.LabelFor(m => m.Phone)
+                                    @Html.LabelFor(m => m.Phone, new { @class = "control-label" })
                                     @Html.TextBoxFor(m => m.Phone, new { @class = "form-control" })
                                 </div>
                             </div>
@@ -76,7 +76,7 @@
                         <div class="row">
                             <div class="col-sm-12 col-md-12 col-lg-12">
                                 <div class="form-group">
-                                    @Html.LabelFor(m => m.Email)
+                                    @Html.LabelFor(m => m.Email, new { @class = "control-label" })
                                     @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
                                 </div>
                             </div>
@@ -84,7 +84,7 @@
                         <div class="row">
                             <div class="col-sm-12 col-md-12 col-lg-12">
                                 <div class="form-group">
-                                    @Html.LabelFor(m => m.Contact)
+                                    @Html.LabelFor(m => m.Contact, new { @class = "control-label" })
                                     @Html.TextBoxFor(m => m.Contact, new { @class = "form-control" })
                                 </div>
                             </div>
@@ -94,7 +94,7 @@
                         <div class="row">
                             <div class="col-sm-12 col-md-12 col-lg-12">
                                 <div class="form-group">
-                                    @Html.LabelFor(m => m.TownshipName)
+                                    @Html.LabelFor(m => m.TownshipName, new { @class = "control-label" })
                                     @Html.DropDownListFor(m => m.TownshipID, ViewBag.Township as SelectList, "--Select Township--", new { @class = "form-control" })
                                 </div>
                             </div>
@@ -104,7 +104,7 @@
                             <div class="row">
                                 <div class="col-sm-12 col-md-12 col-lg-12">
                                     <div class="form-group">
-                                        @Html.LabelFor(m => m.BranchName)
+                                        @Html.LabelFor(m => m.BranchName, new { @class = "control-label" })
                                         @Html.DropDownListFor(m => m.BranchID, ViewBag.Branches as SelectList, "--Select Branch--", new { @class = "form-control" })
                                     </div>
                                 </div>
@@ -113,7 +113,7 @@
                         <div class="row">
                             <div class="col-sm-12 col-md-12 col-lg-12">
                                 <div class="form-group">
-                                    @Html.LabelFor(m => m.Address)
+                                    @Html.LabelFor(m => m.Address, new { @class = "control-label" })
                                     @Html.TextAreaFor(m => m.Address, new { @class = "form-control textarea-height" })
                                 </div>
                             </div>
@@ -121,7 +121,7 @@
                         <div class="row mt-4">
                             <div class="col-sm-12 col-md-12 col-lg-12 mt-3">
                                 <div class="form-group">
-                                    @Html.CheckBoxFor(m=>m.IsCredit) Credit
+                                    @Html.CheckBoxFor(m=>m.IsCredit)<label class="control-label">&nbsp;Credit</label> 
                                 </div>
                             </div>
                         </div>
@@ -129,11 +129,11 @@
                     <div class="col-sm-12 col-md-12 col-lg-12">
                         @if (ViewBag.FormType != 2)
                         {
-                            <input type="submit" value="SAVE" formaction="@Url.Action("InsertCustomer","Customer")" class="btn btn-save-width btn-red float-right" />
+                            <input type="submit" value="SAVE" formaction="@Url.Action("InsertCustomer","Customer")" class="btn btn-save-width btn-first float-right" />
                         }
                         else
                         {
-                            <input type="submit" value="UPDATE" formaction="@Url.Action("UpdateCustomer","Customer")" class="btn btn-save-width btn-red float-right" />
+                            <input type="submit" value="UPDATE" formaction="@Url.Action("UpdateCustomer","Customer")" class="btn btn-save-width btn-first float-right" />
                         }
                     </div>
                 </div>
