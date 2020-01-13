@@ -1,0 +1,71 @@
+﻿@model IEnumerable<Inventory.Models.CustomerModels.CustomerModel>
+@{
+    ViewBag.Title = "CustomerList";
+    Layout = "~/Views/Shared/_LayoutSetup.cshtml";
+}
+
+<div class="container pl-0 pr-0">
+    <div class="row">
+        <div class="col-sm-6 col-md-6 col-lg-6">
+            <h3>Customer</h3>            
+        </div>
+        <div class="col-sm-6 col-md-6 col-lg-6">
+            @Html.ActionLink("ADD", "CreateCustomer", "Customer", null, new { @class = "btn btn-black float-right" })
+        </div>
+    </div>
+    <div class="row border-bottom mt-2"></div>
+    <div class="row mt-2">
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            @Html.TextBox("txtSearch",null,new { @class="form-control",@placeholder="Search..."})
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <table class="row pt-2 pl-3 pr-3 mb-3">
+                <thead class="col-sm-12 col-md-12 col-lg-12 border">
+                    <tr class="row bg-gray-color">
+                        <th class="col-sm-3 col-md-3 col-lg-3">Name</th>
+                        <th class="col-sm-2 col-md-2 col-lg-2">Code</th>
+                        <th class="col-sm-2 col-md-2 col-lg-2">Township</th>
+                        <th class="col-sm-3 col-md-3 col-lg-3">Branch</th>
+                        <th class="col-sm-2 col-md-2 col-lg-2"></th>
+                    </tr>
+                </thead>
+                <tbody class="col-sm-12 col-md-12 col-lg-12 border">
+                    @if (Model.Count() > 0)
+                    {
+                        foreach (var model in Model)
+                        {
+                            using (Html.BeginForm())
+                            {
+                                <tr class="row border border-bottom-0 border-left-0 border-right-0">
+                                    <td class="col-sm-3 col-md-3 col-lg-3">@Html.DisplayFor(m => model.CustomerName)</td>
+                                    <td class="col-sm-2 col-md-2 col-lg-2">@Html.DisplayFor(m => model.Code)</td>
+                                    <td class="col-sm-2 col-md-2 col-lg-2">@Html.DisplayFor(m=>model.TownshipName)</td>
+                                    @if (Convert.ToInt32(ViewBag.BranchCount) > 0)
+                                    {
+                                        <td class="col-sm-2 col-md-2 col-lg-2">@Html.DisplayFor(m => model.BranchName)</td>
+                                    }                                    
+                                    <td class="col-sm-3 col-md-3 col-lg-3 justify-content-end">
+                                        <input type="button" value="View" class="btn btn-black" />
+                                        <input type="submit" value="Edit" formaction="@Url.Action("EditCustomer","Customer",new { id=model.CustomerID })" class="btn btn-blue" />
+                                        <input type="submit" value="Delete" formaction="@Url.Action("DeleteCustomer","Customer",new { id=model.CustomerID })" class="btn btn-red" />
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td>
+                                <label>There is no data found...</label>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

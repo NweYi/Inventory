@@ -1,0 +1,23 @@
+﻿@model Inventory.Models.BranchModels.BranchModel
+<div>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title" id="myModalLabel">Branch Details</h4>
+    </div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.BranchName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ShortName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+    </dl>
+</div>

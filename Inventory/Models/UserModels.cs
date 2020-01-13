@@ -52,7 +52,11 @@ namespace Inventory.Models
             public string UserPassword { get; set; }
             public int BranchID { get; set; }
             public string BranchName { get; set; }
+            public bool IsDefaultLocation { get; set; }
+            public int LocationID { get; set; }
+            public string LocationName { get; set; }
+            public List<UserModel> lstUser { get; set; }
         }
-        public List<UserModel> lstUser { get; set; }
+        
     }
 }

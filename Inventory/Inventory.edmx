@@ -647,6 +647,54 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="PrcRetrieveCustomer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="PrcRetrieveLocationData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="PrcRetrieveUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="PrcUpdateBranchData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="branch_id" Type="int" Mode="In" />
+          <Parameter Name="branch_name" Type="nvarchar" Mode="In" />
+          <Parameter Name="short_name" Type="nvarchar" Mode="In" />
+          <Parameter Name="description" Type="nvarchar" Mode="In" />
+          <Parameter Name="code" Type="varchar" Mode="In" />
+          <Parameter Name="phone" Type="varchar" Mode="In" />
+          <Parameter Name="address" Type="nvarchar" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="tax" Type="varchar" Mode="In" />
+          <Parameter Name="service_charges" Type="varchar" Mode="In" />
+          <Parameter Name="language_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PrcUpdateCustomerData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="customerid" Type="int" Mode="In" />
+          <Parameter Name="code" Type="varchar" Mode="In" />
+          <Parameter Name="name" Type="nvarchar" Mode="In" />
+          <Parameter Name="townshipid" Type="int" Mode="In" />
+          <Parameter Name="contact" Type="nvarchar" Mode="In" />
+          <Parameter Name="address" Type="nvarchar" Mode="In" />
+          <Parameter Name="phone" Type="varchar" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="iscredit" Type="bit" Mode="In" />
+          <Parameter Name="isdefault" Type="bit" Mode="In" />
+          <Parameter Name="branchid" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PrcUpdateLocationData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="location_id" Type="int" Mode="In" />
+          <Parameter Name="location_name" Type="nvarchar" Mode="In" />
+          <Parameter Name="short_name" Type="nvarchar" Mode="In" />
+          <Parameter Name="description" Type="nvarchar" Mode="In" />
+          <Parameter Name="code" Type="varchar" Mode="In" />
+          <Parameter Name="phone" Type="varchar" Mode="In" />
+          <Parameter Name="address" Type="nvarchar" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="branch_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PrcUpdateUserData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="user_id" Type="int" Mode="In" />
+          <Parameter Name="user_name" Type="nvarchar" Mode="In" />
+          <Parameter Name="password" Type="varchar" Mode="In" />
+          <Parameter Name="branch_id" Type="int" Mode="In" />
+          <Parameter Name="default_location" Type="bit" Mode="In" />
+          <Parameter Name="location_id" Type="int" Mode="In" />
+        </Function>
         <Function Name="PrcValidateAdmin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="AdminName" Type="nvarchar" Mode="In" />
           <Parameter Name="AdminPassword" Type="varchar" Mode="In" />
@@ -1595,7 +1643,92 @@
             <Parameter Name="AdminName" Mode="In" Type="String" />
             <Parameter Name="AdminPassword" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="PrcRetrieveUser" ReturnType="Collection(InventoryDBModel.PrcRetrieveUser_Result)" />
+          <FunctionImport Name="PrcUpdateUserData">
+            <Parameter Name="user_id" Mode="In" Type="Int32" />
+            <Parameter Name="user_name" Mode="In" Type="String" />
+            <Parameter Name="password" Mode="In" Type="String" />
+            <Parameter Name="branch_id" Mode="In" Type="Int32" />
+            <Parameter Name="default_location" Mode="In" Type="Boolean" />
+            <Parameter Name="location_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PrcRetrieveLocationData" ReturnType="Collection(InventoryDBModel.PrcRetrieveLocationData_Result)" />
+          <FunctionImport Name="PrcUpdateLocationData">
+            <Parameter Name="location_id" Mode="In" Type="Int32" />
+            <Parameter Name="location_name" Mode="In" Type="String" />
+            <Parameter Name="short_name" Mode="In" Type="String" />
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="code" Mode="In" Type="String" />
+            <Parameter Name="phone" Mode="In" Type="String" />
+            <Parameter Name="address" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="branch_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PrcUpdateBranchData">
+            <Parameter Name="branch_id" Mode="In" Type="Int32" />
+            <Parameter Name="branch_name" Mode="In" Type="String" />
+            <Parameter Name="short_name" Mode="In" Type="String" />
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="code" Mode="In" Type="String" />
+            <Parameter Name="phone" Mode="In" Type="String" />
+            <Parameter Name="address" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="tax" Mode="In" Type="String" />
+            <Parameter Name="service_charges" Mode="In" Type="String" />
+            <Parameter Name="language_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PrcRetrieveCustomer" ReturnType="Collection(InventoryDBModel.PrcRetrieveCustomer_Result)" />
+          <FunctionImport Name="PrcUpdateCustomerData">
+            <Parameter Name="customerid" Mode="In" Type="Int32" />
+            <Parameter Name="code" Mode="In" Type="String" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="townshipid" Mode="In" Type="Int32" />
+            <Parameter Name="contact" Mode="In" Type="String" />
+            <Parameter Name="address" Mode="In" Type="String" />
+            <Parameter Name="phone" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="iscredit" Mode="In" Type="Boolean" />
+            <Parameter Name="isdefault" Mode="In" Type="Boolean" />
+            <Parameter Name="branchid" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="PrcRetrieveUser_Result">
+          <Property Type="Int32" Name="UserID" Nullable="false" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="UserPassword" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="BranchID" Nullable="true" />
+          <Property Type="String" Name="BranchName" Nullable="true" MaxLength="200" />
+          <Property Type="Boolean" Name="IsDefaultLocation" Nullable="true" />
+          <Property Type="Int32" Name="LocationID" Nullable="true" />
+          <Property Type="String" Name="LocationName" Nullable="true" MaxLength="200" />
+        </ComplexType>
+        <ComplexType Name="PrcRetrieveLocationData_Result">
+          <Property Type="Int32" Name="LocationID" Nullable="false" />
+          <Property Type="String" Name="LocationName" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="ShortName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="Code" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Phone" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Address" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="BranchID" Nullable="true" />
+          <Property Type="String" Name="BranchName" Nullable="true" MaxLength="200" />
+        </ComplexType>
+        <ComplexType Name="PrcRetrieveCustomer_Result">
+          <Property Type="Int32" Name="CustomerID" Nullable="false" />
+          <Property Type="String" Name="Code" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="CustomerName" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Contact" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Address" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="Phone" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="200" />
+          <Property Type="Boolean" Name="IsCredit" Nullable="true" />
+          <Property Type="Boolean" Name="IsDefault" Nullable="true" />
+          <Property Type="Int32" Name="TownshipID" Nullable="true" />
+          <Property Type="String" Name="TownshipName" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="BranchID" Nullable="true" />
+          <Property Type="String" Name="BranchName" Nullable="true" MaxLength="200" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2014,6 +2147,59 @@
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="PrcValidateUser" FunctionName="InventoryDBModel.Store.PrcValidateUser" />
           <FunctionImportMapping FunctionImportName="PrcValidateAdmin" FunctionName="InventoryDBModel.Store.PrcValidateAdmin" />
+          <FunctionImportMapping FunctionImportName="PrcRetrieveUser" FunctionName="InventoryDBModel.Store.PrcRetrieveUser">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="InventoryDBModel.PrcRetrieveUser_Result">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+                <ScalarProperty Name="BranchID" ColumnName="BranchID" />
+                <ScalarProperty Name="BranchName" ColumnName="BranchName" />
+                <ScalarProperty Name="IsDefaultLocation" ColumnName="IsDefaultLocation" />
+                <ScalarProperty Name="LocationID" ColumnName="LocationID" />
+                <ScalarProperty Name="LocationName" ColumnName="LocationName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PrcUpdateUserData" FunctionName="InventoryDBModel.Store.PrcUpdateUserData" />
+          <FunctionImportMapping FunctionImportName="PrcRetrieveLocationData" FunctionName="InventoryDBModel.Store.PrcRetrieveLocationData">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="InventoryDBModel.PrcRetrieveLocationData_Result">
+                <ScalarProperty Name="LocationID" ColumnName="LocationID" />
+                <ScalarProperty Name="LocationName" ColumnName="LocationName" />
+                <ScalarProperty Name="ShortName" ColumnName="ShortName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="BranchID" ColumnName="BranchID" />
+                <ScalarProperty Name="BranchName" ColumnName="BranchName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PrcUpdateLocationData" FunctionName="InventoryDBModel.Store.PrcUpdateLocationData" />
+          <FunctionImportMapping FunctionImportName="PrcUpdateBranchData" FunctionName="InventoryDBModel.Store.PrcUpdateBranchData" />
+          <FunctionImportMapping FunctionImportName="PrcRetrieveCustomer" FunctionName="InventoryDBModel.Store.PrcRetrieveCustomer">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="InventoryDBModel.PrcRetrieveCustomer_Result">
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="Contact" ColumnName="Contact" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="IsCredit" ColumnName="IsCredit" />
+                <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
+                <ScalarProperty Name="TownshipID" ColumnName="TownshipID" />
+                <ScalarProperty Name="TownshipName" ColumnName="TownshipName" />
+                <ScalarProperty Name="BranchID" ColumnName="BranchID" />
+                <ScalarProperty Name="BranchName" ColumnName="BranchName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PrcUpdateCustomerData" FunctionName="InventoryDBModel.Store.PrcUpdateCustomerData" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

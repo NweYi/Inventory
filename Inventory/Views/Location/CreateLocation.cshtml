@@ -1,47 +1,59 @@
-﻿@model Inventory.Models.BranchModels.BranchModel
+﻿
+@model Inventory.Models.LocationModels.LocationModel
 @{
-    ViewBag.Title = "CreateBranch";
+    ViewBag.Title = "CreateLocation";
     Layout = "~/Views/Shared/_LayoutSetup.cshtml";
 }
 
-<div class="container pl-0 pr-0 pt-0">
-    <div class="row border-bottom pb-2">
-        <div class="col-sm-6 col-md-6 col-lg-6"><h3>Create Branch</h3></div>
-        <div class="col-sm-6 col-md-6 col-lg-6">@Html.ActionLink("All Branch","BranchList","Branch",null,new { @class="btn btn-black float-right" })</div>
-    </div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".alert").delay(4000).slideUp(200, function () {
+            $(this).alert('close');
+        });
+    });   
+</script>
+
+<div class="container pl-0 pr-0">
     <div class="row">
-        <div class="col-sm-6 col-md-6 col-lg-6"></div>
         <div class="col-sm-6 col-md-6 col-lg-6">
-            @if (ViewBag.Message != null)
-            {
-                <div class="row">
-                    <div class="alert @(ViewBag.Type==1?"alert-success":"alert-danger")" role="alert">
-                        <strong>@ViewBag.Message</strong>
-                        <button type="button" class="close" data-dissmiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                </div>
-            }
+            <h3>Create Location</h3>
         </div>
-        
+        <div class="col-sm-6 col-md-6 col-lg-6">
+            @Html.ActionLink("All Location","LocationList","Location",null,new { @class="btn btn-black float-right" })
+        </div>
     </div>
+    <div class="row border-bottom mt-2"></div>
+    
+        @if (ViewBag.Message != null)
+        { 
+            <div class="row">
+                <div class="alert @(ViewBag.Type==1?"alert-success":"alert-danger")" role="alert">
+                    <strong>@ViewBag.Message</strong>
+                    <button type="button" class="close" data-dissmiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        }
+            
     @using (Html.BeginForm(FormMethod.Post))
     {
-        <div class="row mt-3 border ml-0 mr-0">
+        <div class="row mt-2 border ml-0 mr-0">
             <div class="col-sm-12 col-md-12 col-lg-12 bg-gray-color">
-                <label class="mt-2 font-weight-bold" >Branch Detail</label>
-                <input type="button" value="" onclick="location.href='@Url.Action("CreateBranch", "Branch")'" class="btn btn-clear float-right" />
-            </div>
-            <div class="col-sm-12 col-md-12 col-lg-12 mt-2">
                 <div class="row">
+                    <div class="col-sm-6 col-md-6 col-lg-6"><label class="mt-2 font-weight-bold">Location Detail</label></div>
+                    <div class="col-sm-6 col-md-6 col-lg-6"><input type="button" value="" onclick="location.href='@Url.Action("CreateLocation", "Location")'" class="btn btn-clear float-right" /></div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="row mt-2">
                     <div class="col-sm-6 col-md-6 col-lg-6">
                         <div class="row">
                             <div class="col-sm-12 col-md-12 col-lg-12">
                                 <div class="form-group">
-                                    @Html.HiddenFor(m => m.BranchID)
-                                    @Html.LabelFor(m => m.BranchName)
-                                    @Html.TextBoxFor(m => m.BranchName, new { @class = "form-control" })
+                                    @Html.HiddenFor(m => m.LocationID)
+                                    @Html.LabelFor(m => m.LocationName)
+                                    @Html.TextBoxFor(m => m.LocationName, new { @class = "form-control" })
                                 </div>
                             </div>
                         </div>
@@ -95,36 +107,33 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-6 col-md-6 col-lg-6">
-                                <div class="form-group">
-                                    @Html.LabelFor(m => m.Tax)
-                                    @Html.TextBoxFor(m => m.Tax, new { @class = "form-control" })
+                        @if ((ViewBag.Branches as SelectList).Count() > 0)
+                {
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12 col-lg-12">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.BranchName)
+                                        @Html.DropDownListFor(m => m.BranchID, ViewBag.Branches as SelectList, "--Select Branch--", new { @class = "form-control" })
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-sm-6 col-md-6 col-lg-6">
-                                <div class="form-group">
-                                    @Html.LabelFor(m => m.ServiceCharges)
-                                    @Html.TextBoxFor(m => m.ServiceCharges, new { @class = "form-control" })
-                                </div>
-                            </div>
-                        </div>
+                        }
                         <div class="row">
                             <div class="col-sm-12 col-md-12 col-lg-12">
                                 @if (ViewBag.FormType != 2)
                                 {
-                                    <input type="submit" value="SAVE" formaction="@Url.Action("InsertBranch","Branch")" class="btn btn-lg btn-red float-right" />
+                                    <input type="submit" value="SAVE" formaction="@Url.Action("InsertLocation","Location")" class="btn btn-lg btn-red float-right" />
                                 }
                                 else
                                 {
-                                    <input type="submit" value="UPDATE" formaction="@Url.Action("UpdateBranch","Branch")" class="btn btn-lg btn-red float-right" />
+                                    <input type="submit" value="UPDATE" formaction="@Url.Action("UpdateLocation","Location")" class="btn btn-lg btn-red float-right" />
                                 }
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </div>       
     }
     
 </div>
