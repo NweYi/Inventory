@@ -10,19 +10,15 @@
 namespace Inventory
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class S_Branch
+    public partial class PrcRetrieveSupplier_Result
     {
-        public int BranchID { get; set; }
-        public string ShortName { get; set; }
-        public string Description { get; set; }
+        public int SupplierID { get; set; }
         public string Code { get; set; }
-        public string Phone { get; set; }
-        public string Address { get; set; }
-        public string Email { get; set; }
-        public string Tax { get; set; }
-        public string ServiceCharges { get; set; }
+        public string SupplierName { get; set; }
+        public Nullable<int> TownshipID { get; set; }
+        public string TownshipName { get; set; }
+        public Nullable<int> BranchID { get; set; }
         public string BranchName { get; set; }
     }
 }

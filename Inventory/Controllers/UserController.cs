@@ -15,7 +15,6 @@ namespace Inventory.Controllers
         {
             return View();
         }
-
         public ActionResult ChangeLanguage(string lang)
         {
             new LanguageMang().SetLanguage(lang);
@@ -146,54 +145,48 @@ namespace Inventory.Controllers
             return View();
         }
 
+        InventoryDBEntities Entities = new InventoryDBEntities();
         //GET : User Data
         public ActionResult UserList()
         {
-            InventoryDBEntities Entities = new InventoryDBEntities();
-            List<UserModels.UserModel> lstUser = new List<UserModels.UserModel>();
-            //user_model.lstUser = Entities.Database.SqlQuery<UserModels.UserModel>("exec PrcRetrieveUser").ToList();
-            foreach (var user in Entities.PrcRetrieveUser())
-            {
-                UserModels.UserModel model = new UserModels.UserModel();
-                model.UserID = Convert.ToInt32(user.UserID);
-                model.UserName = Convert.ToString(user.UserName);
-                model.UserPassword = Convert.ToString(user.UserPassword);
-                model.BranchID = Convert.ToInt32(user.BranchID);
-                model.BranchName = Convert.ToString(user.BranchName);
-                model.IsDefaultLocation = Convert.ToBoolean(user.IsDefaultLocation);
-                model.LocationID = Convert.ToInt32(user.LocationID);
-                model.LocationName = Convert.ToString(user.LocationName);
-                lstUser.Add(model);
-            }
-            return View(lstUser);
+            GetisMultiBranch();
+            return View(GetUserList().ToList());
         }
         public ActionResult CreateUser()
         {
-            InventoryDBEntities Entities = new InventoryDBEntities();
-            var branches = Entities.S_Branch.ToList();
-            ViewBag.Branches = new SelectList(branches, "BranchID", "BranchName");
+            GetisMultiBranch();
+            if(ViewBag.isMultiBranch==true)
+            {
+                var branches = Entities.S_Branch.ToList();
+                ViewBag.Branches = new SelectList(branches, "BranchID", "BranchName");
+            }            
             var locations = Entities.S_Location.ToList();
             ViewBag.Locations = new SelectList(locations, "LocationID", "LocationName");
+            ViewBag.divLocation =false;
             return View();
         }
         [HttpPost]
         public ActionResult InsertUser(UserModels.UserModel user_model)
         {
-            InventoryDBEntities Entities = new InventoryDBEntities();
-            var branches = Entities.S_Branch.ToList();
-            ViewBag.Branches = new SelectList(branches, "BranchID", "BranchName");
+            GetisMultiBranch();
+            if(ViewBag.isMultiBranch==true)
+            {
+                var branches = Entities.S_Branch.ToList();
+                ViewBag.Branches = new SelectList(branches, "BranchID", "BranchName");
+            }           
             var locations = Entities.S_Location.ToList();
-            ViewBag.Locations = new SelectList(locations, "LocationID", "LocationName");
+            ViewBag.Locations = new SelectList(locations, "LocationID", "LocationName");            
             try
             {
                 S_User tbl_user = new S_User();
                 tbl_user.UserName = user_model.UserName;
                 tbl_user.UserPassword = user_model.UserPassword;
-                tbl_user.BranchID = user_model.BranchID;
+                if (user_model.BranchID != 0) tbl_user.BranchID = user_model.BranchID;
+                else tbl_user.BranchID = null;
                 if (user_model.IsDefaultLocation == true) tbl_user.IsDefaultLocation = true;
                 else tbl_user.IsDefaultLocation = false;
-                if (user_model.LocationID == 0) tbl_user.LocationID = null;
-                else tbl_user.LocationID = user_model.LocationID;
+                if (user_model.LocationID != 0) tbl_user.LocationID = user_model.LocationID;
+                else tbl_user.LocationID = null;
                 Entities.S_User.Add(tbl_user);
                 Entities.SaveChanges();
                 ModelState.Clear();
@@ -210,25 +203,52 @@ namespace Inventory.Controllers
             return View("CreateUser");
         }
         [HttpPost]
-        public ActionResult DeleteUser(int id)
+        public JsonResult DeleteUser(int id)
         {
-            InventoryDBEntities Entities = new InventoryDBEntities();
             var user = Entities.S_User.Find(id);
+            bool result = false;
             if(user!=null)
             {
                 Entities.S_User.Remove(user);
                 Entities.SaveChanges();
+                ViewBag.Message = "User Delete Successful...";
+                result= true;
             }
-            return RedirectToAction("UserList");
+            //GetisMultiBranch();
+            //return View("UserList",GetUserList().ToList());
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public JsonResult SearchingUser(string username)
+        {
+            GetisMultiBranch();
+            List<UserModels.UserModel> result = new List<UserModels.UserModel>();
+            if(username!=null)
+            {
+                try
+                {
+                    result = SearchUserData(username);                
+                }
+                catch(FormatException)
+                {
+                    Console.WriteLine("{0} is not a data");
+                }
+                var data = new { data1=result,data2=isMultiBranch()};
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
         public ActionResult EditUser(int id)
         {
-            InventoryDBEntities Entities = new InventoryDBEntities();
             var user = Entities.S_User.Find(id);
-            if(user!=null)
-            {
-                var branches = Entities.S_Branch.ToList();
-                ViewBag.Branches = new SelectList(branches, "BranchID", "BranchName");
+            GetisMultiBranch();
+            if (user!=null)
+            {               
+                if(ViewBag.isMultiBranch==true)
+                {
+                    var branches = Entities.S_Branch.ToList();
+                    ViewBag.Branches = new SelectList(branches, "BranchID", "BranchName");
+                }                
                 var locations = Entities.S_Location.ToList();
                 ViewBag.Locations = new SelectList(locations, "LocationID", "LocationName");
 
@@ -237,22 +257,94 @@ namespace Inventory.Controllers
                 user_model.UserName = Convert.ToString(user.UserName);
                 user_model.UserPassword = Convert.ToString(user.UserPassword);
                 if (user.BranchID != null) user_model.BranchID = Convert.ToInt32(user.BranchID);
-                if (user.IsDefaultLocation != null) user_model.IsDefaultLocation = Convert.ToBoolean(user.IsDefaultLocation);
+                if (user.IsDefaultLocation != null)
+                {
+                    user_model.IsDefaultLocation = Convert.ToBoolean(user.IsDefaultLocation);
+                    ViewBag.divLocation =user.IsDefaultLocation;
+                } 
                 if (user.LocationID != null) user_model.LocationID = Convert.ToInt32(user.LocationID);
                 ViewBag.FormType = 2;
                 return View("CreateUser", user_model);
             }
             else
             {
-                return View("UserList");
+                return View("UserList",GetUserList().ToList());
             }            
         }
         [HttpPost]
         public ActionResult UpdateUser(UserModels.UserModel user_model)
         {
-            InventoryDBEntities Entities = new InventoryDBEntities();
-            Entities.PrcUpdateUserData(user_model.UserID, user_model.UserName, user_model.UserPassword, user_model.BranchID, user_model.IsDefaultLocation, user_model.LocationID);
-            return RedirectToAction("UserList");
+            if(user_model.BranchID==0 && user_model.LocationID==0)
+            {
+                Entities.PrcUpdateUserData(user_model.UserID, user_model.UserName, user_model.UserPassword,null, user_model.IsDefaultLocation,null);
+            }
+            else if(user_model.BranchID!=0&&user_model.LocationID==0)
+            {
+                Entities.PrcUpdateUserData(user_model.UserID, user_model.UserName, user_model.UserPassword, user_model.BranchID, user_model.IsDefaultLocation, null);
+            }
+            else if(user_model.BranchID == 0 && user_model.LocationID != 0)
+            {
+                Entities.PrcUpdateUserData(user_model.UserID, user_model.UserName, user_model.UserPassword,null, user_model.IsDefaultLocation, user_model.LocationID);
+            }
+            else
+            {
+                Entities.PrcUpdateUserData(user_model.UserID, user_model.UserName, user_model.UserPassword, user_model.BranchID, user_model.IsDefaultLocation, user_model.LocationID);
+            }
+            ViewBag.Message = "User Updated Successful...";
+            GetisMultiBranch();       
+            return View("UserList",GetUserList().ToList());
         }
+        
+        #region Methods
+        public void GetisMultiBranch()
+        {
+            CompanySettingModels cModel = new CompanySettingModels();
+            var isMultiBranch = Entities.S_CompanySetting.Select(company => company.IsMultiBranch);
+            cModel.IsMultiBranch = isMultiBranch.FirstOrDefault();
+            ViewBag.isMultiBranch = cModel.IsMultiBranch;
+        }
+        public bool isMultiBranch()
+        {
+            CompanySettingModels cModel = new CompanySettingModels();
+            var isMultiBranch = Entities.S_CompanySetting.Select(company => company.IsMultiBranch);
+            cModel.IsMultiBranch = isMultiBranch.FirstOrDefault();
+            return Convert.ToBoolean(cModel.IsMultiBranch);
+        }
+        public List<UserModels.UserModel>GetUserList()
+        {
+            var user_model = (from U in Entities.S_User
+                              join B in Entities.S_Branch on U.BranchID equals B.BranchID into LBranch
+                              from leftBranch in LBranch.DefaultIfEmpty()
+                              join L in Entities.S_Location on U.LocationID equals L.LocationID into LUser
+                              from leftUser in LUser.DefaultIfEmpty()
+                              select new UserModels.UserModel
+                              {
+                                  UserID = U.UserID,
+                                  UserName = U.UserName,
+                                  UserPassword = U.UserPassword,
+                                  BranchName = leftBranch.BranchName,
+                                  LocationName = leftUser.LocationName
+                              }).ToList();
+            return user_model.ToList();
+        }
+        public List<UserModels.UserModel>SearchUserData(string search)
+        {
+            var user= (from U in Entities.S_User
+                       join B in Entities.S_Branch on U.BranchID equals B.BranchID into LBranch
+                       from leftBranch in LBranch.DefaultIfEmpty()
+                       join L in Entities.S_Location on U.LocationID equals L.LocationID into LUser
+                       from leftUser in LUser.DefaultIfEmpty()
+                       where U.UserName.Contains(search)
+                       select new UserModels.UserModel
+                       {
+                           UserID = U.UserID,
+                           UserName = U.UserName,
+                           UserPassword = U.UserPassword,
+                           BranchName = leftBranch.BranchName,
+                           LocationName = leftUser.LocationName
+                       }).ToList();
+            return user.ToList();
+        }
+        #endregion
     }
 }

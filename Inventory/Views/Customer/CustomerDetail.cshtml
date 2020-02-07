@@ -1,0 +1,61 @@
+﻿@model Inventory.Models.CustomerModels.CustomerModel
+<div class="container">
+    <div class="row pt-2 pb-2">
+        <div class="col-sm-6 col-md-6 col-lg-6">
+            <h5 class="modal-title" id="myModalLabel">@Html.DisplayFor(model => model.CustomerName)</h5>
+        </div>
+        <div class="col-sm-6 col-md-6 col-lg-6">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        </div>
+    </div>
+    <div class="row border-bottom"></div>
+    <div class="border-left border-right border-bottom mb-3">
+        <div class="row bg-gray-color mt-3 pt-2 pb-2 ml-0 mr-0">
+            <div class="col-sm-6 col-md-6 col-lg-6">@Html.LabelFor(model => model.CustomerName)</div>
+            <div class="col-sm-6 col-md-6 col-lg-6">@Html.DisplayFor(model => model.CustomerName)</div>
+        </div>
+        <div class="row pt-2 pb-2 ml-0 mr-0">
+            <div class="col-sm-6 col-md-6 col-lg-6">@Html.LabelFor(model => model.Code)</div>
+            <div class="col-sm-6 col-md-6 col-lg-6">@Html.DisplayFor(model => model.Code)</div>
+        </div>
+        <div class="row bg-gray-color pt-2 pb-2 ml-0 mr-0">
+            <div class="col-sm-6 col-md-6 col-lg-6">@Html.LabelFor(model => model.Contact)</div>
+            <div class="col-sm-6 col-md-6 col-lg-6">@Html.DisplayFor(model => model.Contact)</div>
+        </div>       
+        <div class="row pt-2 pb-2 ml-0 mr-0">
+            <div class="col-sm-6 col-md-6 col-lg-6">@Html.LabelFor(model => model.Phone)</div>
+            <div class="col-sm-6 col-md-6 col-lg-6">@Html.DisplayFor(model => model.Phone)</div>
+        </div>
+        <div class="row bg-gray-color pt-2 pb-2 ml-0 mr-0">
+            <div class="col-sm-6 col-md-6 col-lg-6">@Html.LabelFor(model => model.Email)</div>
+            <div class="col-sm-6 col-md-6 col-lg-6">@Html.DisplayFor(model => model.Email)</div>
+        </div>
+        <div class="row pt-2 pb-2 ml-0 mr-0">
+            <div class="col-sm-6 col-md-6 col-lg-6">@Html.LabelFor(model => model.Address)</div>
+            <div class="col-sm-6 col-md-6 col-lg-6">@Html.DisplayFor(model => model.Address)</div>
+        </div>
+        <div class="row bg-gray-color pt-2 pb-2 ml-0 mr-0">
+            <div class="col-md-6 col-lg-6">@Html.LabelFor(model => model.TownshipName)</div>
+            <div class="col-md-6 col-lg-6">@Html.DisplayFor(model => model.TownshipName)</div>
+        </div>
+        <div class="row pt-2 pb-2 ml-0 mr-0">
+            <div class="col-md-6 col-lg-6">@Html.LabelFor(model => model.IsCredit)</div>
+            @if (Model.IsCredit == true)
+            {               
+                <div class="col-md-6 col-lg-6" style="color:green;">Available Credit.</div>
+            }
+            else
+            {
+                <div class="col-md-6 col-lg-6" style="color:red;">Not Available Credit.</div>
+            }
+        </div>
+        @if (ViewBag.isMultiBranch == true)
+        {
+            <div class="row bg-gray-color pt-2 pb-2 ml-0 mr-0">
+                <div class="col-md-6 col-lg-6">@Html.LabelFor(model => model.BranchName)</div>
+                <div class="col-md-6 col-lg-6">@Html.DisplayFor(model => model.BranchName)</div>
+            </div>
+        }       
+    </div>
+</div>
+

@@ -1,0 +1,133 @@
+﻿@model Inventory.Models.SubMenuModels.SubMenuModel
+@{
+    ViewBag.Title = "SubMenuEntry";
+    Layout = "~/Views/Shared/_LayoutSetup.cshtml";
+}
+@section Scripts
+{
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script type="text/javascript">
+        function previewPhoto(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#imgPreview').attr('src', e.target.result);
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        };
+</script>
+}    
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-lg-6">
+            @if (ViewBag.FormType != 2)
+            {
+                <h5>Create Sub Menu</h5>
+            }
+            else
+            {
+                <h5>Edit Sub Menu</h5>
+            }
+        </div>
+        <div class="col-md-6 col-lg-6">
+            @Html.ActionLink("All Sub Menu", "SubMenuList", "SubMenu", null, new { @class = "btn btn-second float-right" })
+        </div>
+    </div>
+    @using (Html.BeginForm("", "", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+    {
+        <div class="row mt-3 ml-0">
+            <div class="col-md-6 col-lg-6 border pb-3">
+                <div class="row bg-gray-color mb-3">
+                    <div class="col-md-6 col-lg-6">
+                        <label class="mt-2 page-title">Sub Menu Detail</label>
+                    </div>
+                    <div class="col-md-6 col-lg-6">
+                        <a href="#" class="btn btn-setup-clear"><i class="fas fa-redo clear-icon"></i></a>
+                    </div>
+                </div>
+                @if (ViewBag.isProductPhoto == true)
+                {
+                    <div class="row">
+                        <div class="col-md-12 col-lg-12">
+                            <div class="form-group">
+                                @if (ViewBag.Photo == true)
+                                {
+                                    <img src="@Url.Content("data:image/png;base64,"+Convert.ToBase64String(Model.Photo, 0, Model.Photo.Length))" id="imgPreview" style="height:80px;height:80px;" />
+                                }
+                                else
+                                {
+                                    <img src="~/Image/sample.png" id="imgPreview" style="height:80px;height:80px;" />
+                                }
+                                <span class="btn btn-file control-label mt-5 ml-3">
+                                    Browse<input type="file" name="file" id="file" onchange="previewPhoto(this)" accept=".jpg,.jpeg,.png" />
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="row">
+                    <div class="col-md-12 col-lg-12">
+                        <div class="form-group">
+                            @Html.HiddenFor(model => model.SubMenuID)
+                            @Html.LabelFor(model => model.SubMenuName, new { @class = "control-label" })
+                            @Html.TextBoxFor(model => model.SubMenuName, new { @class = "form-control", id = "txtMainMenu" })
+                            @Html.ValidationMessageFor(model => model.SubMenuName,"", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-lg-12">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Code, new { @class = "control-label" })
+                            @Html.TextBoxFor(model => model.Code, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-lg-12">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.SortCode, new { @class = "control-label" })
+                            @Html.TextBoxFor(model => model.SortCode, new { @class = "form-control", id = "txtSortCode" })
+                            @Html.ValidationMessageFor(model => model.SortCode, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-lg-12">
+                        <div class="form-group">
+                            @Html.Label("Main Menu",new { @class="control-label" })
+                            @Html.DropDownListFor(model => model.MainMenuID, ViewBag.MainMenu as SelectList, new { @class = "form-control", id = "ddlMainMenu" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-lg-12">
+                        @if (ViewBag.FormType != 2)
+                        {
+                            <input type="submit" value="SAVE" formaction="@Url.Action("InsertSubMenu","SubMenu")" class="btn btn-save-width btn-first float-right" />
+                        }
+                        else
+                        {
+                            <input type="submit" value="Update" formaction="@Url.Action("UpdateSubMenu","SubMenu")" class="btn btn-save-width btn-first float-right" />
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-6">
+                @if (ViewBag.Message != null)
+                {
+                    <div class="alert @(ViewBag.Type==1?"alert-success":"alert-danger")" role="alert">
+                        <strong>@ViewBag.Message</strong>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</div>
+
+

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
 
 namespace Inventory.Models
 {
@@ -48,12 +49,18 @@ namespace Inventory.Models
         public class UserModel
         {
             public int UserID { get; set; }
+            [DisplayName("Name")]
+            [Required(ErrorMessage ="Please Enter User Name")]
             public String UserName { get; set; }
+            [DisplayName("Password")]
+            [Required(ErrorMessage ="Please Enter Password")]
             public string UserPassword { get; set; }
             public int BranchID { get; set; }
+            [DisplayName("Branch")]
             public string BranchName { get; set; }
             public bool IsDefaultLocation { get; set; }
             public int LocationID { get; set; }
+            [DisplayName("Location")]
             public string LocationName { get; set; }
             public List<UserModel> lstUser { get; set; }
         }

@@ -59,6 +59,7 @@
         <AssociationConnector Association="InventoryDBModel.FK_Sys_EntryModule_Sys_MainModule" ManuallyRouted="false" />
         <AssociationConnector Association="InventoryDBModel.FK_Sys_ReportModule_Sys_MainModule" ManuallyRouted="false" />
         <AssociationConnector Association="InventoryDBModel.FK_Sys_SetupModule_Sys_MainModule" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="InventoryDBModel.S_ProductVariant" Width="1.5" PointX="6.375" PointY="16.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -3,6 +3,97 @@
     ViewBag.Title = "CustomerList";
     Layout = "~/Views/Shared/_LayoutSetup.cshtml";
 }
+@section scripts
+{
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".alert").delay(4000).slideUp(200, function () {
+                $(this).alert('close');
+            });
+        })
+        function ShowDetail(id) {
+            var options = { "backdrop": "static", keyboard: true };
+            $.ajax({
+                type: "GET",
+                url: "/Customer/CustomerDetail/",
+                data: "id=" + id,
+                success: function (data) {
+                    $('#myModalContent').html(data);
+                    $('#myModal').modal(options);
+                    $('#myModal').modal('show');
+                },
+                error: function () {
+                    alert("Dynamic content load failed.");
+                }
+            });
+        }
+        var DeleteConfirm=function(customerID)
+        {
+            $("#hiddenCustomerID").val(customerID);
+            $("#myConfirmModal").modal('show');
+        }
+        var DeleteCustomer=function()
+        {
+            var id = $("#hiddenCustomerID").val();
+            $.ajax({
+                type: "POST",
+                url: "/Customer/DeleteCustomer",
+                data: { id: id },
+                success:function(result)
+                {
+                    $("#myConfirmModal").modal('hide');
+                    if (result == true) $("#row_" + id).remove();                   
+                }
+            })
+        }
+        var SearchCustomer = function () {
+            var customer = $("#txtSearch").val();
+            var township = $("#ddlSearchTownship").val();
+            var branch = $("#ddlSearchBranch").val();
+            var customerData = $("#searchCustomer");
+            customerData.html("");
+            $.ajax({
+                type: "GET",
+                url: "/Customer/SearchCustomer",
+                data: { customer: customer, township: township, branch: branch },
+                contentType: "html",
+                success:function(result)
+                {
+                    if (result.data1 == 0) {
+                        var data = "<tr class='row bg-light-color'><td class='col-md-12 col-lg-12'><label class='text-center grid-nodata'>No Match Data Found</label></td></tr>"
+                        customerData.append(data);
+                    }
+                    else
+                    {
+                        $.each(result.data1, function (index, value) {
+                            if (result.data2 == true) {
+                                var data = "<tr id='row_" + value.CustomerID + "' class='row border border-bottom-0 border-left-0 border-right-0 grid-item'>" +
+                                        "<td class='col-md-3 col-lg-3'>" + value.CustomerName + "</td>" +
+                                        "<td class='col-md-2 col-lg-2'>" + value.Code + "</td>" +
+                                        "<td class='col-md-2 col-lg-2'>" + value.TownshipName + "</td>" +
+                                        "<td class='col-md-3 col-lg-3'>" + value.BranchName + "</td>" +
+                                        "<td class='col-md-2 col-lg-2 justify-content-end'>" + "<input type=button value='View' class='btn-grid-second pl-2 pr-2 pt-1 pb-1' onclick='ShowDetail(" + value.CustomerID + ")' /><a href='/Customer/EditCustomer/" + value.CustomerID + "' class='btn-grid-first ml-1 pl-2 pr-2 pt-1 pb-1'> Edit </a><input type=button value='Delete' class='btn-grid-red ml-1 pt-1 pb-1' onclick='DeleteConfirm(" + value.CustomerID + ")' />" + "</td>" +
+                                        "</tr>";
+                            }
+                            else {
+                                var data = "<tr id='row_" + value.CustomerID + "' class='row border border-bottom-0 border-left-0 border-right-0 grid-item'>" +
+                                        "<td class='col-md-4 col-lg-4'>" + value.CustomerName + "</td>" +
+                                        "<td class='col-md-2 col-lg-2'>" + value.Code + "</td>" +
+                                        "<td class='col-md-3 col-lg-3'>" + value.TownshipName + "</td>" +
+                                        "<td class='col-md-2 col-lg-2 justify-content-end'>" + "<input type=button value='View' class='btn-grid-second pl-2 pr-2 pt-1 pb-1' onclick='ShowDetail(" + value.CustomerID + ")' /><a href='/Customer/EditCustomer/" + value.CustomerID + "' class='btn-grid-first ml-1 pl-2 pr-2 pt-1 pb-1'> Edit </a><input type=button value='Delete' class='btn-grid-red ml-1 pt-1 pb-1' onclick='DeleteConfirm(" + value.CustomerID + ")' />" + "</td>" +
+                                        "</tr>";
+                            }
+                            customerData.append(data);
+                        });
+                    }
+                }
+            })
+        }
+    </script>
+}
 
 <div class="container pl-0 pr-0">
     <div class="row">
@@ -10,46 +101,80 @@
             <h5>Customer</h5>            
         </div>
         <div class="col-sm-6 col-md-6 col-lg-6">
+            @if (ViewBag.Message != null)
+            {
+                <div class="alert alert-danger" role="alert">
+                    <strong>@ViewBag.Message</strong>
+                </div>
+            }
             @Html.ActionLink("ADD", "CreateCustomer", "Customer", null, new { @class = "btn btn-first float-right" })
         </div>
     </div>
     <div class="row border-bottom mt-2"></div>
     <div class="row mt-2">
-        <div class="col-sm-4 col-md-4 col-lg-4">
-            @Html.TextBox("txtSearch",null,new { @class="form-control",@placeholder="Search..."})
+        <div class="col-md-4 col-lg-4">
+            @Html.TextBox("txtSearch",null,new { @class="form-control",@placeholder="Search...",@id="txtSearch"})
+        </div>
+        <div class="col-md-3 col-lg-3">
+            @Html.DropDownList("Township", ViewBag.Township as SelectList, "Choose Township", new { @class = "form-control", id = "ddlSearchTownship" })
+        </div>
+        @if (ViewBag.isMultiBranch == true)
+        {
+            <div class="col-md-3 col-lg-3">
+                @Html.DropDownList("Branch", ViewBag.Branches as SelectList, "Choose Branch", new { @class = "form-control", id = "ddlSearchBranch" })
+            </div>
+        }       
+        <div class="col-md-2 col-lg-2">
+            <input type="button" value="Search" class="btn btn-outline-primary" onclick="SearchCustomer();" />           
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-12 col-md-12 col-lg-12">
+        <div class="col-md-12 col-lg-12">
             <table class="row pt-2 pl-3 pr-3 mb-3">
                 <thead class="col-sm-12 col-md-12 col-lg-12 border">
                     <tr class="row grid-header">
-                        <th class="col-sm-3 col-md-3 col-lg-3">Name</th>
-                        <th class="col-sm-2 col-md-2 col-lg-2">Code</th>
-                        <th class="col-sm-2 col-md-2 col-lg-2">Township</th>
-                        <th class="col-sm-3 col-md-3 col-lg-3">Branch</th>
+                        
+                        @if (ViewBag.isMultiBranch == true)
+                        {
+                            <th class="col-sm-3 col-md-3 col-lg-3">Name</th>
+                            <th class="col-sm-2 col-md-2 col-lg-2">Code</th>
+                            <th class="col-sm-2 col-md-2 col-lg-2">Township</th>
+                            <th class="col-sm-3 col-md-3 col-lg-3">Branch</th>
+                        }
+                        else
+                        {
+                            <th class="col-sm-4 col-md-4 col-lg-4">Name</th>
+                            <th class="col-sm-2 col-md-2 col-lg-2">Code</th>
+                            <th class="col-sm-3 col-md-3 col-lg-3">Township</th>
+                        }
                         <th class="col-sm-2 col-md-2 col-lg-2"></th>
                     </tr>
                 </thead>
-                <tbody class="col-sm-12 col-md-12 col-lg-12 border">
+                <tbody class="col-sm-12 col-md-12 col-lg-12 border" id="searchCustomer">
                     @if (Model.Count() > 0)
                     {
                         foreach (var model in Model)
                         {
                             using (Html.BeginForm())
                             {
-                                <tr class="row border border-bottom-0 border-left-0 border-right-0 grid-item">
-                                    <td class="col-sm-3 col-md-3 col-lg-3">@Html.DisplayFor(m => model.CustomerName)</td>
-                                    <td class="col-sm-2 col-md-2 col-lg-2">@Html.DisplayFor(m => model.Code)</td>
-                                    <td class="col-sm-2 col-md-2 col-lg-2">@Html.DisplayFor(m=>model.TownshipName)</td>
-                                    @if (Convert.ToInt32(ViewBag.BranchCount) > 0)
+                                <tr id="row_@Convert.ToInt32(model.CustomerID)" class="row border border-bottom-0 border-left-0 border-right-0 grid-item">
+                                    @if (ViewBag.isMultiBranch == true)
                                     {
+                                        <td class="col-sm-3 col-md-3 col-lg-3">@Html.DisplayFor(m => model.CustomerName)</td>
+                                        <td class="col-sm-2 col-md-2 col-lg-2">@Html.DisplayFor(m => model.Code)</td>
+                                        <td class="col-sm-2 col-md-2 col-lg-2">@Html.DisplayFor(m => model.TownshipName)</td>
                                         <td class="col-sm-2 col-md-2 col-lg-2">@Html.DisplayFor(m => model.BranchName)</td>
-                                    }                                    
+                                    }
+                                    else
+                                    {
+                                        <td class="col-sm-4 col-md-4 col-lg-4">@Html.DisplayFor(m => model.CustomerName)</td>
+                                        <td class="col-sm-2 col-md-2 col-lg-2">@Html.DisplayFor(m => model.Code)</td>
+                                        <td class="col-sm-3 col-md-3 col-lg-3">@Html.DisplayFor(m => model.TownshipName)</td>
+                                    }
                                     <td class="col-sm-3 col-md-3 col-lg-3 justify-content-end">
-                                        <input type="button" value="View" class="btn-grid-second" />
+                                        <input type="button" value="View" class="btn-grid-second" onclick="ShowDetail(@Convert.ToInt32(model.CustomerID));" />
                                         <input type="submit" value="Edit" formaction="@Url.Action("EditCustomer","Customer",new { id=model.CustomerID })" class="btn-grid-first" />
-                                        <input type="submit" value="Delete" formaction="@Url.Action("DeleteCustomer","Customer",new { id=model.CustomerID })" class="btn-grid-red" />
+                                        <input type="button" value="Delete" onclick="DeleteConfirm(@Convert.ToInt32(model.CustomerID))" class="btn-grid-red" />
                                     </td>
                                 </tr>
                             }
@@ -68,4 +193,34 @@
         </div>
     </div>
 </div>
+
+<div id='myModal' class='modal border'>
+    <div class="row ml-0 mr-0">
+        <div class="col-sm-2 col-md-2 col-lg-2"></div>
+        <div class="col-sm-8 col-md-8 col-lg-8 ml-2">
+            <div class="modal-content">
+                <div id='myModalContent'></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Delete Confirmation Area-->
+<input type="hidden" id="hiddenCustomerID" />
+<div class="modal fade" id="myConfirmModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Delete Confirmation</h5>
+            </div>
+            <div class="modal-body">
+                <label class="page-title">Are you sure want to delete? </label>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-grid-first" data-dismiss="modal">Cancel</a>
+                <a href="#" class="btn btn-grid-red" onclick="DeleteCustomer()">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+
 

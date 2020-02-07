@@ -202,8 +202,12 @@
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
+    <Compile Include="Controllers\MainMenuController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\SettingController.cs" />
+    <Compile Include="Controllers\SubMenuController.cs" />
+    <Compile Include="Controllers\SupplierController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="General\DBConnector.cs" />
     <Compile Include="General\SystemInfo.cs" />
@@ -232,8 +236,12 @@
     <Compile Include="Models\CustomerModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LocationModels.cs" />
+    <Compile Include="Models\MainMenuModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ProductModels.cs" />
     <Compile Include="Models\SettingModels.cs" />
+    <Compile Include="Models\SubMenuModels.cs" />
+    <Compile Include="Models\SupplierModels.cs" />
     <Compile Include="Models\UserModels.cs" />
     <Compile Include="MyController.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
@@ -245,7 +253,34 @@
     <Compile Include="PrcRetrieveLocationData_Result.cs">
       <DependentUpon>Inventory.tt</DependentUpon>
     </Compile>
+    <Compile Include="PrcRetrieveProduct_Result.cs">
+      <DependentUpon>Inventory.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PrcRetrieveSubMenu_Result.cs">
+      <DependentUpon>Inventory.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PrcRetrieveSupplier_Result.cs">
+      <DependentUpon>Inventory.tt</DependentUpon>
+    </Compile>
     <Compile Include="PrcRetrieveUser_Result.cs">
+      <DependentUpon>Inventory.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PrcSearchCustomerData_Result.cs">
+      <DependentUpon>Inventory.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PrcSearchLocationData_Result.cs">
+      <DependentUpon>Inventory.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PrcSearchLocation_Result.cs">
+      <DependentUpon>Inventory.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PrcSearchProductData_Result.cs">
+      <DependentUpon>Inventory.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PrcSearchSubMenu_Result.cs">
+      <DependentUpon>Inventory.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PrcSearchSupplierData_Result.cs">
       <DependentUpon>Inventory.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -315,6 +350,9 @@
       <DependentUpon>Inventory.tt</DependentUpon>
     </Compile>
     <Compile Include="S_ProductUnit.cs">
+      <DependentUpon>Inventory.tt</DependentUpon>
+    </Compile>
+    <Compile Include="S_ProductVariant.cs">
       <DependentUpon>Inventory.tt</DependentUpon>
     </Compile>
     <Compile Include="S_SubMenu.cs">
@@ -443,6 +481,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Image\companylogo.jpg" />
     <Content Include="Image\icon-clear.png" />
+    <Content Include="Image\sample.png" />
     <Content Include="Inventory.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Inventory.edmx</DependentUpon>
@@ -556,6 +595,16 @@
     <Content Include="Views\Customer\CreateCustomer.cshtml" />
     <Content Include="Views\Branch\BranchDetail.cshtml" />
     <Content Include="Views\User\UserRight.cshtml" />
+    <Content Include="Views\Customer\CustomerDetail.cshtml" />
+    <Content Include="Views\Product\ProductList.cshtml" />
+    <Content Include="Views\Product\ProductEntry.cshtml" />
+    <Content Include="Views\MainMenu\MainMenuList.cshtml" />
+    <Content Include="Views\MainMenu\MainMenuEntry.cshtml" />
+    <Content Include="Views\SubMenu\SubMenuList.cshtml" />
+    <Content Include="Views\SubMenu\SubMenuEntry.cshtml" />
+    <Content Include="Views\Supplier\SupplierList.cshtml" />
+    <Content Include="Views\Supplier\SupplierEntry.cshtml" />
+    <Content Include="Views\Supplier\SupplierDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

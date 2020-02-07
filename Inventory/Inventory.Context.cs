@@ -59,6 +59,7 @@ namespace Inventory
         public virtual DbSet<T_Delivery> T_Delivery { get; set; }
         public virtual DbSet<T_MasterSale> T_MasterSale { get; set; }
         public virtual DbSet<T_TranSale> T_TranSale { get; set; }
+        public virtual DbSet<S_ProductVariant> S_ProductVariant { get; set; }
     
         public virtual ObjectResult<Nullable<int>> PrcValidateUser(Nullable<int> userID, string userPassword)
         {
@@ -263,6 +264,222 @@ namespace Inventory
                 new ObjectParameter("branchid", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("PrcUpdateCustomerData", customeridParameter, codeParameter, nameParameter, townshipidParameter, contactParameter, addressParameter, phoneParameter, emailParameter, iscreditParameter, isdefaultParameter, branchidParameter);
+        }
+    
+        public virtual ObjectResult<PrcRetrieveProduct_Result> PrcRetrieveProduct()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PrcRetrieveProduct_Result>("PrcRetrieveProduct");
+        }
+    
+        public virtual int PrcUpdateMainMenu(Nullable<int> menuID, string menuName, string code, Nullable<int> sortcode, byte[] photo, Nullable<int> isphotoupdate)
+        {
+            var menuIDParameter = menuID.HasValue ?
+                new ObjectParameter("menuID", menuID) :
+                new ObjectParameter("menuID", typeof(int));
+    
+            var menuNameParameter = menuName != null ?
+                new ObjectParameter("menuName", menuName) :
+                new ObjectParameter("menuName", typeof(string));
+    
+            var codeParameter = code != null ?
+                new ObjectParameter("code", code) :
+                new ObjectParameter("code", typeof(string));
+    
+            var sortcodeParameter = sortcode.HasValue ?
+                new ObjectParameter("sortcode", sortcode) :
+                new ObjectParameter("sortcode", typeof(int));
+    
+            var photoParameter = photo != null ?
+                new ObjectParameter("photo", photo) :
+                new ObjectParameter("photo", typeof(byte[]));
+    
+            var isphotoupdateParameter = isphotoupdate.HasValue ?
+                new ObjectParameter("isphotoupdate", isphotoupdate) :
+                new ObjectParameter("isphotoupdate", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("PrcUpdateMainMenu", menuIDParameter, menuNameParameter, codeParameter, sortcodeParameter, photoParameter, isphotoupdateParameter);
+        }
+    
+        public virtual ObjectResult<PrcRetrieveSubMenu_Result> PrcRetrieveSubMenu()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PrcRetrieveSubMenu_Result>("PrcRetrieveSubMenu");
+        }
+    
+        public virtual int PrcUpdateSubMenu(Nullable<int> sMenuID, string sMenuName, string sCode, Nullable<int> sSortCode, byte[] photo, Nullable<int> mainMenuID, Nullable<int> isupdatephoto)
+        {
+            var sMenuIDParameter = sMenuID.HasValue ?
+                new ObjectParameter("sMenuID", sMenuID) :
+                new ObjectParameter("sMenuID", typeof(int));
+    
+            var sMenuNameParameter = sMenuName != null ?
+                new ObjectParameter("sMenuName", sMenuName) :
+                new ObjectParameter("sMenuName", typeof(string));
+    
+            var sCodeParameter = sCode != null ?
+                new ObjectParameter("sCode", sCode) :
+                new ObjectParameter("sCode", typeof(string));
+    
+            var sSortCodeParameter = sSortCode.HasValue ?
+                new ObjectParameter("sSortCode", sSortCode) :
+                new ObjectParameter("sSortCode", typeof(int));
+    
+            var photoParameter = photo != null ?
+                new ObjectParameter("Photo", photo) :
+                new ObjectParameter("Photo", typeof(byte[]));
+    
+            var mainMenuIDParameter = mainMenuID.HasValue ?
+                new ObjectParameter("mainMenuID", mainMenuID) :
+                new ObjectParameter("mainMenuID", typeof(int));
+    
+            var isupdatephotoParameter = isupdatephoto.HasValue ?
+                new ObjectParameter("isupdatephoto", isupdatephoto) :
+                new ObjectParameter("isupdatephoto", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("PrcUpdateSubMenu", sMenuIDParameter, sMenuNameParameter, sCodeParameter, sSortCodeParameter, photoParameter, mainMenuIDParameter, isupdatephotoParameter);
+        }
+    
+        public virtual ObjectResult<PrcRetrieveSupplier_Result> PrcRetrieveSupplier()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PrcRetrieveSupplier_Result>("PrcRetrieveSupplier");
+        }
+    
+        public virtual int PrcUpdateSupplier(Nullable<int> supplierID, string code, string supplername, Nullable<int> townshipID, string contact, string address, string phone, string email, Nullable<bool> isCredit, Nullable<int> branchID)
+        {
+            var supplierIDParameter = supplierID.HasValue ?
+                new ObjectParameter("supplierID", supplierID) :
+                new ObjectParameter("supplierID", typeof(int));
+    
+            var codeParameter = code != null ?
+                new ObjectParameter("code", code) :
+                new ObjectParameter("code", typeof(string));
+    
+            var supplernameParameter = supplername != null ?
+                new ObjectParameter("supplername", supplername) :
+                new ObjectParameter("supplername", typeof(string));
+    
+            var townshipIDParameter = townshipID.HasValue ?
+                new ObjectParameter("townshipID", townshipID) :
+                new ObjectParameter("townshipID", typeof(int));
+    
+            var contactParameter = contact != null ?
+                new ObjectParameter("contact", contact) :
+                new ObjectParameter("contact", typeof(string));
+    
+            var addressParameter = address != null ?
+                new ObjectParameter("address", address) :
+                new ObjectParameter("address", typeof(string));
+    
+            var phoneParameter = phone != null ?
+                new ObjectParameter("phone", phone) :
+                new ObjectParameter("phone", typeof(string));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            var isCreditParameter = isCredit.HasValue ?
+                new ObjectParameter("isCredit", isCredit) :
+                new ObjectParameter("isCredit", typeof(bool));
+    
+            var branchIDParameter = branchID.HasValue ?
+                new ObjectParameter("branchID", branchID) :
+                new ObjectParameter("branchID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("PrcUpdateSupplier", supplierIDParameter, codeParameter, supplernameParameter, townshipIDParameter, contactParameter, addressParameter, phoneParameter, emailParameter, isCreditParameter, branchIDParameter);
+        }
+    
+        public virtual ObjectResult<PrcSearchLocation_Result> PrcSearchLocation(string location, string code, Nullable<int> branchID)
+        {
+            var locationParameter = location != null ?
+                new ObjectParameter("location", location) :
+                new ObjectParameter("location", typeof(string));
+    
+            var codeParameter = code != null ?
+                new ObjectParameter("code", code) :
+                new ObjectParameter("code", typeof(string));
+    
+            var branchIDParameter = branchID.HasValue ?
+                new ObjectParameter("branchID", branchID) :
+                new ObjectParameter("branchID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PrcSearchLocation_Result>("PrcSearchLocation", locationParameter, codeParameter, branchIDParameter);
+        }
+    
+        public virtual ObjectResult<PrcSearchLocationData_Result> PrcSearchLocationData(string lName, Nullable<int> id)
+        {
+            var lNameParameter = lName != null ?
+                new ObjectParameter("lName", lName) :
+                new ObjectParameter("lName", typeof(string));
+    
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PrcSearchLocationData_Result>("PrcSearchLocationData", lNameParameter, idParameter);
+        }
+    
+        public virtual ObjectResult<PrcSearchSubMenu_Result> PrcSearchSubMenu(string sMenu, Nullable<int> mMenuID)
+        {
+            var sMenuParameter = sMenu != null ?
+                new ObjectParameter("sMenu", sMenu) :
+                new ObjectParameter("sMenu", typeof(string));
+    
+            var mMenuIDParameter = mMenuID.HasValue ?
+                new ObjectParameter("mMenuID", mMenuID) :
+                new ObjectParameter("mMenuID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PrcSearchSubMenu_Result>("PrcSearchSubMenu", sMenuParameter, mMenuIDParameter);
+        }
+    
+        public virtual ObjectResult<PrcSearchCustomerData_Result> PrcSearchCustomerData(string customer, Nullable<int> township, Nullable<int> branch)
+        {
+            var customerParameter = customer != null ?
+                new ObjectParameter("customer", customer) :
+                new ObjectParameter("customer", typeof(string));
+    
+            var townshipParameter = township.HasValue ?
+                new ObjectParameter("township", township) :
+                new ObjectParameter("township", typeof(int));
+    
+            var branchParameter = branch.HasValue ?
+                new ObjectParameter("branch", branch) :
+                new ObjectParameter("branch", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PrcSearchCustomerData_Result>("PrcSearchCustomerData", customerParameter, townshipParameter, branchParameter);
+        }
+    
+        public virtual ObjectResult<PrcSearchSupplierData_Result> PrcSearchSupplierData(string supplier, Nullable<int> township, Nullable<int> branch)
+        {
+            var supplierParameter = supplier != null ?
+                new ObjectParameter("supplier", supplier) :
+                new ObjectParameter("supplier", typeof(string));
+    
+            var townshipParameter = township.HasValue ?
+                new ObjectParameter("township", township) :
+                new ObjectParameter("township", typeof(int));
+    
+            var branchParameter = branch.HasValue ?
+                new ObjectParameter("branch", branch) :
+                new ObjectParameter("branch", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PrcSearchSupplierData_Result>("PrcSearchSupplierData", supplierParameter, townshipParameter, branchParameter);
+        }
+    
+        public virtual ObjectResult<PrcSearchProductData_Result> PrcSearchProductData(string product, Nullable<int> mMenu, Nullable<int> sMenu)
+        {
+            var productParameter = product != null ?
+                new ObjectParameter("product", product) :
+                new ObjectParameter("product", typeof(string));
+    
+            var mMenuParameter = mMenu.HasValue ?
+                new ObjectParameter("mMenu", mMenu) :
+                new ObjectParameter("mMenu", typeof(int));
+    
+            var sMenuParameter = sMenu.HasValue ?
+                new ObjectParameter("sMenu", sMenu) :
+                new ObjectParameter("sMenu", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PrcSearchProductData_Result>("PrcSearchProductData", productParameter, mMenuParameter, sMenuParameter);
         }
     }
 }

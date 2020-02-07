@@ -3,10 +3,37 @@
     ViewBag.Title = "CreateBranch";
     Layout = "~/Views/Shared/_LayoutSetup.cshtml";
 }
-
+@section Scripts
+{
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script type="text/javascript">
+    var ClearModel = function () {
+        $("#txtBranchName").val('');
+        $("#txtShortName").val('');
+        $("#txtDescription").val('');
+        $("#txtCode").val('');
+        $("#txtPhone").val('');
+        $("#txtEmail").val('');
+        $("#txtAddress").val('');
+        $("#txtTax").val('');
+        $("#txtServiceCharges").val('');
+    }
+</script>
+}
 <div class="container pl-0 pr-0 pt-0">
     <div class="row border-bottom pb-2">
-        <div class="col-sm-6 col-md-6 col-lg-6"><h5>Create Branch</h5></div>
+        <div class="col-sm-6 col-md-6 col-lg-6">
+            @if (ViewBag.FormType != 2)
+            {
+                <h5>Create Branch</h5>
+            }
+            else
+            {
+                <h5>Edit Branch</h5>
+            }
+        </div>
         <div class="col-sm-6 col-md-6 col-lg-6">@Html.ActionLink("All Branch","BranchList","Branch",null,new { @class= "btn btn-second float-right" })</div>
     </div>
     <div class="row">
@@ -14,17 +41,11 @@
         <div class="col-sm-6 col-md-6 col-lg-6">
             @if (ViewBag.Message != null)
             {
-                <div class="row">
-                    <div class="alert @(ViewBag.Type==1?"alert-success":"alert-danger")" role="alert">
-                        <strong>@ViewBag.Message</strong>
-                        <button type="button" class="close" data-dissmiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
+                <div class="alert @(ViewBag.Type==1?"alert-success":"alert-danger")" role="alert">
+                    <strong>@ViewBag.Message</strong>
                 </div>
             }
-        </div>
-        
+        </div>       
     </div>
     @using (Html.BeginForm(FormMethod.Post))
     {
@@ -32,7 +53,9 @@
             <div class="col-sm-12 col-md-12 col-lg-12 bg-gray-color">
                 <div class="row">
                     <div class="col-sm-6 col-md-6 col-lg-6"><label class="mt-2 page-title">Branch Detail</label></div>
-                    <div class="col-sm-6 col-md-6 col-lg-6" onclick="location.href='@Url.Action("CreateBranch", "Branch")'"><button class="btn btn-setup-clear"><i class="fas fa-redo clear-icon"></i></button></div>
+                    <div class="col-sm-6 col-md-6 col-lg-6">
+                        <a href="#" class="btn btn-setup-clear" onclick="ClearModel()"><i class="fas fa-redo clear-icon"></i></a>
+                    </div>
                 </div>
             </div>
             <div class="col-sm-12 col-md-12 col-lg-12 mt-2">
@@ -43,7 +66,8 @@
                                 <div class="form-group">
                                     @Html.HiddenFor(m => m.BranchID)
                                     @Html.LabelFor(m => m.BranchName, new { @class = "control-label" })
-                                    @Html.TextBoxFor(m => m.BranchName, new { @class = "form-control" })
+                                    @Html.TextBoxFor(m => m.BranchName, new { @class = "form-control",id="txtBranchName" })
+                                    @Html.ValidationMessageFor(m => m.BranchName, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
@@ -51,7 +75,8 @@
                             <div class="col-sm-12 col-md-12 col-lg-12">
                                 <div class="form-group">
                                     @Html.LabelFor(m => m.ShortName, new { @class = "control-label" })
-                                    @Html.TextBoxFor(m => m.ShortName, new { @class = "form-control" })
+                                    @Html.TextBoxFor(m => m.ShortName, new { @class = "form-control", id = "txtShortName" })
+                                    @Html.ValidationMessageFor(m => m.ShortName, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
@@ -59,7 +84,7 @@
                             <div class="col-sm-12 col-md-12 col-lg-12">
                                 <div class="form-group">
                                     @Html.LabelFor(m => m.Description, new { @class = "control-label" })
-                                    @Html.TextBoxFor(m => m.Description, new { @class = "form-control" })
+                                    @Html.TextBoxFor(m => m.Description, new { @class = "form-control", id = "txtDescription" })
                                 </div>
                             </div>
                         </div>
@@ -67,7 +92,8 @@
                             <div class="col-sm-12 col-md-12 col-lg-12">
                                 <div class="form-group">
                                     @Html.LabelFor(m => m.Code, new { @class = "control-label" })
-                                    @Html.TextBoxFor(m => m.Code, new { @class = "form-control" })
+                                    @Html.TextBoxFor(m => m.Code, new { @class = "form-control", id = "txtCode" })
+                                    @Html.ValidationMessageFor(m => m.Code, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
@@ -75,7 +101,8 @@
                             <div class="col-sm-12 col-md-12 col-lg-12">
                                 <div class="form-group">
                                     @Html.LabelFor(m => m.Phone, new { @class = "control-label" })
-                                    @Html.TextBoxFor(m => m.Phone, new { @class = "form-control" })
+                                    @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", id = "txtPhone" })
+                                    @Html.ValidationMessageFor(m => m.Phone, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
@@ -85,7 +112,8 @@
                             <div class="col-sm-12 col-md-12 col-lg-12">
                                 <div class="form-group">
                                     @Html.LabelFor(m => m.Email, new { @class = "control-label" })
-                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", id = "txtEmail" })
+                                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
@@ -93,7 +121,7 @@
                             <div class="col-sm-12 col-md-12 col-lg-12">
                                 <div class="form-group">
                                     @Html.LabelFor(m => m.Address, new { @class = "control-label" })
-                                    @Html.TextAreaFor(m => m.Address, new { @class = "form-control textarea-height" })
+                                    @Html.TextAreaFor(m => m.Address, new { @class = "form-control textarea-height", id = "txtAddress" })
                                 </div>
                             </div>
                         </div>
@@ -101,13 +129,14 @@
                             <div class="col-sm-6 col-md-6 col-lg-6">
                                 <div class="form-group">
                                     @Html.LabelFor(m => m.Tax, new { @class = "control-label" })
-                                    @Html.TextBoxFor(m => m.Tax, new { @class = "form-control" })
+                                    @Html.TextBoxFor(m => m.Tax, new { @class = "form-control", id = "txtTax" })
+                                    @Html.ValidationMessageFor(m=>m.Tax,"", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="col-sm-6 col-md-6 col-lg-6">
                                 <div class="form-group">
                                     @Html.LabelFor(m => m.ServiceCharges, new { @class = "control-label" })
-                                    @Html.TextBoxFor(m => m.ServiceCharges, new { @class = "form-control" })
+                                    @Html.TextBoxFor(m => m.ServiceCharges, new { @class = "form-control", id = "txtServiceCharges" })
                                 </div>
                             </div>
                         </div>

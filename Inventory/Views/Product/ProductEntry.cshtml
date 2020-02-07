@@ -1,0 +1,283 @@
+﻿
+@model Inventory.Models.ProductModels.ProductDetail
+@{
+    ViewBag.Title = "ProductEntry";
+    Layout = "~/Views/Shared/_LayoutSetup.cshtml";
+}
+@section Scripts
+{
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/bootstrap.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script type="text/javascript">
+        function previewPhoto(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#imgPreview').attr('src', e.target.result);
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        };
+        function VariantEntry()
+        {
+            var options = { "backdrop": "static", keyboard: true };
+            var variant=$("#txtVariant").val();
+            $.ajax({
+                type: "POST",
+                url: "/Product/InsertProductVariant/"+variant+"",
+                data: { Variant:variant }
+            });
+        }
+        var ClearModel=function()
+        {
+            $("#txtProductName").val('');
+            $("#txtCode").val('');
+            $("#txtDescription").val('');
+            $("#txtSortCode").val('');
+            $("#file").val('');
+            $("#imgPreview").attr('src', "/Image/sample.png");
+            $("#txtPurchasePrice").val('');
+            $("#txtSalePrice").val('');
+            $("#txtWholeSalePrice").val('');
+            $("#txtVariant").val('');
+            $("#txtBarCode").val('');
+            $("#txtAlertQty").val('');
+            $("#txtDisPercent").val('');
+            $("#chkIsStock").prop('checked', false);
+            $(".chkgroup").prop('checked', true);
+        }
+    </script>
+}
+<div class="container pl-0 pr-0">
+    <div class="row border-bottom pb-2">
+        <div class="col-md-6 col-lg-6"><h5>Create Product</h5></div>
+        <div class="col-md-6 col-lg-6">
+            @Html.ActionLink("All Product", "ProductList", "Product", null, new { @class = "btn btn-second float-right" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-lg-6"></div>
+        <div class="col-md-6 col-lg-6">
+            @if (ViewBag.Message != null)
+            {
+                <div class="alert alert-danger" role="alert">
+                    <strong>@ViewBag.Message</strong>
+                </div>
+            }
+        </div>
+        
+    </div>
+    @using (Html.BeginForm("","",FormMethod.Post,new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+    {
+    <div class="row mt-2">
+        <div class="col-md-2 col-lg-2 border"></div>
+        <div class="col-md-10 col-lg-10 border">
+            <div class="row border">
+                <div class="col-md-6 col-lg-6 mt-1 pt-2">
+                    <a href="#"> <label class="control-label">Main Menu</label></a><label class="control-label">></label><a href="#"><label class="control-label">Sub Menu</label></a>
+                </div>
+                <div class="col-md-6 col-lg-6 pt-2 pb-2">
+                    <a href="#" class="btn btn-setup-clear" onclick="ClearModel()"><i class="fas fa-redo clear-icon"></i></a>
+                </div>
+            </div>
+            <!--Product Detail-->
+            <div class="row border">
+                <div class="col-md-12 col-lg-12 mt-2"><label class="page-title">Product Detail</label></div>
+                <div class="col-md-12 col-lg-12">
+                    <div class="row">
+                        <div class="col-md-6 col-lg-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ProductModel.ProductName, new { @class = "control-label" })
+                                @Html.TextBoxFor(model => model.ProductModel.ProductName, new { @class = "form-control",id="txtProductName" })
+                                @Html.ValidationMessageFor(model=>model.ProductModel.ProductName,"",new { @class= "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ProductModel.Code, new { @class = "control-label" })
+                                @Html.TextBoxFor(model => model.ProductModel.Code, new { @class = "form-control", id = "txtCode" })
+                                @Html.ValidationMessageFor(model => model.ProductModel.Code, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ProductModel.Description, new { @class = "control-label" })
+                                @Html.TextBoxFor(model => model.ProductModel.Description, new { @class = "form-control", id = "txtDescription" })
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ProductModel.SortCode, new { @class = "control-label" })
+                                @Html.TextBoxFor(model => model.ProductModel.SortCode, new { @class = "form-control", id = "txtSortCode" })
+                                @Html.ValidationMessageFor(model => model.ProductModel.SortCode, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Product Photo-->
+            @if (ViewBag.isProductPhoto == true)
+            {
+                <div class="row border pt-2 pb-3 ">
+                    <div class="col-md-12 col-lg-12"><label class="page-title">Photo</label></div>
+                    <div class="col-md-6 col-lg-6">
+                        <img src="~/Image/sample.png" id="imgPreview" style="height:80px;height:80px;"  />
+                        <span class="btn btn-file control-label mt-5 ml-3">
+                            Browse<input type="file" name="file" id="file" onchange="previewPhoto(this);" accept=".jpg,.jpeg,.png" />
+                        </span>                       
+                    </div>
+                </div>
+            }
+            <!--Product Price-->
+            <div class="row border">
+                <div class="col-md-12 col-lg-12 mt-2"><label class="page-title">Product Price</label></div>
+                <div class="col-md-12 col-lg-12">
+                    <div class="row">
+                        <div class="col-md-6 col-lg-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ProductModel.PurchasePrice, new { @class = "control-label" })
+                                @Html.TextBoxFor(model => model.ProductModel.PurchasePrice, new { @class = "form-control", id = "txtPurchasePrice" })
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ProductModel.SalePrice, new { @class = "control-label" })
+                                @Html.TextBoxFor(model => model.ProductModel.SalePrice, new { @class = "form-control", id = "txtSalePrice" })
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ProductModel.WholeSalePrice, new { @class = "control-label" })
+                                @Html.TextBoxFor(model => model.ProductModel.WholeSalePrice, new { @class = "form-control", id = "txtWholeSalePrice" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Multi Unit-->
+            @if (ViewBag.isMultiUnit == true)
+            {
+                <div class="row border">
+                    <div class="col-md-12 col-lg-12 mt-2"><label class="page-title">Unit</label></div>
+                    <div class="col-md-12 col-lg-12">
+                        <div class="row">
+
+                        </div>
+                    </div>
+                </div>
+            }
+            <!--Variant-->
+            @if (ViewBag.isProductVariant == true)
+            {
+                <div class="row border pt-2 pb-3">
+                    <div class="col-md-12 col-lg-12"><label class="page-title">Variant</label></div>
+                    <div class="col-md-12 col-lg-12">
+                        <div class="row">
+                            <div class="col-md-8 col-lg-8">@Html.TextBoxFor(model => model.ProductVariant.Variant, new { @class = "form-control",placeholder="eg. Red, Green, Blue",id="txtVariant" })</div>
+                            <div class="col-md-4 col-lg-4"><button class="btn btn-first" formaction="@Url.Action("InsertProductVariant","Product")">ADD</button></div>
+                            <div class="col-md-12 col-lg-12">
+                                <table class="row pt-2 pl-3 pr-3 mb-3">
+                                    <thead class="col-md-12 col-lg-12 border">
+                                        <tr class="row grid-header">
+                                            <td class="col-md-1 col-lg-1"></td>
+                                            <td class="col-md-11 col-lg-11">Variant</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="col-md-12 col-lg-12 border">
+                                        @if (ViewBag.Variant!= null)
+                                        {
+                                            foreach (var variant in ViewBag.Variant as List<Inventory.Models.ProductModels.ProductVariant>)
+                                            {
+                                                <tr class="row border border-bottom-0 border-left-0 border-right-0 grid-item">
+                                                    <td class="col-md-1 col-lg-1"></td>
+                                                    <td class="col-md-11 col-lg-11">
+                                                        @Html.DisplayFor(m => variant.Variant)
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            <!--Barcode-->
+            <div class="row border pt-2 pb-3">
+                <div class="col-md-12 col-lg-12"><label class="page-title">BarCode</label></div>
+                <div class="col-md-12 col-lg-12">
+                    @Html.TextBoxFor(model => model.ProductModel.BarCode, new { @class = "form-control", id = "txtBarCode" })
+                </div>
+            </div>
+            <!--MultiBranch Different Product by Branch-->
+            @if (ViewBag.isMultiBranchDifProductByBranch == true)
+            {
+                <div class="row border pt-2 pb-3">
+                    <div class="col-md-12 col-lg-12"><label class="page-title">Branch</label></div>
+                    <div class="col-md-12 col-lg-12">
+                        @if (ViewBag.isCheckedBranch != null)
+                        {
+                            foreach (var item in Model.lstBranch)
+                            {
+                                int count = 0;
+                                foreach (int checkedBranch in ViewBag.isCheckedBranch)
+                                {
+                                    if (checkedBranch == item.BranchID)
+                                    {
+                                        count = count + 1;
+                                    }
+                                }
+                                if (count == 0)
+                                {
+                                    <input type="checkbox" name="availableBranch" value="@item.BranchID" class="chkgroup" />@item.BranchName <br />
+                                }
+                                else
+                                {
+                                    <input type="checkbox" name="availableBranch" value="@item.BranchID" checked="checked" class="chkgroup" />@item.BranchName <br />
+                                }
+                            }
+                        }
+                        else
+                        {
+                            foreach (var item in Model.lstBranch)
+                            {
+                                <input type="checkbox" name="availableBranch" value="@item.BranchID" checked="checked" class="chkgroup" />@item.BranchName <br />
+                            }
+                        }
+                    </div>
+                </div>
+            }
+            <!--Other-->
+            <div class="row border pt-2 pb-3">
+                <div class="col-md-12 col-lg-12"><label class="page-title">Other</label></div>
+                <div class="col-md-6 col-lg-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ProductModel.AlertQuantity, new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.ProductModel.AlertQuantity, new { @class = "form-control", id = "txtAlertQty" })
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ProductModel.DiscountPercent, new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.ProductModel.DiscountPercent, new { @class = "form-control", id = "txtDisPercent" })
+                    </div>
+                </div>
+                <div class="col-md-12 col-lg-12">
+                    @Html.CheckBoxFor(model => model.ProductModel.isStock,new { @id = "chkIsStock" })<label class="control-label">is Stock</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row pt-3 pb-3">
+        <div class="col-md-12 col-lg-12">
+            <input type="submit" value="Save" formaction="@Url.Action("InsertProduct","Product")" class="btn btn-save-width btn-first float-right" />
+        </div>
+    </div>
+    }
+</div>
+

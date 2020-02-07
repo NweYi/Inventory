@@ -9,7 +9,7 @@
     <script src="~/Scripts/bootstrap.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
 
-    <script>
+    <script type="text/javascript">
     $(function () {
         $(".Detail").click(function () {
             var $buttonClicked = $(this);
@@ -51,8 +51,57 @@
             }
         });
     }
-    </script>
+    var DeleteConfirm=function(branchID)
+    {
+        $("#hiddenBranchID").val(branchID);
+        $("#myConfirmModal").modal('show');
+    }
+    var DeleteBranch=function()
+    {
+        var id = $("#hiddenBranchID").val();
+        $.ajax({
+            type: "POST",
+            url: "/Branch/DeleteBranch",
+            data: { id: id },
+            success: function (result) {
+                $("#myConfirmModal").modal('hide');
+                if(result==true)$("#row_" + id).remove();
+            }
+        });
+    }
+    $("#txtSearchUser").change(function(){
+        var branch=$("#txtSearchUser").val();
+        var branchData=$("#searchBranch");
+        branchData.html('');
+        $.ajax({
+            type:"GET",
+            url:"/Branch/SearchingBranch",
+            data:{search:branch},
+            contentType:"html",
+            success:function(result)
+            {
+                if(result==0)
+                {
+                    var data="<tr class='row bg-light-color'><td class='col-md-12 col-lg-12'><label class='text-center grid-nodata'>No Match Data Found</label></td></tr>"
+                    branchData.append(data);
+                }
+                else
+                {
+                    $.each(result,function(index,value){
+                        var data="<tr id='row_"+value.BranchID+"' class='row border border-bottom-0 border-left-0 border-right-0 grid-item'>"+
+                                        "<td class='col-md-5 col-lg-5'>"+value.BranchName+"</td>"+
+                                        "<td class='col-md-4 col-lg-4'>"+value.Code+"</td>"+                                       
+                                        "<td class='col-md-3 col-lg-3 justify-content-end'>" + "<input type=button value='View' class='btn-grid-second pl-2 pr-2 pt-1 pb-1' onclick='ShowDetail("+value.BranchID+")' /><a href='/Branch/EditBranch/" + value.BranchID + "' class='btn-grid-first ml-1 pl-2 pr-2 pt-1 pb-1'> Edit </a><input type=button value='Delete' class='btn-grid-red ml-1 pt-1 pb-1' onclick='DeleteConfirm(" + value.BranchID + ")' />" + "</td>" +
+                                        "</tr>";
+                        branchData.append(data);
+                    });
+                }
+            }
+        });
+    });
+</script>
 }
+
 
 <div class="container pl-0 pr-0">
     <div class="row border-bottom pb-2">
@@ -61,9 +110,16 @@
     </div>
     <div class="row mt-2">
         <div class="col-sm-6 col-md-4 col-lg-4">
-            @Html.TextBox("txtSearch", null, new { @class = "form-control", @placeholder = "Search..." })
+            @Html.TextBox("txtSearch", null, new { @class = "form-control",@id = "txtSearchUser", @placeholder = "Search..." })
         </div>
-        <div class="col-sm-6 col-md-8 col-lg-8"></div>
+        <div class="col-sm-6 col-md-8 col-lg-8">
+            @if (ViewBag.Message != null)
+            {
+                <div class="alert alert-danger" role="alert">
+                    <strong>@ViewBag.Message</strong>
+                </div>
+            }
+        </div>
     </div>
     <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-12">
@@ -75,20 +131,20 @@
                         <th></th>
                     </tr>
                 </thead>
-                <tbody class="col-sm-12 col-md-12 col-lg-12 border">
+                <tbody class="col-sm-12 col-md-12 col-lg-12 border" id="searchBranch">
                     @if (Model.Count() > 0)
                     {
                         foreach (var model in Model)
                         {
                             using (Html.BeginForm())
                             {
-                                <tr class="row border border-bottom-0 border-left-0 border-right-0 grid-item">
+                                <tr id="row_@Convert.ToInt32(model.BranchID)" class="row border border-bottom-0 border-left-0 border-right-0 grid-item">
                                     <td class="col-sm-5 col-md-5 col-lg-5">@Html.DisplayFor(m => model.BranchName)</td>
                                     <td class="col-sm-4 col-md-4 col-lg-4">@Html.DisplayFor(m => model.Code)</td>
                                     <td class="col-sm-3 col-md-3 col-lg-3 justify-content-end">
                                         <input type="button" class="btn-grid-second" value="View" onclick="ShowDetail(@Convert.ToInt32(model.BranchID));" />
                                         <input type="submit" value="Edit" formaction="@Url.Action("EditBranch","Branch",new { id=model.BranchID })" class="btn-grid-first" />
-                                        <input type="submit" value="Delete" formaction="@Url.Action("DeleteBranch","Branch",new { id=model.BranchID })" class="btn-grid-red" />
+                                        <input type="button" value="Delete" onclick="DeleteConfirm(@Convert.ToInt32(model.BranchID))" class="btn-grid-red" />
                                     </td>
                                 </tr>
                             }
@@ -116,6 +172,28 @@
             </div>
         </div>
     </div>
-
 </div>
+<!--Delete Confirmation-->
+<input type="hidden" id="hiddenBranchID" />
+<div class="modal fade" id="myConfirmModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header"><h5>Delete Confirmation</h5></div>
+            <div class="modal-body">
+                <label class="page-title">Are you sure want to delete?</label>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-grid-first" data-dismiss="modal">Cancel</a>
+                <a href="#" class="btn btn-grid-red" onclick="DeleteBranch()">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $(".alert").delay(4000).slideUp(200, function () {
+            $(this).alert('close');
+        });
+    })
+</script>
 

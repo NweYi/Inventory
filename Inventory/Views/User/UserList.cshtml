@@ -4,44 +4,72 @@
     ViewBag.Title = "UserList";
     Layout = "~/Views/Shared/_LayoutSetup.cshtml";
 }
-<div class="container mb-3">
-    <div class="row border">
+
+<div class="container mb-3 pl-0 pr-0">
+    <div class="row border-bottom">
         <div class="col-6 col-sm-6 col-md-6 col-lg-6 pt-2 pb-2">
-            <label>Users</label>
+            <label><h5>Users</h5></label>
         </div>
         <div class="col-6 col-sm-6 col-md-6 col-lg-6 pt-2 pb-2">
-            <input type="button" value="ADD" onclick="location.href='@Url.Action("CreateUser","User")'" class="btn btn-black float-md-right float-lg-right" />
+            <input type="button" value="ADD" onclick="location.href='@Url.Action("CreateUser","User")'" class="btn btn-first float-md-right float-lg-right" />
         </div>
     </div>
-    <div class="row border"></div>
-    <div class="row border mt-2 pt-2 pb-3">
-        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-            @Html.TextBox("txtSearchUser",null, new { @class="form-control",@placeholder="Search..."})
+    <div class="row mt-2 pt-2 pb-3">
+        <div class="col-6 col-sm-6 col-md-4 col-lg-4">
+            @Html.TextBox("txtSearchUser","",new { @class="form-control",@id="txtSearchUser",@placeholder="Search..."})
         </div>
-        <div class="col-12 col-sm-12 col-md-12 col-lg-12 mt-3 mb-3">
+        <div class="col-6 col-sm-8 col-md-8 col-lg-8">
+            @if (ViewBag.Message != null)
+            {
+                <div class="alert alert-danger" role="alert">
+                    <strong>@ViewBag.Message</strong>
+                </div>
+            }
+        </div>
+        <div class="col-md-12 col-lg-12 mt-3 mb-3">
             <table class="pt-2 pl-3 pr-3 mb-3 row">
                 <thead class="col-sm-12 col-md-12 col-lg-12 border">
-                    <tr class="row bg-gray-color">
-                        <th class="col-sm-3 col-md-3 col-lg-3">User Name</th>
-                        <th class="col-sm-2 col-md-2 col-lg-2">Password</th>
-                        <th class="col-sm-2 col-md-2 col-lg-2">Branch</th>
-                        <th class="col-sm-3 col-md-3 col-lg-3">Location</th> 
+                    <tr class="row grid-header">
+                        
+                        @if (ViewBag.isMultiBranch == true)
+                        {
+                            <th class="col-sm-3 col-md-3 col-lg-3">User Name</th>
+                            <th class="col-sm-2 col-md-2 col-lg-2">Password</th>
+                            <th class="col-sm-2 col-md-2 col-lg-2">Branch</th>
+                            <th class="col-sm-3 col-md-3 col-lg-3">Location</th>
+                        }
+                        else
+                        {
+                            <th class="col-sm-4 col-md-4 col-lg-4">User Name</th>
+                            <th class="col-sm-2 col-md-2 col-lg-2">Password</th>
+                            <th class="col-sm-4 col-md-4 col-lg-4">Location</th>
+                        }
                         <th colspan="2" class="col-sm-2 col-md-2 col-lg-2"></th>
                     </tr>
                 </thead>
-                <tbody class="col-sm-12 col-md-12 col-lg-12 border">
+                <tbody class="col-sm-12 col-md-12 col-lg-12 border" id="searchUser">
                     @foreach (var user in Model)
                     {
-                        using (Html.BeginForm("DeleteUser", "User", new { id = user.UserID }))
+                        using (Html.BeginForm("", "", new { id = user.UserID }))
                         {
-                            <tr class="row border border-bottom-0 border-left-0 border-right-0">
-                                <td class="col-sm-3 col-md-3 col-lg-3">@Html.DisplayFor(m => user.UserName)</td>
-                                <td class="col-sm-2 col-md-2 col-lg-2">@Html.DisplayFor(m => user.UserPassword)</td>
-                                <td class="col-sm-2 col-md-2 col-lg-2">@Html.DisplayFor(m => user.BranchName)</td>
-                                <td class="col-sm-3 col-md-3 col-lg-3">@Html.DisplayFor(m => user.LocationName)</td>
-                                <td class="">
-                                    <input type="submit" value="Edit" formaction="@Url.Action("EditUser","User",new { id=user.UserID })" class="btn btn-blue" />
-                                    <input type="submit" value="Delete" class="btn btn-red" />
+                            <tr id="row_@user.UserID" class="row border border-bottom-0 border-left-0 border-right-0 grid-item">
+                                
+                                @if (ViewBag.isMultiBranch == true)
+                                {
+                                    <td class="col-sm-3 col-md-3 col-lg-3">@Html.DisplayFor(m => user.UserName)</td>
+                                    <td class="col-sm-2 col-md-2 col-lg-2">@Html.DisplayFor(m => user.UserPassword)</td>
+                                    <td class="col-sm-2 col-md-2 col-lg-2">@Html.DisplayFor(m => user.BranchName)</td>
+                                    <td class="col-sm-3 col-md-3 col-lg-3">@Html.DisplayFor(m => user.LocationName)</td>
+                                }
+                                else
+                                {
+                                    <td class="col-sm-4 col-md-4 col-lg-4">@Html.DisplayFor(m => user.UserName)</td>
+                                    <td class="col-sm-2 col-md-2 col-lg-2">@Html.DisplayFor(m => user.UserPassword)</td>
+                                    <td class="col-sm-4 col-md-4 col-lg-4">@Html.DisplayFor(m => user.LocationName)</td>
+                                }
+                                <td class="col-sm-2 col-md-2 col-lg-2 justify-content-end">
+                                    <input type="submit" value="Edit" formaction="@Url.Action("EditUser","User",new { id=user.UserID })" class="btn-grid-first" />
+                                    <input type="button" value="Delete" onclick="ConfirmDelete(@user.UserID)" class="btn-grid-red" />
                                 </td>
                             </tr>
                         }
@@ -51,4 +79,94 @@
         </div>       
     </div>
 </div>
+<input type="hidden" id="hiddenUserID" />
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Delete Confirmation</h5>
+            </div>
+            <div class="modal-body">
+                <label class="page-title">Are you sure want to delete?</label>              
+            </div> 
+            <div class="modal-footer">
+                <a href="#" class="btn btn-grid-first" data-dismiss="modal">Cancel</a>
+                <a href="#" class="btn btn-grid-red" onclick="DeleteUser();">Delete</a>
+            </div>         
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/bootstrap.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $(".alert").delay(4000).slideUp(200, function () {
+            $(this).alert('close');
+        });
+        $("#txtSearchUser").change(function(){
+            var username=$("#txtSearchUser").val();
+            var userData=$("#searchUser");
+            userData.html("");
+            $.ajax({
+                type:"GET",
+                url:"/User/SearchingUser",
+                data:{username:username},
+                contentType:"html",
+                success:function(result)
+                {
+                    if(result.data1==0){
+                        var data="<tr class='row bg-light-color'><td class='col-md-12 col-lg-12'><label class='text-center grid-nodata'>No Match Data Found</label></td></tr>"
+                        userData.append(data);
+                    }
+                    else
+                    {                       
+                        $.each(result.data1, function (index,value) {                  
+                            if (result.data2 == true)
+                            {
+                                var data = "<tr id='row_"+value.UserID+"' class='row border border-bottom-0 border-left-0 border-right-0 grid-item'>"+
+                                        "<td class='col-md-3 col-lg-3'>"+value.UserName+"</td>"+
+                                        "<td class='col-md-2 col-lg-2'>" + value.UserPassword + "</td>" +
+                                        "<td class='col-md-2 col-lg-2'>" + value.BranchName + "</td>" +
+                                        "<td class='col-md-3 col-lg-3'>" + value.LocationName + "</td>" +                          
+                                        "<td class='col-md-2 col-lg-2 justify-content-end'>" + "<a href='/User/EditUser/" + value.UserID + "' class='btn-grid-first pl-2 pr-2 pt-1 pb-1'> Edit </a><input type=button value='Delete' class='btn-grid-red ml-1 pt-1 pb-1' onclick='ConfirmDelete(" + value.UserID + ")' />" + "</td>" +
+                                        "</tr>";                              
+                            }
+                            else
+                            {
+                                var data = "<tr id='row_"+ value.UserID+"' class='row border border-bottom-0 border-left-0 border-right-0 grid-item'>" +
+                                        "<td class='col-md-4 col-lg-4'>"+value.UserName+"</td>"+
+                                        "<td class='col-md-2 col-lg-2'>"+value.UserPassword+"</td>"+
+                                        "<td class='col-md-4 col-lg-4'>" + value.LocationName + "</td>" +
+                                        "<td class='col-md-2 col-lg-2 justify-content-end'>" + "<a href='/User/EditUser/" + value.UserID + "' class='btn-grid-first pl-2 pr-2 pt-1 pb-1'> Edit </a><input type=button value='Delete' class='btn-grid-red ml-1 pt-1 pb-1' onclick='ConfirmDelete(" + value.UserID + ")' />" + "</td>" +
+                                        "</tr>";
+                            }
+                            userData.append(data);
+                        });
+                    }
+                }
+            });
+        });
+    })
+    var ConfirmDelete = function (userID) {
+        $("#hiddenUserID").val(userID);
+        $("#myModal").modal('show');
+    }
+    var DeleteUser = function () {
+        var id = $("#hiddenUserID").val();
+        $.ajax({
+            type: "POST",
+            url: "/User/DeleteUser",
+            data: { id: id },
+            success: function (result) {
+                $("#myModal").modal('hide');
+                if(result==true)$("#row_" + id).remove();
+            }
+        })
+    }
+</script>
+}
+
 

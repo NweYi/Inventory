@@ -4,73 +4,103 @@
     ViewBag.Title = "CreateUser";
     Layout = "~/Views/Shared/_LayoutSetup.cshtml";
 }
+@section Scripts
+{
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/bootstrap.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
 <script type="text/javascript">
-    $(document).ready(function(){
+    $(document).ready(function () {
         $(".alert").delay(4000).slideUp(200, function () {
             $(this).alert('close');
         });
-    })   
+    })
     function ShowHide(checked) {
         if (checked == true) $("#divLocationddl").show();
         else $("#divLocationddl").hide();
+    };
+    var ClearModel = function () {
+        $("#txtUserName").val('');
+        $("#txtPassword").val('');
+        $("#chkDefaultLocation").prop("checked", false);
+        $("#divLocationddl").hide();
+        $("#ddlBranch").prop('selectedIndex', 0);
+        $("#ddlLocation").prop('selectedIndex', 0);
     }
 </script>
+}
+
 <div class="container pl-0 pr-0">
-    <div class="row mt-3">
-        <div class="col-6 col-sm-6 col-md-6 col-lg-6"><h3>Create User</h3></div>
+    <div class="row border-bottom pb-2">
         <div class="col-6 col-sm-6 col-md-6 col-lg-6">
-            @Html.ActionLink("All User", "UserList", "User", null, new { @class = "btn btn-black float-right" })
+            @if (ViewBag.FormType != 2)
+            {
+                <h5>Create User</h5>
+            }
+            else
+            {
+                <h5>Edit User</h5>
+            }
+        </div>
+        <div class="col-6 col-sm-6 col-md-6 col-lg-6">
+            @Html.ActionLink("All User", "UserList", "User", null, new { @class = "btn btn-second float-right" })
         </div>
     </div>
-    <div class="border-bottom mt-2"></div>
     @using (Html.BeginForm(FormMethod.Post))
     {
         <div class="row mt-3 ml-0">
-            <div class="col-12 col-sm-8 col-md-6 col-lg-6 border pb-3">
+            <div class="col-12 col-sm-8 col-md-6 col-lg-6 pb-3 border">
                 <div class="row bg-gray-color">
-                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                        <label class="mt-2 font-weight-bold">User Detail</label>
-                        <input type="button" onclick="location.href='@Url.Action("CreateUser","User")'" class="btn btn-clear float-right" />
+                    <div class="col-6 col-sm-6 col-md-6 col-lg-6">
+                        <label class="mt-2 page-title">User Detail</label>
                     </div>
+                    <div class="col-6 col-sm-6 col-md-6 col-lg-6">
+                        <a href="#" class="btn btn-setup-clear" onclick="ClearModel()"><i class="fas fa-redo clear-icon"></i></a>
+                    </div>                   
                 </div>
                 <div class="row mt-2">
                     <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                         <div class="form-group">
                             @Html.HiddenFor(model=>model.UserID)
-                            @Html.LabelFor(model=>model.UserName)
-                            @Html.TextBoxFor(model=>model.UserName,new { @class="form-control" })
+                            @Html.LabelFor(model=>model.UserName, new { @class = "control-label" })
+                            @Html.TextBoxFor(model=>model.UserName,new { @class="form-control",id="txtUserName" })
+                            @Html.ValidationMessageFor(model=>model.UserName,"", new { @class = "text-danger" })
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                         <div class="form-group">
-                            @Html.LabelFor(model=>model.UserPassword)
-                            @Html.TextBoxFor(model=>model.UserPassword,new { @class="form-control" })
+                            @Html.LabelFor(model=>model.UserPassword, new { @class = "control-label" })
+                            @Html.TextBoxFor(model=>model.UserPassword,new { @class="form-control",id="txtPassword" })
+                            @Html.ValidationMessageFor(model => model.UserPassword, "", new { @class = "text-danger" })
                         </div>
                     </div>
                 </div>
-                @if((ViewBag.Branches as SelectList).Count()>0)
+                @if((ViewBag.isMultiBranch==true))
                 {
                     <div class="row">
                         <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                             <div class="form-group">
-                                @Html.LabelFor(model=>model.BranchName)
-                                @Html.DropDownListFor(model=>model.BranchID,ViewBag.Branches as SelectList,"--Select Branch--",new { @class="form-control" })
+                                @Html.LabelFor(model=>model.BranchName, new { @class = "control-label" })
+                                @Html.DropDownListFor(model=>model.BranchID,ViewBag.Branches as SelectList,new { @class="form-control",id="ddlBranch" })
                             </div>
                         </div>
                     </div>
                 }
                 <div class="row">
                     <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                        @Html.CheckBoxFor(model=>model.IsDefaultLocation, new { onchange= "ShowHide(this.checked)" }) Default Location
+                        @Html.CheckBoxFor(model=>model.IsDefaultLocation, new { onchange = "ShowHide(this.checked)",id="chkDefaultLocation" }) Default Location
                     </div>
                 </div>
-                <div class="row" id="divLocationddl" style="display:none">
+                
+                <div class="row" id="divLocationddl" style="@(ViewBag.divLocation==false?"display:none":"display:block")">
                     <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                         <div class="form-group">
-                            @Html.LabelFor(model=>model.LocationName)
-                            @Html.DropDownListFor(model=>model.LocationID,ViewBag.Locations as SelectList,"--Select Location--",new { @class="form-control"})
+                            @Html.LabelFor(model=>model.LocationName, new { @class = "control-label" })
+                            @Html.DropDownListFor(model=>model.LocationID,ViewBag.Locations as SelectList,new { @class="form-control", id = "ddlLocation" })
                         </div>
                     </div>
                 </div>
@@ -78,11 +108,11 @@
                     <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                         @if(ViewBag.FormType!=2)
                         {
-                            <input type="submit" value="Save" formaction="@Url.Action("InsertUser","User")" class="btn btn-red float-right" />
+                            <input type="submit" value="Save" formaction="@Url.Action("InsertUser","User")" class="btn btn-save-width btn-first float-right" />
                         }
                         else
                         {
-                            <input type="submit" value="Update" formaction="@Url.Action("UpdateUser","User")" class="btn btn-red float-right" />
+                            <input type="submit" value="Update" formaction="@Url.Action("UpdateUser","User")" class="btn btn-save-width btn-first float-right" />
                         }
                     </div>
                 </div>

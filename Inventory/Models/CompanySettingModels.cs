@@ -38,5 +38,7 @@ namespace Inventory.Models
         public bool? IsBarcode { get; set; }
 
         public bool? IsProductPhoto { get; set; }
+        public bool? IsQRcode { get; set; }
+        public bool? IsProductVariant { get; set; }
     }
 }
